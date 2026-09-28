@@ -1,0 +1,8 @@
+# 逐页核对用的临时渲染文件
+__*
+# Python
+__pycache__/
+*.pyc
+# 系统文件
+.DS_Store
+Thumbs.db

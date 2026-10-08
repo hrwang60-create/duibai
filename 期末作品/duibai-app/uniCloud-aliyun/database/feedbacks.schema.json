@@ -1,0 +1,39 @@
+{
+  "bsonType": "object",
+  "required": [
+    "content"
+  ],
+  "permission": {
+    "read": false,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "ID"
+    },
+    "user_id": {
+      "bsonType": "string",
+      "description": "提交用户 _id"
+    },
+    "content": {
+      "bsonType": "string",
+      "description": "反馈内容"
+    },
+    "contact": {
+      "bsonType": "string",
+      "description": "联系方式，可空"
+    },
+    "handled": {
+      "bsonType": "bool",
+      "description": "是否已处理",
+      "default": false
+    },
+    "created_at": {
+      "bsonType": "timestamp",
+      "description": "提交时间"
+    }
+  }
+}

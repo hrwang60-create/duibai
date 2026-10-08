@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>对白 · 设计稿 2（每日一集）</title>
+<style>
+  :root{
+    --ink:#1A1A18; --ink2:#5A5750; --ink3:#6C6760;
+    --paper:#F5F2EA; --paper2:#EDE9DF; --line:#E2DDD2;
+    --vm:#B83F28; --vm-soft:#F6E4DE;
+    --font:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#DEDAD1;font-family:var(--font);padding:44px 0 40px;-webkit-font-smoothing:antialiased}
+  .hd{text-align:center;margin-bottom:26px}
+  .hd h1{font-size:19px;font-weight:600;color:#2A2823;letter-spacing:.5px}
+  .hd p{font-size:12px;color:#6E6A62;margin-top:6px;letter-spacing:.3px}
+  .row{display:flex;justify-content:center;gap:34px}
+  .col{width:390px}
+  .cap{font-size:12px;color:#4A473F;text-align:center;margin-bottom:9px;letter-spacing:.4px;font-weight:600}
+  .cap em{font-style:normal;color:#9A9A9A;font-weight:400}
+  .phone{width:390px;height:844px;background:var(--paper);position:relative;
+         border-radius:26px;overflow:hidden;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+  .sb{height:46px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 22px;font-size:13px;color:var(--ink);font-weight:600}
+  .sb span:last-child{font-weight:400;font-size:12px;color:var(--ink2)}
+  .pad{padding:0 22px}
+  .top{display:flex;align-items:center;justify-content:space-between;height:44px}
+  .top .t{font-size:13px;color:var(--ink2)}
+  .top .brand{font-size:14px;font-weight:600;letter-spacing:2px;color:var(--ink)}
+
+  /* 今日一集 */
+  .daily{margin:6px 22px 0;border-top:2px solid var(--vm);padding-top:14px}
+  .dhead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+  .tag{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--vm)}
+  .meta{font-size:10.5px;color:var(--ink3);letter-spacing:.3px}
+  .dtitle{font-size:19px;font-weight:600;color:var(--ink);line-height:1.4;margin-bottom:16px;letter-spacing:.2px}
+  .dl{display:flex;gap:10px;margin-bottom:14px;align-items:flex-start}
+  .dl .sp{font-size:12px;font-weight:700;width:14px;flex:none;line-height:1.75;color:var(--ink3)}
+  .dl .tx{font-size:15px;line-height:1.7;color:var(--ink3)}
+  .dl.dim .tx{font-size:13px;color:#756E61}
+  .dl.now .tx{font-size:17px;font-weight:500;color:var(--ink)}
+  .dl.b .sp{color:var(--vm)}
+  .dl.b.now .tx{color:var(--vm)}
+  .dact{display:flex;align-items:center;gap:12px;margin:20px 0 0}
+  .play{flex:1;height:48px;border-radius:24px;background:var(--ink);color:#FBF9F4;
+        display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:500;letter-spacing:.6px}
+  .past{font-size:12px;color:var(--ink2);letter-spacing:.3px}
+
+  .claim{font-size:19px;color:var(--ink2);padding:2px 22px 22px;letter-spacing:.2px}
+  .cta{margin:34px 22px 0}
+  .upload{height:52px;border-radius:26px;background:transparent;border:1px solid var(--line);
+          color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:15px;letter-spacing:.6px}
+  .hint{font-size:11px;color:var(--ink3);text-align:center;margin-top:11px;letter-spacing:.2px}
+  .sec{margin:34px 22px 0}
+  .sec .h{font-size:12px;color:var(--ink3);letter-spacing:1.4px;margin-bottom:10px}
+  .ri{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line)}
+  .ri .l{font-size:13px;color:var(--ink)}
+  .ri .r{font-size:11px;color:var(--ink3)}
+  .tab{position:absolute;left:0;right:0;bottom:0;height:60px;display:flex;
+       border-top:1px solid var(--line);background:var(--paper)}
+  .tab div{flex:1;display:flex;align-items:center;justify-content:center;font-size:11.5px;color:var(--ink3)}
+  .tab .on{color:var(--ink);font-weight:600}
+
+  /* 每日一集页 */
+  .epic{margin:0 22px;border-top:2px solid var(--vm);padding-top:14px;margin-bottom:30px}
+  .plist{margin:0 22px}
+  .pi{display:flex;align-items:center;gap:12px;padding:15px 0;border-top:1px solid var(--line)}
+  .pi .d{font-size:10.5px;color:var(--ink3);width:52px;flex:none;letter-spacing:.2px}
+  .pi .t{flex:1;font-size:13.5px;color:var(--ink)}
+  .pi .m{font-size:10.5px;color:var(--ink3)}
+
+  /* 对话流 */
+  .stage{position:relative;padding:0 22px 0 30px}
+  .rail{position:absolute;left:16px;top:8px;height:300px;width:2px;background:var(--line)}
+  .dot{position:absolute;left:13px;width:8px;height:8px;border-radius:4px;background:var(--vm)}
+  .cl{display:flex;gap:12px;margin-bottom:20px;align-items:flex-start}
+  .cl .sp{font-size:12px;font-weight:600;width:14px;flex:none;line-height:1.75;color:var(--ink3)}
+  .cl .tx{font-size:15px;line-height:1.75;color:var(--ink3)}
+  .cl.d1 .tx{font-size:13.5px;color:#756E61}
+  .cl.d2 .tx{font-size:12.5px;color:#C7C1B7}
+  .cl.now{margin:24px 0 20px}
+  .cl.now .tx{font-size:20px;line-height:1.7;font-weight:500}
+  .cl.now.a .tx{color:var(--ink)} .cl.now.a .sp{color:var(--ink)}
+  .cl.now.b .tx{color:var(--vm)} .cl.now.b .sp{color:var(--vm)}
+  .src{margin:-12px 0 18px 38px;font-size:10.5px;color:var(--ink3)}
+  .src u{color:var(--vm);text-decoration:none;border-bottom:1px solid var(--vm-soft);padding-bottom:1px}
+  .now{font-size:10.5px;color:var(--ink3)}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <h1>「对白」设计稿 2 · 新增「每日一集」</h1>
+  <p>离线预置内容 · 零云函数调用 · 解决冷启动（新用户没文章时首页不空）</p>
+</div>
+
+<div class="row">
+
+  <!-- ===== 屏1 首页（含今日一集） ===== -->
+  <div class="col">
+    <div class="cap">首页 <em>／今日一集占据首屏主位</em></div>
+    <div class="phone">
+      <div class="sb"><span>07:20</span><span>5G ▮▮▮</span></div>
+      <div class="pad"><div class="top"><span class="brand">对白</span><span class="t">我的</span></div></div>
+
+      <div class="claim">把文章，<br>聊给你听。</div>
+
+      <div class="daily">
+        <div class="dhead">
+          <span class="tag">今日一集</span>
+          <span class="meta">抬杠 · 06:42 · 18 句</span>
+        </div>
+        <div class="dtitle">光合作用为什么分两步？</div>
+
+        <div class="dl dim"><span class="sp">甲</span><span class="tx">光合作用其实没那么难。</span></div>
+        <div class="dl b now"><span class="sp">乙</span><span class="tx">难的是课本非要写得这么复杂。</span></div>
+        <div class="dl dim"><span class="sp">甲</span><span class="tx">那光反应到底在干嘛？</span></div>
+
+        <div class="dact">
+          <div class="play">▶　开始听</div>
+          <span class="past">往期 ›</span>
+        </div>
+      </div>
+
+      <div class="cta">
+        <div class="upload">＋　投一篇文章</div>
+        <div class="hint">也可以粘贴或从聊天选文件</div>
+      </div>
+
+      <div class="sec">
+        <div class="h">最近</div>
+        <div class="ri" style="border-top:none"><span class="l">光合作用.docx</span><span class="r">抬杠 · 42 句</span></div>
+        <div class="ri"><span class="l">数据报告.pdf</span><span class="r">师生 · 已失败</span></div>
+      </div>
+
+      <div class="tab"><div class="on">对白</div><div>历史</div><div>我的</div></div>
+    </div>
+  </div>
+
+  <!-- ===== 屏2 每日一集页 ===== -->
+  <div class="col">
+    <div class="cap">每日一集 <em>／今日大卡 + 往期</em></div>
+    <div class="phone">
+      <div class="sb"><span>07:21</span><span>5G ▮▮▮</span></div>
+      <div class="pad"><div class="top"><span class="t">← 返回</span><span class="t">每日一集</span></div>
+
+        <div class="epic">
+          <div class="dhead">
+            <span class="tag">今日 · 10月3日</span>
+            <span class="meta">06:42</span>
+          </div>
+          <div class="dtitle">光合作用为什么分两步？</div>
+          <div class="dl dim"><span class="sp">甲</span><span class="tx">光合作用其实没那么难。</span></div>
+          <div class="dl b dim"><span class="sp">乙</span><span class="tx">难的是课本非要写得这么复杂。</span></div>
+          <div class="dact" style="margin-top:18px">
+            <div class="play">▶　开始听</div>
+          </div>
+        </div>
+
+        <div class="plist">
+          <div class="sec" style="margin:0 0 6px 0"><div class="h" style="margin:0">往期</div></div>
+          <div class="pi"><span class="d">10月2日</span><span class="t">为什么有人会晕车？</span><span class="m">04:12</span></div>
+          <div class="pi"><span class="d">10月1日</span><span class="t">相对论到底说了什么？</span><span class="m">07:38</span></div>
+          <div class="pi"><span class="d">9月30日</span><span class="t">咖啡因是怎么让你清醒的？</span><span class="m">05:21</span></div>
+          <div class="pi"><span class="d">9月29日</span><span class="t">为什么熬夜会变丑？</span><span class="m">03:56</span></div>
+          <div class="pi"><span class="d">9月28日</span><span class="t">空调为什么会让房间变干？</span><span class="m">04:44</span></div>
+        </div>
+
+        <div class="hint" style="margin-top:18px;text-align:left;padding:0 22px">
+          每天一集，不用你上传，打开就能听。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 屏3 对话流（听今日一集） ===== -->
+  <div class="col">
+    <div class="cap">对话流 <em>／听今日一集（复用结果页）</em></div>
+    <div class="phone">
+      <div class="sb"><span>07:22</span><span>5G ▮▮▮</span></div>
+      <div class="pad"><div class="top"><span class="t">← 今日一集 · 光合作用为什么分两步？</span><span class="t">⋯</span></div></div>
+
+      <div class="stage" style="margin-top:4px">
+        <div class="rail"></div>
+        <div class="dot" style="top:150px"></div>
+
+        <div class="cl d2"><span class="sp">甲</span><span class="tx">光合作用其实没那么难。</span></div>
+        <div class="cl d1 b"><span class="sp">乙</span><span class="tx">难的是课本非要写得这么复杂。</span></div>
+
+        <div class="cl now b"><span class="sp">乙</span><span class="tx">不是。原文说的是<br>「不需要光直接参与」。</span></div>
+        <div class="src">出处 <u>P1</u>　<span style="color:var(--ink2)">改这句</span></div>
+
+        <div class="cl d1"><span class="sp">甲</span><span class="tx">那正午太阳最猛，它应该最快吧？</span></div>
+        <div class="cl d2 b"><span class="sp">乙</span><span class="tx">原文说反而下降，这叫「光合午休」。</span></div>
+      </div>
+
+      <div style="position:absolute;left:22px;right:22px;bottom:96px">
+        <div class="play" style="background:var(--ink)">⟨　　‖　　⟩</div>
+        <div class="hint" style="margin-top:12px">1.0× · 点任意一句可重听 · 侧滑可改</div>
+      </div>
+
+      <div class="tab"><div class="on">对白</div><div>历史</div><div>我的</div></div>
+    </div>
+  </div>
+
+</div>
+<div style="height:36px"></div>
+</body>
+</html>

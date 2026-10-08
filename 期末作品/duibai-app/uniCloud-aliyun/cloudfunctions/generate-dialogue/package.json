@@ -1,0 +1,14 @@
+{
+  "name": "generate-dialogue",
+  "version": "1.0.0",
+  "description": "对话生成编排：组装 Prompt → 调大模型 → 三项校验 → 落库",
+  "main": "index.js",
+  "dependencies": {
+    "common": "file:../common/common",
+    "app-config": "file:../common/app-config"
+  },
+  "cloudfunction-config": {
+    "timeout": 60,
+    "memorySize": 256
+  }
+}

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>主功能四方案 · 整页</title>
+<style>
+/* 「对白」主功能 · 四个方案各画一整页，只看主功能那一段的差别 */
+:root{
+  --mono:ui-monospace,"SF Mono",Consolas,monospace;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Noto Serif SC","Songti SC","Noto Serif CJK SC",serif;
+  --ink:#1a1a18; --vm:#b83f28;
+  --tx:#1a1a18; --tx2:#5a5750; --tx3:#6c6760; --tx4:#756e61;
+  --page:#ede8da; --card:#f8f5ee; --line:#e2ddcd; --line2:#e8e3d5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#e3e0d5;padding:34px 24px 50px;font-family:var(--sans);color:var(--ink)}
+.h1{text-align:center;font-size:23px;font-weight:600;letter-spacing:-.3px}
+.sub{text-align:center;color:var(--tx3);font-size:12.5px;margin:9px 0 30px;line-height:1.9}
+.sub b{color:var(--vm)}
+.grid{display:grid;grid-template-columns:repeat(4,375px);gap:32px 26px;justify-content:center}
+.pg{width:375px}
+.cap{margin-bottom:10px;text-align:center}
+.cap .n{font-family:var(--mono);font-size:10.5px;color:var(--vm);letter-spacing:.6px}
+.cap .t{font-size:14.5px;font-weight:600;margin-top:3px}
+.cap .s{color:var(--tx3);font-size:10.5px;margin-top:3px;line-height:1.5}
+.phone{width:375px;height:772px;border-radius:30px;overflow:hidden;position:relative;
+       background:var(--page);border:1px solid #d2ccbe;box-shadow:0 18px 44px rgba(70,58,34,.13)}
+.bd{padding:0 20px;height:100%;display:flex;flex-direction:column}
+.brandrow{display:flex;align-items:baseline;justify-content:space-between;padding:18px 2px 20px}
+.brand{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:.4px}
+.cnt{font-family:var(--mono);font-size:10.5px;color:var(--tx3)}
+.tagrow{display:flex;align-items:baseline;justify-content:space-between;height:30px;flex-shrink:0;padding-top:9px;margin-top:16px}
+.tag{font-family:var(--serif);font-size:11px;letter-spacing:2.4px;color:var(--tx3)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px}
+.dlg{display:flex;flex-direction:column;gap:7px}
+.ln{display:flex;gap:8px;align-items:flex-start}
+.ln.a{align-self:flex-start;max-width:96%}
+.ln.b{align-self:flex-end;flex-direction:row-reverse;max-width:96%}
+.rl{width:2.5px;border-radius:2px;align-self:stretch;min-height:13px;flex-shrink:0}
+.a .rl{background:var(--ink)} .b .rl{background:var(--vm)}
+.who{font-size:9.5px;font-weight:700;flex-shrink:0;padding-top:3px}
+.a .who{color:var(--tx2)} .b .who{color:var(--vm)}
+.say{font-size:13.5px;line-height:1.6;color:var(--tx)}
+.b .say{color:var(--vm);text-align:right}
+.title1{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:12px;letter-spacing:-.1px}
+.act{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--vm)}
+.hrow{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.hdot{width:5px;height:5px;border-radius:3px;flex-shrink:0;background:var(--vm)}
+.hdot.g{background:var(--tx4)}
+.hname{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:13px;font-weight:500}
+.hnum{font-family:var(--mono);font-size:10px;color:var(--tx3);flex-shrink:0}
+.split{height:1px;background:var(--line2);margin:12px 0 11px}
+.sp{flex:1}
+.tb{position:absolute;bottom:0;left:0;right:0;height:76px;background:var(--page);
+    border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-around;padding-bottom:12px}
+.tbi{font-size:10px;text-align:center;font-weight:500;flex:1;color:var(--tx3)}
+.tbi.on{color:var(--ink);font-weight:600}
+.tbi svg{display:block;margin:0 auto 3px}
+
+/* ===== 四个主功能方案 ===== */
+/* A 朱批竖轨 */
+.ctaA{border-left:3px solid var(--vm);padding-left:16px;margin-bottom:6px}
+.ctaA .t1{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.1px}
+.ctaA .t2{font-size:12px;color:var(--tx3);margin-top:7px}
+.ctaA .go{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--vm);margin-top:13px}
+/* B 稿纸横线 */
+.ctaB{padding:2px 0 12px;border-bottom:1.5px solid var(--ink);margin-bottom:10px}
+.ctaB .t1{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.3px}
+.ctaB .rowline{display:flex;align-items:center;justify-content:space-between;margin-top:9px}
+.ctaB .t2{font-size:12px;color:var(--tx3)}
+.ctaB .go{font-size:12.5px;font-weight:600;color:var(--vm);display:flex;align-items:center;gap:6px}
+/* C 浅纸槽 + 墨胶囊 */
+.ctaC{background:rgba(26,26,24,.045);border-radius:14px;padding:16px 17px;display:flex;align-items:center;gap:13px;margin-bottom:6px}
+.ctaC .ic{width:34px;height:34px;border-radius:11px;flex-shrink:0;border:1.5px solid var(--tx3);
+          display:flex;align-items:center;justify-content:center;color:var(--tx3)}
+.ctaC .t1{font-family:var(--serif);font-size:17px;font-weight:600}
+.ctaC .t2{font-size:11.5px;color:var(--tx3);margin-top:5px}
+.ctaC .pill{margin-left:auto;font-size:11.5px;font-weight:600;padding:6px 14px;border-radius:14px;
+            background:var(--ink);color:#fbf9f6}
+/* D 现行 */
+.ctaD{background:var(--ink);border-radius:16px;padding:15px;display:flex;align-items:center;gap:13px;margin-bottom:6px}
+.ctaD .plus{width:40px;height:40px;border-radius:13px;flex-shrink:0;background:var(--vm);
+            display:flex;align-items:center;justify-content:center}
+.ctaD .t1w{font-family:var(--serif);font-size:18px;font-weight:600;color:#fbf9f4}
+.ctaD .t2w{font-size:11.5px;color:rgba(245,242,234,.62);margin-top:5px}
+</style></head>
+<body>
+<div class="h1">主功能「把文章贴进来」· 四个方案各画一整页</div>
+<div class="sub">
+  四页内容完全相同，<b>只有主功能那一段不一样</b> —— 这样才好比较它在一整页里的分量。<br>
+  背景、今日一集、我聊过的、底部导航都按定稿的纸墨令牌。
+</div>
+<div class="grid">
+  <div class="pg">
+    <div class="cap"><div class="n">A</div><div class="t">朱批竖轨</div><div class="s">纸色 + 3px 朱色左竖轨<br>与对话流的竖轨同构</div></div>
+    <div class="phone"><div class="bd">
+        <div class="brandrow"><span class="brand">对白</span><span class="cnt">01/07</span></div>
+<div class="ctaA">
+  <div class="t1">把文章贴进来</div>
+  <div class="t2">粘贴文本，或从聊天里选个文件</div>
+  <div class="go">开始聊 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+</div>
+        <div class="tagrow"><span class="tag">今 日 一 集</span><span class="cnt">04:02</span></div>
+        <div class="title1">光合作用为什么分两步？</div>
+        <div class="card">
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">光合作用其实没那么难。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:13px">
+            <span class="act"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+            <span class="act" style="opacity:.72">往期 07 →</span>
+          </div>
+        </div>
+        <div class="tagrow"><span class="tag">我 聊 过 的</span><span class="cnt">全部 04 →</span></div>
+        <div class="card">
+          <div class="hrow"><i class="hdot"></i><div class="hname">数据链路层在物</div><div class="hnum">23 句</div><span class="act">去确认 →</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hrow"><i class="hdot g"></i><div class="hname">为什么有人会晕车</div><div class="hnum">01:48</div><span class="act">▶ 听</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">为什么坐车看手机会更晕？</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">因为眼睛和内耳的信息打架了。</div></div>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+      <div class="tb">
+        <div class="tbi on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tbi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tbi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+  <div class="pg">
+    <div class="cap"><div class="n">B</div><div class="t">稿纸横线</div><div class="s">无卡 + 下方墨色细线<br>底线即"可以落笔的地方"</div></div>
+    <div class="phone"><div class="bd">
+        <div class="brandrow"><span class="brand">对白</span><span class="cnt">01/07</span></div>
+<div class="ctaB">
+  <div class="t1">把文章贴进来</div>
+  <div class="rowline">
+    <span class="t2">粘贴文本，或从聊天里选个文件</span>
+    <span class="go">开始 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+  </div>
+</div>
+        <div class="tagrow"><span class="tag">今 日 一 集</span><span class="cnt">04:02</span></div>
+        <div class="title1">光合作用为什么分两步？</div>
+        <div class="card">
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">光合作用其实没那么难。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:13px">
+            <span class="act"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+            <span class="act" style="opacity:.72">往期 07 →</span>
+          </div>
+        </div>
+        <div class="tagrow"><span class="tag">我 聊 过 的</span><span class="cnt">全部 04 →</span></div>
+        <div class="card">
+          <div class="hrow"><i class="hdot"></i><div class="hname">数据链路层在物</div><div class="hnum">23 句</div><span class="act">去确认 →</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hrow"><i class="hdot g"></i><div class="hname">为什么有人会晕车</div><div class="hnum">01:48</div><span class="act">▶ 听</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">为什么坐车看手机会更晕？</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">因为眼睛和内耳的信息打架了。</div></div>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+      <div class="tb">
+        <div class="tbi on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tbi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tbi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+  <div class="pg">
+    <div class="cap"><div class="n">C</div><div class="t">浅纸槽 + 墨胶囊</div><div class="s">极浅的槽 + 右侧小墨胶囊<br>"能点"最明确</div></div>
+    <div class="phone"><div class="bd">
+        <div class="brandrow"><span class="brand">对白</span><span class="cnt">01/07</span></div>
+<div class="ctaC">
+  <div class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+  <div style="flex:1;min-width:0">
+    <div class="t1">把文章贴进来</div>
+    <div class="t2">粘贴文本，或从聊天里选个文件</div>
+  </div>
+  <div class="pill">开始</div>
+</div>
+        <div class="tagrow"><span class="tag">今 日 一 集</span><span class="cnt">04:02</span></div>
+        <div class="title1">光合作用为什么分两步？</div>
+        <div class="card">
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">光合作用其实没那么难。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:13px">
+            <span class="act"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+            <span class="act" style="opacity:.72">往期 07 →</span>
+          </div>
+        </div>
+        <div class="tagrow"><span class="tag">我 聊 过 的</span><span class="cnt">全部 04 →</span></div>
+        <div class="card">
+          <div class="hrow"><i class="hdot"></i><div class="hname">数据链路层在物</div><div class="hnum">23 句</div><span class="act">去确认 →</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hrow"><i class="hdot g"></i><div class="hname">为什么有人会晕车</div><div class="hnum">01:48</div><span class="act">▶ 听</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">为什么坐车看手机会更晕？</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">因为眼睛和内耳的信息打架了。</div></div>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+      <div class="tb">
+        <div class="tbi on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tbi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tbi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+  <div class="pg">
+    <div class="cap"><div class="n">D</div><div class="t">现行（对照）</div><div class="s">墨底 + 朱方块<br>就是你说丑的那版</div></div>
+    <div class="phone"><div class="bd">
+        <div class="brandrow"><span class="brand">对白</span><span class="cnt">01/07</span></div>
+<div class="ctaD">
+  <div class="plus"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fbf9f4" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+  <div>
+    <div class="t1w">把文章贴进来</div>
+    <div class="t2w">粘贴文本，或从聊天里选个文件</div>
+  </div>
+</div>
+        <div class="tagrow"><span class="tag">今 日 一 集</span><span class="cnt">04:02</span></div>
+        <div class="title1">光合作用为什么分两步？</div>
+        <div class="card">
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">光合作用其实没那么难。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:13px">
+            <span class="act"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+            <span class="act" style="opacity:.72">往期 07 →</span>
+          </div>
+        </div>
+        <div class="tagrow"><span class="tag">我 聊 过 的</span><span class="cnt">全部 04 →</span></div>
+        <div class="card">
+          <div class="hrow"><i class="hdot"></i><div class="hname">数据链路层在物</div><div class="hnum">23 句</div><span class="act">去确认 →</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hrow"><i class="hdot g"></i><div class="hname">为什么有人会晕车</div><div class="hnum">01:48</div><span class="act">▶ 听</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">为什么坐车看手机会更晕？</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">因为眼睛和内耳的信息打架了。</div></div>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+      <div class="tb">
+        <div class="tbi on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tbi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tbi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

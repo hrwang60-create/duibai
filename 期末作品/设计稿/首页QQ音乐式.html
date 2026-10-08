@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>「对白」首页 · QQ音乐式结构</title>
+<style>
+  :root{
+    --ink:#1a1a18; --vm:#b83f28; --ink2:#5a5750; --ink3:#6c6760;
+    --ink5:#c7c1b7; --paper:#f5f2ea; --paper2:#ede9df; --line:#e2ddd2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#e8e4da;font-family:"Microsoft YaHei","PingFang SC",sans-serif;padding:38px 28px 56px}
+  .pt{text-align:center;color:var(--ink);font-size:25px;font-weight:600;letter-spacing:2px}
+  .ps{text-align:center;color:var(--ink3);font-size:13.5px;margin:8px 0 40px;line-height:1.7}
+  .row{display:flex;justify-content:center;gap:54px;flex-wrap:wrap}
+  .scheme{width:340px}
+  .sname{text-align:center;color:var(--ink);font-size:16.5px;font-weight:600;margin-bottom:5px}
+  .sdesc{text-align:center;color:var(--ink3);font-size:12.5px;line-height:1.7;height:46px;margin-bottom:14px}
+  .phone{width:340px;height:700px;background:var(--paper);border:1px solid #cfc9bc;border-radius:26px;overflow:hidden;position:relative}
+  .nav{height:44px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink);letter-spacing:1px}
+  .body{height:calc(100% - 44px);overflow:hidden;display:flex;flex-direction:column}
+  .tabbar{position:absolute;bottom:0;left:0;right:0;height:56px;background:var(--paper);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-around}
+  .tab{font-size:11px;color:var(--ink3);text-align:center}
+  .tab.on{color:var(--ink);font-weight:600}
+
+  /* ============ 通用 ============ */
+  .spacer{height:64px}                    /* 给 tabBar 留位 */
+  /* ① 搜索胶囊 —— QQ音乐顶部那个唯一的大控件 */
+  .search{margin:14px 18px 0;height:38px;border-radius:19px;background:var(--paper2);display:flex;align-items:center;padding:0 15px;gap:9px}
+  .search .icon{width:14px;height:14px;border:1.6px solid var(--ink3);border-radius:50%;position:relative;flex-shrink:0}
+  .search .icon:after{content:"";position:absolute;right:-4px;bottom:-3px;width:5px;height:1.6px;background:var(--ink3);transform:rotate(45deg)}
+  .search .ph{font-size:13.5px;color:var(--ink3)}
+
+  /* ② 快捷入口行 —— 圆形图标 + 文字，QQ音乐的标志性元素 */
+  .quick{display:flex;justify-content:space-between;padding:20px 22px 4px}
+  .qi{width:64px;text-align:center}
+  .qic{width:48px;height:48px;border-radius:24px;background:var(--paper2);margin:0 auto 7px;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--ink);font-weight:500}
+  .qic.vm{background:var(--vm);color:#fbf9f4}
+  .qi .qt{font-size:11.5px;color:var(--ink2)}
+
+  /* ③ 区块标题行 */
+  .sechead{display:flex;align-items:baseline;justify-content:space-between;margin:22px 18px 12px}
+  .sechead .t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.5px}
+  .sechead .m{font-size:12px;color:var(--ink3)}
+
+  /* ④ 大卡 —— 全宽，里面有"封面区" */
+  .hero{margin:0 18px}
+  .cover{
+    height:132px;background:var(--paper2);border-radius:12px;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  /* 唱片隐喻：纯色圆盘，不用渐变不用阴影 */
+  .disc{
+    width:92px;height:92px;border-radius:46px;background:var(--ink);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:var(--paper);font-size:11px;letter-spacing:2px;line-height:1.5;
+  }
+  .disc .big{font-size:19px;font-weight:600;letter-spacing:1px}
+  .disc .sm{font-size:9.5px;color:var(--ink5);letter-spacing:3px;margin-top:3px}
+  /* 圆盘右侧那道朱色细弧 —— 唯一的彩色，暗示"播放中" */
+  .cover .pl{position:absolute;right:14px;bottom:12px;font-size:13px;font-weight:600;color:var(--vm)}
+  .hrow{display:flex;align-items:center;gap:8px;margin-top:12px}
+  .htitle{font-size:17px;font-weight:600;color:var(--ink);flex:1;line-height:1.35}
+  .hsub{font-size:12px;color:var(--ink3);margin-top:5px}
+
+  /* ⑤ 横滑卡片组 —— QQ音乐的组织方式 */
+  .hs{display:flex;gap:12px;padding:0 18px;overflow:hidden}
+  .card{width:80px;flex-shrink:0}
+  .card .cf{width:80px;height:80px;border-radius:10px;background:var(--paper2);display:flex;align-items:center;justify-content:center}
+  .card .cf .mini{width:46px;height:46px;border-radius:23px;border:1.4px solid var(--ink5);background:transparent;display:flex;align-items:center;justify-content:center;color:var(--ink2);font-size:10px;letter-spacing:1px;line-height:1.4;text-align:center}
+  .card .ct{font-size:12.5px;color:var(--ink);margin-top:9px;line-height:1.4;height:35px;overflow:hidden}
+  .card .cd{font-size:10.5px;color:var(--ink5);margin-top:3px}
+
+  /* ⑥ 列表项 */
+  .li{margin:0 18px;padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:11px;align-items:center}
+  .li:last-child{border-bottom:none}
+  .thumb{width:40px;height:40px;border-radius:8px;background:var(--paper2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink)}
+  .li .t{font-size:13.5px;color:var(--ink);font-weight:500}
+  .li .s{font-size:11px;color:var(--ink3);margin-top:4px}
+  .li .r{margin-left:auto;font-size:11.5px;color:var(--vm);flex-shrink:0}
+
+  /* 双列大卡（方案 E 用） */
+  .grid{display:flex;gap:12px;padding:0 18px}
+  .gcard{flex:1}
+  .gcard .gf{height:104px;border-radius:12px;background:var(--paper2);display:flex;align-items:center;justify-content:center}
+  .gcard .gf .mini{width:60px;height:60px;border-radius:30px;border:1.4px solid var(--ink5);background:transparent;display:flex;align-items:center;justify-content:center;color:var(--ink2);font-size:10.5px;letter-spacing:1px;line-height:1.4;text-align:center}
+  .gcard .gt{font-size:13.5px;color:var(--ink);font-weight:500;margin-top:10px;line-height:1.4}
+  .gcard .gd{font-size:10.5px;color:var(--ink5);margin-top:4px}
+</style>
+</head>
+<body>
+
+<div class="pt">「对白」首页 · 按 QQ 音乐首页结构重做</div>
+<div class="ps">
+  结构映射：搜索胶囊 → 快捷入口行 → 大卡推荐 → 横滑区块组<br>
+  视觉仍是「墨与朱」：纯色圆盘代替封面图 · 无卡片阴影 · 分隔线分区
+</div>
+
+<div class="row">
+
+  <!-- ==================== D · 完整四段 ==================== -->
+  <div class="scheme">
+    <div class="sname">D · 完整四段式</div>
+    <div class="sdesc">最贴近 QQ 音乐：<br>搜索胶囊 + 四个快捷入口 + 大卡 + 三个区块。</div>
+    <div class="phone">
+      <div class="nav">对白</div>
+      <div class="body">
+
+        <!-- ① 搜索胶囊 -->
+        <div class="search"><span class="icon"></span><span class="ph">粘贴文章，或从聊天选文件</span></div>
+
+        <!-- ② 快捷入口行 -->
+        <div class="quick">
+          <div class="qi"><div class="qic vm">今</div><div class="qt">今日一集</div></div>
+          <div class="qi"><div class="qic">往</div><div class="qt">往期</div></div>
+          <div class="qi"><div class="qic">我</div><div class="qt">我的对谈</div></div>
+          <div class="qi"><div class="qic">腔</div><div class="qt">换口吻</div></div>
+        </div>
+
+        <!-- ③ 大卡：今日一集 -->
+        <div class="sechead"><span class="t">今日一集</span><span class="m">第 7 天 · 连续不断</span></div>
+        <div class="hero">
+          <div class="cover">
+            <div class="disc"><span class="big">10-05</span><span class="sm">今日</span></div>
+            <div class="pl">▶ 开始听</div>
+          </div>
+          <div class="htitle" style="margin-top:12px">光合作用为什么分两步？</div>
+          <div class="hsub">抬杠 · 6 句 · 4 分钟</div>
+        </div>
+
+        <!-- ④ 横滑：往期 -->
+        <div class="sechead"><span class="t">往期</span><span class="m">更多 ›</span></div>
+        <div class="hs">
+          <div class="card"><div class="cf"><div class="mini">10-04</div></div><div class="ct">为什么有人会晕车？</div><div class="cd">轻松解释</div></div>
+          <div class="card"><div class="cf"><div class="mini">10-03</div></div><div class="ct">咖啡因是怎么让你清醒的？</div><div class="cd">师生</div></div>
+          <div class="card"><div class="cf"><div class="mini">10-02</div></div><div class="ct">为什么熬夜会变丑？</div><div class="cd">访谈</div></div>
+        </div>
+
+        <!-- ⑤ 列表：我的最近 -->
+        <div class="sechead"><span class="t">我的最近</span><span class="m">全部 ›</span></div>
+        <div class="li">
+          <div class="thumb">谈</div>
+          <div><div class="t">数据链路层在物</div><div class="s">播客对谈 · 23 句 · 待确认</div></div>
+          <div class="r">去确认 ›</div>
+        </div>
+
+        <div class="spacer"></div>
+      </div>
+      <div class="tabbar"><div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div></div>
+    </div>
+  </div>
+
+  <!-- ==================== E · 精简三段 ==================== -->
+  <div class="scheme">
+    <div class="sname">E · 精简三段式 <span style="color:var(--vm);font-size:12px">← 推荐</span></div>
+    <div class="sdesc">同样借 QQ 音乐的节奏，<br>但去掉快捷入口行、区块从三降到二，更克制。</div>
+    <div class="phone">
+      <div class="nav">对白</div>
+      <div class="body">
+
+        <!-- ① 搜索胶囊 -->
+        <div class="search"><span class="icon"></span><span class="ph">粘贴文章，或从聊天选文件</span></div>
+
+        <!-- ② 大卡：占满视觉 -->
+        <div class="sechead" style="margin-top:22px">
+          <span class="t">今日一集</span><span class="m">抬杠 · 6 句 · 4 分钟</span>
+        </div>
+        <div class="hero">
+          <div class="cover" style="height:170px">
+            <div class="disc" style="width:106px;height:106px;border-radius:53px">
+              <span class="big" style="font-size:22px">10-05</span>
+              <span class="sm">今日</span>
+            </div>
+            <div class="pl">▶ 开始听</div>
+          </div>
+          <div class="htitle" style="font-size:19px;margin-top:13px">光合作用为什么分两步？</div>
+        </div>
+
+        <!-- ③ 双列推荐：往期 + 我的最近 -->
+        <div class="sechead"><span class="t">听听别的</span><span class="m">更多 ›</span></div>
+        <div class="grid">
+          <div class="gcard">
+            <div class="gf"><div class="mini">往期<br>6 集</div></div>
+            <div class="gt">最近七天的全部一集</div>
+            <div class="gd">10-04 起</div>
+          </div>
+          <div class="gcard">
+            <div class="gf"><div class="mini">我的<br>对谈</div></div>
+            <div class="gt">数据链路层在物</div>
+            <div class="gd">待确认 · 23 句</div>
+          </div>
+        </div>
+
+        <div class="li" style="margin-top:18px">
+          <div class="thumb">续</div>
+          <div><div class="t">继续上次</div><div class="s">昨天 20:14 · 听到第 3 句</div></div>
+          <div class="r">继续 ›</div>
+        </div>
+
+        <div class="spacer"></div>
+      </div>
+      <div class="tabbar"><div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

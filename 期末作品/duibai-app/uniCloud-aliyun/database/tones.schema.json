@@ -1,0 +1,49 @@
+{
+  "bsonType": "object",
+  "required": [
+    "code",
+    "name"
+  ],
+  "permission": {
+    "read": true,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "ID"
+    },
+    "code": {
+      "bsonType": "string",
+      "description": "口吻编码，主键语义，如 teacher_student"
+    },
+    "name": {
+      "bsonType": "string",
+      "description": "口吻名称，如 师生"
+    },
+    "description": {
+      "bsonType": "string",
+      "description": "一句话说明，用于选择时的提示"
+    },
+    "prompt_template": {
+      "bsonType": "string",
+      "description": "该口吻的 Prompt 模板，管理端可改"
+    },
+    "sample": {
+      "bsonType": "string",
+      "description": "口吻示例（展示在选择器里）"
+    },
+    "enabled": {
+      "bsonType": "bool",
+      "description": "是否启用",
+      "default": true
+    },
+    "sort": {
+      "bsonType": "int",
+      "description": "排序",
+      "default": 0
+    }
+  }
+}

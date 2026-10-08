@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>新颖排版 · Bento Grid / 大字编辑</title>
+<style>
+/*
+  两个方向都沿用「深墨」配色（以墨为底、纸为字、朱色批注），
+  只换**排版语言** —— 因为你说的是"排版老气"，不是配色老气。
+
+  方向 T：Bento Grid（便当盒网格）—— 不等大的格子，大小即层级
+  方向 U：Editorial（大字编辑排版）—— 超大字号 + 极宽字距的标签 + 大量留白
+*/
+:root{
+  --vm:#ff4d33; --mono:ui-monospace,"SF Mono",Consolas,"Cascadia Mono",monospace;
+  --bg:#121214; --card:#1c1c1f; --card2:#232327;
+  --tx:#f0ede4; --tx2:#8c8c94; --tx3:#5e5e66; --line:#2a2a2e;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#d9d9d4;font-family:"Microsoft YaHei","PingFang SC",-apple-system,sans-serif;padding:38px 26px 56px}
+.pt{text-align:center;color:#17171a;font-size:25px;font-weight:600;letter-spacing:1px}
+.ps{text-align:center;color:#7a7a80;font-size:13px;margin:8px 0 40px;line-height:1.85}
+.ps b{color:#ff4d33}
+.row{display:flex;justify-content:center;gap:52px;flex-wrap:wrap}
+.scheme{width:340px}
+.sname{text-align:center;color:#17171a;font-size:16px;font-weight:600;margin-bottom:5px}
+.sdesc{text-align:center;color:#7a7a80;font-size:12px;line-height:1.8;height:64px;margin-bottom:14px}
+.sdesc b{color:#17171a;font-weight:600}
+.phone{width:340px;height:704px;background:var(--bg);border-radius:30px;overflow:hidden;
+       position:relative;box-shadow:0 12px 34px rgba(0,0,0,.18)}
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:56px;background:rgba(18,18,20,.96);
+        border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-around;z-index:5}
+.tab{font-size:10.5px;color:var(--tx3);text-align:center}
+.tab.on{color:var(--vm)}
+.tab svg{display:block;margin:0 auto 3px}
+
+/* ==================== T · Bento Grid ==================== */
+.T .body{padding:14px 14px 0;height:calc(100% - 0px);overflow:hidden}
+.T .topbar{display:flex;align-items:baseline;justify-content:space-between;padding:0 2px 14px}
+.T .brand{font-size:26px;font-weight:700;color:var(--tx);letter-spacing:-.3px}
+.T .topmeta{font-family:var(--mono);font-size:11px;color:var(--tx3)}
+
+/* 便当盒：不等大格子，主功能跨两行 */
+.T .bento{
+  display:grid;
+  grid-template-columns:188px 114px;
+  grid-template-rows:186px 116px auto;
+  gap:10px;
+}
+.T .cell{background:var(--card);border-radius:16px;overflow:hidden;position:relative;
+         display:flex;flex-direction:column;padding:15px}
+.T .cell .k{font-size:10px;letter-spacing:1.4px;color:var(--tx3);font-family:var(--mono);
+            text-transform:uppercase;margin-bottom:auto}
+.T .cell .v{font-size:15px;color:var(--tx);font-weight:500;line-height:1.3}
+
+/* 主功能：跨两行的最大格，朱色描边 + 极淡朱底，天然最重 */
+.T .c-main{grid-column:1;grid-row:1/3;background:linear-gradient(0deg, rgba(255,77,51,.055), rgba(255,77,51,.055)), var(--card);
+           border:1px solid rgba(255,77,51,.28)}
+.T .c-main .h1{font-size:21px;font-weight:700;color:var(--tx);letter-spacing:-.3px;line-height:1.25}
+.T .c-main .h2{font-size:12.5px;color:var(--tx2);margin-top:9px;line-height:1.55}
+.T .c-main .ic{width:46px;height:46px;border-radius:15px;background:var(--vm);
+               display:flex;align-items:center;justify-content:center;margin-bottom:34px}
+.T .c-main .go{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--vm)}
+
+.T .c-daily{grid-column:2;grid-row:1}
+.T .c-daily .t{font-size:13.5px;color:var(--tx);font-weight:600;line-height:1.35;margin-top:6px}
+.T .c-daily .d{font-family:var(--mono);font-size:11px;color:var(--vm);margin-top:auto;letter-spacing:.5px}
+.T .c-past{grid-column:2;grid-row:2;justify-content:space-between}
+.T .c-past{justify-content:space-between}
+.T .c-past .n{font-family:var(--mono);font-size:38px;font-weight:700;color:var(--tx);
+              letter-spacing:-1.5px;line-height:.95}
+.T .c-mine{grid-column:1/3;grid-row:3;padding:0}
+.T .mrow{display:flex;align-items:center;gap:11px;padding:13px 15px;position:relative}
+.T .mrow + .mrow:before{content:"";position:absolute;left:15px;right:15px;top:0;height:1px;background:var(--line)}
+.T .mtitle{font-size:14px;color:var(--tx);flex:1;min-width:0;overflow:hidden;
+           white-space:nowrap;text-overflow:ellipsis}
+.T .mmeta{font-family:var(--mono);font-size:10.5px;color:var(--tx2)}
+.T .dot{width:6px;height:6px;border-radius:3px;background:var(--vm);flex-shrink:0}
+.T .dot.g{background:#3a3a40}
+.T .chev{color:var(--tx3);font-size:14px}
+
+/* ==================== U · Editorial 大字编辑 ==================== */
+.U .body{padding:0 20px;overflow:hidden}
+.U .topbar{display:flex;align-items:baseline;justify-content:space-between;padding:16px 0 30px}
+.U .brand{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--tx3)}
+.U .topmeta{font-family:var(--mono);font-size:11px;color:var(--tx3)}
+
+/* 超大主张：行高压到 1.0，字号拉到 40px —— 编辑排版的张力在这 */
+.U .claim{font-size:40px;font-weight:700;color:var(--tx);letter-spacing:-1.2px;line-height:1.02}
+.U .claim em{font-style:normal;color:var(--vm)}
+
+.U .cta{display:flex;align-items:center;justify-content:space-between;
+        padding:22px 0 24px;border-bottom:1px solid var(--line)}
+.U .cta .l{font-size:14px;color:var(--tx);font-weight:600}
+.U .cta .l small{display:block;font-size:11.5px;color:var(--tx3);font-weight:400;margin-top:4px}
+.U .cta .r{font-size:20px;color:var(--vm)}
+
+/* 极宽字距的标签 —— 编辑排版的标志 */
+.U .lab{font-size:10.5px;letter-spacing:5px;color:var(--tx3);margin:32px 0 14px}
+
+.U .big{font-size:25px;font-weight:700;color:var(--tx);letter-spacing:-.6px;line-height:1.2}
+.U .sub{display:flex;align-items:center;gap:10px;margin-top:14px}
+.U .sub .meta{font-family:var(--mono);font-size:11px;color:var(--tx2)}
+.U .play{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--vm)}
+
+.U .list{margin-top:6px}
+.U .lrow{display:flex;align-items:center;gap:12px;padding:17px 0;border-bottom:1px solid var(--line)}
+.U .lrow:last-child{border-bottom:none}
+.U .lrow .ic{width:22px;font-family:var(--mono);font-size:11px;color:var(--tx3);flex-shrink:0}
+.U .lrow .tx{font-size:14px;color:var(--tx);flex:1;min-width:0;overflow:hidden;
+             white-space:nowrap;text-overflow:ellipsis}
+.U .lrow .num{font-family:var(--mono);font-size:11px;color:var(--vm);flex-shrink:0}
+</style>
+</head>
+<body>
+
+<div class="pt">新颖排版 · 换语言，不换配色</div>
+<div class="ps">
+  你说的是<b>排版老气</b>，不是配色老气 —— 所以两个方向都沿用"深墨"，只换排版语言。<br>
+  Apple 那套分组列表是 2013 年 iOS 7 的语言，<b>标准但不再新</b>。
+</div>
+
+<div class="row">
+
+  <!-- ==================== T · Bento ==================== -->
+  <div class="scheme">
+    <div class="sname">T · Bento Grid <span style="color:#ff4d33;font-size:11.5px">← 最当下</span></div>
+    <div class="sdesc">
+      不等大的格子拼成一张"便当盒"。<b>格子大小 = 重要程度</b>，<br>
+      不用任何强调色，主功能天然最大。
+    </div>
+    <div class="phone T">
+      <div class="body">
+        <div class="topbar">
+          <span class="brand">对白</span>
+          <span class="topmeta">01 / 07</span>
+        </div>
+
+        <div class="bento">
+          <!-- 主功能：跨两行，最大 -->
+          <div class="cell c-main">
+            <div class="ic">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </div>
+            <div>
+              <div class="h1">投一篇文章</div>
+              <div class="h2">粘贴文本，或从微信<br>聊天里选个文件</div>
+            </div>
+            <div class="go">开始聊
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+            </div>
+          </div>
+
+          <!-- 今日一集 -->
+          <div class="cell c-daily">
+            <div class="k">今日</div>
+            <div class="t">光合作用为什么分两步？</div>
+            <div class="d">04:02</div>
+          </div>
+
+          <!-- 往期 -->
+          <div class="cell c-past">
+            <div class="k">往期</div>
+            <div class="n">06</div>
+          </div>
+
+          <!-- 我的 -->
+          <div class="cell c-mine">
+            <div class="mrow">
+              <div class="dot"></div>
+              <div class="mtitle">数据链路层在物</div>
+              <div class="mmeta">待确认 2</div>
+              <div class="chev">›</div>
+            </div>
+            <div class="mrow">
+              <div class="dot"></div>
+              <div class="mtitle">为什么有人会晕车</div>
+              <div class="mmeta">01:48</div>
+              <div class="chev">›</div>
+            </div>
+            <div class="mrow">
+              <div class="dot g"></div>
+              <div class="mtitle">咖啡因是怎么让你清醒的</div>
+              <div class="mmeta">02:10</div>
+              <div class="chev">›</div>
+            </div>
+            <div class="mrow">
+              <div class="dot g"></div>
+              <div class="mtitle">默认口吻</div>
+              <div class="mmeta">睡前</div>
+              <div class="chev">›</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== U · Editorial ==================== -->
+  <div class="scheme">
+    <div class="sname">U · Editorial 大字编辑</div>
+    <div class="sdesc">
+      超大字号 + 极宽字距标签 + 大量留白。<br>
+      像一本杂志的封面与目录，气质更"当代"。
+    </div>
+    <div class="phone U">
+      <div class="body">
+        <div class="topbar">
+          <span class="brand">DUIBAI</span>
+          <span class="topmeta">01 / 07</span>
+        </div>
+
+        <div class="claim">把文章<br>聊给<em>你听</em>。</div>
+
+        <div class="cta">
+          <div class="l">投一篇文章
+            <small>粘贴文本，或从聊天里选文件</small>
+          </div>
+          <div class="r">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+
+        <div class="lab">今 日 一 集</div>
+        <div class="big">光合作用为什么分两步？</div>
+        <div class="sub">
+          <span class="play">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>
+            开始听
+          </span>
+          <span class="meta">抬杠 · 6 句 · 04:02</span>
+        </div>
+
+        <div class="lab">我 的</div>
+        <div class="list">
+          <div class="lrow">
+            <span class="ic">01</span>
+            <span class="tx">数据链路层在物</span>
+            <span class="num">待确认 2</span>
+          </div>
+          <div class="lrow">
+            <span class="ic">02</span>
+            <span class="tx">为什么有人会晕车</span>
+            <span class="num">01:48</span>
+          </div>
+          <div class="lrow">
+            <span class="ic">03</span>
+            <span class="tx">咖啡因是怎么让你清醒的</span>
+            <span class="num">02:10</span>
+          </div>
+          <div class="lrow">
+            <span class="ic">04</span>
+            <span class="tx">默认口吻</span>
+            <span class="num">睡前</span>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

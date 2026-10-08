@@ -1,0 +1,257 @@
+[
+  {
+    "_id": "ep_20261003",
+    "date_key": 20261003,
+    "title": "光合作用为什么分两步？",
+    "source_title": "光合作用（节选）",
+    "source_text": "光合作用分为光反应和暗反应两个阶段。光反应在类囊体薄膜上进行，需要光直接参与，产物是 ATP 和 NADPH。暗反应在叶绿体基质中进行，不需要光直接参与，但要用掉光反应产出的 ATP 和 NADPH。",
+    "tone_code": "bicker",
+    "toneName": "抬杠",
+    "duration_sec": 402,
+    "line_count": 6,
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "光合作用其实没那么难。",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "难的是课本非要写得这么复杂。",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "A",
+        "text": "那光反应到底在干嘛？",
+        "source_paragraph": 2
+      },
+      {
+        "speaker": "B",
+        "text": "简单说，就是先把能量和氢存起来，装成两节电池。",
+        "source_paragraph": 2
+      },
+      {
+        "speaker": "A",
+        "text": "所以暗反应是花电池的那一步？",
+        "source_paragraph": 3
+      },
+      {
+        "speaker": "B",
+        "text": "对，而且它不需要光直接参与——不是不能在光下发生。",
+        "source_paragraph": 3
+      }
+    ],
+    "audio_file_id": "",
+    "enabled": true
+  },
+  {
+    "_id": "ep_20261002",
+    "date_key": 20261002,
+    "title": "为什么有人会晕车？",
+    "source_title": "前庭系统与运动病（节选）",
+    "source_text": "内耳前庭系统感受身体的运动，而眼睛看到的往往是相对静止的车厢。两套信号冲突时，大脑无法判断身体到底在不在动，就可能引发恶心、出汗等反应。",
+    "tone_code": "teach",
+    "toneName": "轻松解释",
+    "duration_sec": 252,
+    "line_count": 4,
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "我一直不明白，为什么坐车会晕，自己开车反而不晕？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "因为开车的人知道车要往哪儿拐，身体先有准备。",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "A",
+        "text": "所以是脑子被骗了？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "不是被骗，是两套信号打架：耳朵说在动，眼睛说没动。",
+        "source_paragraph": 1
+      }
+    ],
+    "audio_file_id": "",
+    "enabled": true
+  },
+  {
+    "_id": "ep_20261001",
+    "date_key": 20261001,
+    "title": "咖啡因是怎么让你清醒的？",
+    "source_title": "腺苷与咖啡因（节选）",
+    "source_text": "腺苷与受体结合会产生困倦感。咖啡因的结构与腺苷相似，会占据受体位置，阻断困倦信号，但它并没有消除疲劳，只是让你暂时感觉不到。",
+    "tone_code": "interview",
+    "toneName": "课堂讨论",
+    "duration_sec": 321,
+    "line_count": 4,
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "喝咖啡到底是提神，还是透支？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "它没消除疲劳，只是把「困」这个信号暂时挡住了。",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "A",
+        "text": "那等它代谢掉，困劲儿会一次性回来？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "对，这就是为什么咖啡劲过去之后会突然特别困。",
+        "source_paragraph": 1
+      }
+    ],
+    "audio_file_id": "",
+    "enabled": true
+  },
+  {
+    "_id": "ep_20260930",
+    "date_key": 20260930,
+    "title": "为什么熬夜会变丑？",
+    "source_title": "睡眠与皮肤修复（节选）",
+    "source_text": "睡眠不足会影响皮质醇分泌、皮肤屏障修复与微循环，导致眼周水肿、肤色暗沉、黑眼圈加重。",
+    "tone_code": "podcast",
+    "toneName": "朋友聊天",
+    "duration_sec": 236,
+    "line_count": 4,
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "熬夜为什么会写在脸上？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "因为皮肤的修复班是夜里上的，你不睡它就没法干活。",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "A",
+        "text": "那熬夜之后补一觉能补回来吗？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "能补一部分，但连着熬几天，账就还不上了。",
+        "source_paragraph": 1
+      }
+    ],
+    "audio_file_id": "",
+    "enabled": true
+  },
+  {
+    "_id": "ep_20260929",
+    "date_key": 20260929,
+    "title": "空调为什么会让房间变干？",
+    "source_title": "空调除湿原理（节选）",
+    "source_text": "空调制冷时蒸发器温度低于露点，空气中的水蒸气在其表面凝结成水排出室外，因此室内绝对含水量下降；同时低温使相对湿度进一步降低。",
+    "tone_code": "rigorous",
+    "toneName": "严谨讲解",
+    "duration_sec": 284,
+    "line_count": 4,
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "空调一开就觉得嗓子干，是心理作用吗？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "不是。制冷时空气里的水会在冷管上凝成水珠排到室外。",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "A",
+        "text": "所以是水被带走了。",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "对，室内温度降了，水也少了。",
+        "source_paragraph": 1
+      }
+    ],
+    "audio_file_id": "",
+    "enabled": true
+  },
+  {
+    "_id": "ep_20260928",
+    "date_key": 20260928,
+    "title": "冬天摸铁栏杆为什么更冷？",
+    "source_title": "导热系数与体感温度（节选）",
+    "source_text": "温度相同的物体，因导热系数不同，与皮肤接触时的热流速率不同。金属导热系数远高于木头，会更快带走手部热量，因此感觉更冷。",
+    "tone_code": "teach",
+    "toneName": "轻松解释",
+    "duration_sec": 198,
+    "line_count": 4,
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "铁栏杆和木扶手明明是同一个温度吧？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "是同一个温度，但金属抢热抢得快。",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "A",
+        "text": "所以不是它更冷，是我凉得更快？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "对，感觉冷是因为你的手在快速失温。",
+        "source_paragraph": 1
+      }
+    ],
+    "audio_file_id": "",
+    "enabled": true
+  },
+  {
+    "_id": "ep_20260927",
+    "date_key": 20260927,
+    "title": "手机为什么越用越卡？",
+    "source_title": "系统性能衰减（节选）",
+    "source_text": "系统长期使用后，后台常驻进程增多、存储碎片化、以及电池老化带来的性能调度策略变化，都会让响应变慢。",
+    "tone_code": "bicker",
+    "toneName": "抬杠",
+    "duration_sec": 265,
+    "line_count": 4,
+    "lines": [
+      {
+        "speaker": "A",
+        "text": "手机越用越卡，是不是厂商故意的？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "有一部分是，但更多是软件自己长胖了。",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "A",
+        "text": "那恢复出厂设置真有用？",
+        "source_paragraph": 1
+      },
+      {
+        "speaker": "B",
+        "text": "有用，因为那等于把屋子清空重来一遍。",
+        "source_paragraph": 1
+      }
+    ],
+    "audio_file_id": "",
+    "enabled": true
+  }
+]

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>当下最火的视觉语言 · 玻璃层叠</title>
+<style>
+/*
+  ============================================================
+  当下最火的设计语言（2025–2026）：Liquid Glass 系
+  ------------------------------------------------------------
+  Luma / Arc / Raycast / Linear / Cron / Amie 的共同特征：
+    1. 背景是柔和的彩色光晕（不是纯色、不是纸色）
+    2. 前景是半透明玻璃层（blur + 半透明白）
+    3. 玻璃层靠深度与模糊区分，不靠边框和分隔线
+    4. 超大圆角（22–40px）
+    5. 玻璃顶边一条内高光线 inset 0 1px rgba(255,255,255,.17)
+    6. 高对比大字重；数字用等宽
+    7. 强调色高饱和，用得少但很亮
+
+  ⚠️ 工程约束（如实说明）
+    微信小程序对 backdrop-filter 支持不完整（iOS 好、Android 差）。
+    设计里已加降级：半透明底 + 内高光，即使没有模糊层次也不塌。
+  ============================================================ */
+:root{
+  --mono:ui-monospace,"SF Mono",Consolas,monospace;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Noto Serif SC","Songti SC","Noto Serif CJK SC",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0b0b0d;padding:44px 26px 60px;font-family:var(--sans);
+     background-image:radial-gradient(900px 500px at 18% -6%,rgba(255,90,60,.11),transparent 62%),
+                      radial-gradient(820px 520px at 86% 6%,rgba(90,120,255,.11),transparent 62%)}
+.h1{text-align:center;color:#fff;font-size:23px;font-weight:600;letter-spacing:-.3px}
+.sub{text-align:center;color:#8b8b96;font-size:12.5px;margin:10px 0 38px;line-height:1.95}
+.sub b{color:#ff6a4d}
+.row{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;align-items:flex-start}
+.scheme{width:348px}
+.sname{text-align:center;color:#fff;font-size:15.5px;font-weight:600;margin-bottom:5px}
+.sdesc{text-align:center;color:#8b8b96;font-size:11.5px;line-height:1.8;height:58px;margin-bottom:14px}
+.sdesc b{color:#e8e8ee}
+.phone{width:348px;height:706px;border-radius:40px;overflow:hidden;position:relative;
+       box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.07)}
+.glow{position:absolute;inset:0;pointer-events:none}
+.glow i{position:absolute;display:block;border-radius:50%;filter:blur(52px);opacity:.55}
+.body{padding:0 18px;position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+.tabbar{position:absolute;bottom:14px;left:16px;right:16px;height:62px;border-radius:26px;
+        display:flex;align-items:center;justify-content:space-around;z-index:3}
+.tab{font-size:10.5px;text-align:center;font-weight:500}
+.tab svg{display:block;margin:0 auto 3px}
+.brandrow{display:flex;align-items:baseline;justify-content:space-between;padding:14px 2px 17px}
+.brand{font-size:27px;font-weight:600;letter-spacing:.5px}
+.tm{font-family:var(--mono);font-size:11px;letter-spacing:.8px}
+.k{font-family:var(--serif);font-size:11.5px;letter-spacing:2.6px}
+.num{font-family:var(--mono);font-size:11px;letter-spacing:.6px}
+.secrow{display:flex;align-items:baseline;justify-content:space-between;margin:0 2px 9px}
+.title{font-size:16.5px;font-weight:600;margin:0 0 11px}
+.dlg{display:flex;flex-direction:column;gap:7px}
+.line{display:flex;gap:9px;align-items:flex-start}
+.line.a{align-self:flex-start;max-width:96%}
+.line.b{align-self:flex-end;flex-direction:row-reverse;max-width:96%}
+.rail{width:2.5px;border-radius:2px;align-self:stretch;min-height:14px;flex-shrink:0}
+.who{font-size:10px;font-weight:700;flex-shrink:0;padding-top:3px}
+.sayA,.sayB{font-size:14.5px;line-height:1.62}
+.sayB{text-align:right}
+.play{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600}
+.gap{flex:1}
+/* 我的历史里的单条 */
+.hitem{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.hdot{width:5px;height:5px;border-radius:3px;flex-shrink:0}
+.hname{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+       font-size:13.5px;font-weight:500}
+.split{height:1px;margin:12px 0 11px}
+
+/* ============================================================
+   ① 深空玻璃
+   ============================================================ */
+.A{background:#0e0e12}
+.A .glow i:nth-child(1){width:280px;height:280px;left:-70px;top:-70px;background:#ff5a3c}
+.A .glow i:nth-child(2){width:260px;height:260px;right:-80px;top:120px;background:#5b7bff}
+.A .glow i:nth-child(3){width:300px;height:300px;left:40px;bottom:-110px;background:#8b5cf6}
+.A .brand{font-family:var(--serif);color:#fff}
+.A .tm{color:rgba(255,255,255,.42)}
+.A .k{color:rgba(255,255,255,.5)}
+.A .num{color:rgba(255,255,255,.42)}
+.A .title{color:#fff}
+.A .sayA{color:#f2f0ec}
+.A .sayB{color:#ff8266}
+.A .a .rail{background:rgba(255,255,255,.28)}
+.A .b .rail{background:#ff6a4d}
+.A .a .who{color:rgba(255,255,255,.45)}
+.A .b .who{color:#ff8266}
+.A .play{color:#ff8266}
+.A .hname{color:#fff}
+.A .hdot.vm{background:#ff6a4d}
+.A .hdot.g{background:rgba(255,255,255,.25)}
+.A .split{background:rgba(255,255,255,.09)}
+.A .gl{background:rgba(255,255,255,.085);backdrop-filter:blur(22px) saturate(160%);
+       -webkit-backdrop-filter:blur(22px) saturate(160%);
+       border:1px solid rgba(255,255,255,.13);
+       box-shadow:inset 0 1px 0 rgba(255,255,255,.17),0 8px 30px rgba(0,0,0,.28)}
+.A .cta{border-radius:24px;padding:16px;display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.A .plus{width:42px;height:42px;border-radius:15px;flex-shrink:0;
+         background:linear-gradient(145deg,#ff7a58,#e2401f);
+         box-shadow:0 6px 18px rgba(255,90,60,.42),inset 0 1px 0 rgba(255,255,255,.35);
+         display:flex;align-items:center;justify-content:center}
+.A .t1{font-size:17.5px;font-weight:600;color:#fff;letter-spacing:-.2px}
+.A .t2{font-size:12px;color:rgba(255,255,255,.52);margin-top:5px}
+.A .arr{color:rgba(255,255,255,.5)}
+.A .frame{border-radius:22px;padding:16px;margin-bottom:24px}
+.A .tabbar{background:rgba(255,255,255,.075);backdrop-filter:blur(26px) saturate(160%);
+           border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.17),0 12px 34px rgba(0,0,0,.35)}
+.A .tab{color:rgba(255,255,255,.42)}
+.A .tab.on{color:#ff8266}
+
+/* ============================================================
+   ② 晨雾玻璃
+   ============================================================ */
+.B{background:#eef1f7}
+.B .glow i:nth-child(1){width:300px;height:300px;left:-80px;top:-80px;background:#ffb59c}
+.B .glow i:nth-child(2){width:280px;height:280px;right:-90px;top:150px;background:#a9bcff}
+.B .glow i:nth-child(3){width:320px;height:320px;left:30px;bottom:-130px;background:#ffd6a5}
+.B .brand{font-family:var(--serif);color:#15151a}
+.B .tm{color:rgba(20,20,30,.34)}
+.B .k{color:rgba(20,20,30,.42)}
+.B .num{color:rgba(20,20,30,.36)}
+.B .title{color:#15151a}
+.B .sayA{color:#1b1b20}
+.B .sayB{color:#d1401f}
+.B .a .rail{background:rgba(20,20,30,.22)}
+.B .b .rail{background:#d1401f}
+.B .a .who{color:rgba(20,20,30,.42)}
+.B .b .who{color:#d1401f}
+.B .play{color:#d1401f}
+.B .hname{color:#15151a}
+.B .hdot.vm{background:#d1401f}
+.B .hdot.g{background:rgba(20,20,30,.2)}
+.B .split{background:rgba(20,20,30,.10)}
+.B .gl{background:rgba(255,255,255,.62);backdrop-filter:blur(22px) saturate(170%);
+       -webkit-backdrop-filter:blur(22px) saturate(170%);
+       border:1px solid rgba(255,255,255,.9);
+       box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 10px 30px rgba(30,40,80,.10)}
+.B .cta{border-radius:24px;padding:16px;display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.B .plus{width:42px;height:42px;border-radius:15px;flex-shrink:0;
+         background:linear-gradient(145deg,#ff7a58,#e2401f);
+         box-shadow:0 6px 16px rgba(255,90,60,.34),inset 0 1px 0 rgba(255,255,255,.4);
+         display:flex;align-items:center;justify-content:center}
+.B .t1{font-size:17.5px;font-weight:600;color:#15151a;letter-spacing:-.2px}
+.B .t2{font-size:12px;color:rgba(20,20,30,.44);margin-top:5px}
+.B .arr{color:rgba(20,20,30,.32)}
+.B .frame{border-radius:22px;padding:16px;margin-bottom:24px}
+.B .tabbar{background:rgba(255,255,255,.68);backdrop-filter:blur(26px) saturate(170%);
+           border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 12px 30px rgba(30,40,80,.12)}
+.B .tab{color:rgba(20,20,30,.38)}
+.B .tab.on{color:#d1401f}
+
+/* ============================================================
+   ③ 霓虹数据
+   ============================================================ */
+.C{background:#08080b}
+.C .glow i:nth-child(1){width:300px;height:300px;left:-90px;top:-60px;background:#00e0c6}
+.C .glow i:nth-child(2){width:260px;height:260px;right:-80px;top:220px;background:#7c5cff}
+.C .glow i:nth-child(3){width:280px;height:280px;left:60px;bottom:-110px;background:#ff4d6d}
+.C .brand{font-family:var(--mono);font-size:20px;font-weight:700;color:#fff;letter-spacing:-.5px}
+.C .tm{color:rgba(255,255,255,.34)}
+.C .k{font-family:var(--mono);font-size:10.5px;letter-spacing:1.6px;color:rgba(255,255,255,.42)}
+.C .num{color:rgba(255,255,255,.4)}
+.C .title{color:#fff}
+.C .sayA{color:#e8e8ee}
+.C .sayB{color:#5cf0dc}
+.C .a .rail{background:rgba(255,255,255,.2)}
+.C .b .rail{background:#00e0c6}
+.C .a .who{color:rgba(255,255,255,.4)}
+.C .b .who{color:#5cf0dc}
+.C .play{color:#5cf0dc}
+.C .hname{color:#fff}
+.C .hdot.vm{background:#00e0c6}
+.C .hdot.g{background:rgba(255,255,255,.22)}
+.C .split{background:rgba(255,255,255,.08)}
+.C .neon{position:relative;border-radius:22px;padding:14px;margin-bottom:12px;
+         background:rgba(255,255,255,.045);
+         box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 10px 34px rgba(0,0,0,.45)}
+.C .neon:before{content:"";position:absolute;inset:0;border-radius:22px;padding:1px;
+  background:linear-gradient(135deg,rgba(0,224,198,.55),rgba(124,92,255,.28) 45%,rgba(255,77,109,.5));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.C .cta{display:flex;align-items:center;gap:14px}
+.C .plus{width:42px;height:42px;border-radius:14px;flex-shrink:0;
+         background:linear-gradient(145deg,#00e0c6,#00a08c);
+         box-shadow:0 6px 20px rgba(0,224,198,.4),inset 0 1px 0 rgba(255,255,255,.4);
+         display:flex;align-items:center;justify-content:center}
+.C .t1{font-size:17px;font-weight:600;color:#fff;letter-spacing:-.2px}
+.C .t2{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:5px}
+.C .arr{color:rgba(255,255,255,.45)}
+.C .stat3{display:flex;gap:9px;margin-bottom:12px}
+.C .sc{flex:1;border-radius:18px;background:rgba(255,255,255,.045);padding:11px 11px;
+       box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.C .sv{font-family:var(--mono);font-size:21px;font-weight:700;line-height:1;letter-spacing:-.8px}
+.C .sl2{font-size:9.5px;color:rgba(255,255,255,.4);margin-top:5px;letter-spacing:.4px}
+.C .tabbar{background:rgba(255,255,255,.05);backdrop-filter:blur(26px);
+           border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 12px 34px rgba(0,0,0,.5)}
+.C .tab{color:rgba(255,255,255,.36)}
+.C .tab.on{color:#5cf0dc}
+.sb{height:80px;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<div class="h1">当下最火的视觉语言 · 玻璃层叠</div>
+<div class="sub">
+  Luma · Arc · Raycast · Linear · Cron 的共同点：<b>背景光晕 + 半透明玻璃层 + 超大圆角 + 内高光线</b>。<br>
+  苹果 2025 年的 Liquid Glass 把这条定成主流。三版都用到「对白」上，<b>只画图，不动代码</b>。
+</div>
+
+<div class="row">
+
+  <!-- ==================== ① 深空玻璃 ==================== -->
+  <div class="scheme">
+    <div class="sname">① 深空玻璃</div>
+    <div class="sdesc">深色底 + <b>三团彩色光晕</b>，玻璃层浮在光晕上。<br>最有"当下感"，也最适合录屏。</div>
+    <div class="phone A">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="body">
+        <div class="brandrow"><span class="brand">对白</span><span class="tm">01/07</span></div>
+
+        <div class="gl cta">
+          <div class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div style="flex:1">
+            <div class="t1">把文章贴进来</div>
+            <div class="t2">粘贴文本，或从聊天里选文件</div>
+          </div>
+          <div class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="secrow"><span class="k">今 日 一 集</span><span class="num">04:02</span></div>
+        <div class="title">光合作用为什么分两步？</div>
+        <div class="gl frame">
+          <div class="dlg">
+            <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">光合作用其实没那么难。</div></div>
+            <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:13px">
+            <span class="play"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+            <span class="play" style="opacity:.72">往期 07 →</span>
+          </div>
+        </div>
+
+        <div class="secrow"><span class="k">我 聊 过 的</span><span class="num">全部 04 →</span></div>
+        <div class="gl frame" style="margin-bottom:0">
+          <div class="hitem">
+            <div class="hdot vm"></div><div class="hname">数据链路层在物</div>
+            <div class="num">23 句</div><span class="play">去确认 →</span>
+          </div>
+          <div class="dlg">
+            <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hitem">
+            <div class="hdot g"></div><div class="hname">为什么有人会晕车</div>
+            <div class="num">01:48</div><span class="play">▶ 听</span>
+          </div>
+          <div class="dlg">
+            <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">为什么坐车看手机会更晕？</div></div>
+            <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">因为眼睛和内耳的信息打架了。</div></div>
+          </div>
+        </div>
+        <div class="sb"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ② 晨雾玻璃 ==================== -->
+  <div class="scheme">
+    <div class="sname">② 晨雾玻璃</div>
+    <div class="sdesc">浅色光晕 + <b>乳白玻璃</b>，通透、轻。<br>适合白天阅读，也不失当下感。</div>
+    <div class="phone B">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="body">
+        <div class="brandrow"><span class="brand">对白</span><span class="tm">01/07</span></div>
+
+        <div class="gl cta">
+          <div class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div style="flex:1">
+            <div class="t1">把文章贴进来</div>
+            <div class="t2">粘贴文本，或从聊天里选文件</div>
+          </div>
+          <div class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="secrow"><span class="k">今 日 一 集</span><span class="num">04:02</span></div>
+        <div class="title">光合作用为什么分两步？</div>
+        <div class="gl frame">
+          <div class="dlg">
+            <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">光合作用其实没那么难。</div></div>
+            <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:13px">
+            <span class="play"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+            <span class="play" style="opacity:.72">往期 07 →</span>
+          </div>
+        </div>
+
+        <div class="secrow"><span class="k">我 聊 过 的</span><span class="num">全部 04 →</span></div>
+        <div class="gl frame" style="margin-bottom:0">
+          <div class="hitem">
+            <div class="hdot vm"></div><div class="hname">数据链路层在物</div>
+            <div class="num">23 句</div><span class="play">去确认 →</span>
+          </div>
+          <div class="dlg">
+            <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hitem">
+            <div class="hdot g"></div><div class="hname">为什么有人会晕车</div>
+            <div class="num">01:48</div><span class="play">▶ 听</span>
+          </div>
+          <div class="dlg">
+            <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">为什么坐车看手机会更晕？</div></div>
+            <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">因为眼睛和内耳的信息打架了。</div></div>
+          </div>
+        </div>
+        <div class="sb"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ③ 霓虹数据 ==================== -->
+  <div class="scheme">
+    <div class="sname">③ 霓虹数据</div>
+    <div class="sdesc">深黑底 + <b>渐变描边的玻璃卡</b> + 等宽大字数据。<br>最"技术感"，接近 Linear / Warp 的气质。</div>
+    <div class="phone C">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="body">
+        <div class="brandrow"><span class="brand">DUIBAI</span><span class="tm">01/07</span></div>
+
+        <div class="neon cta">
+          <div class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div style="flex:1">
+            <div class="t1">把文章贴进来</div>
+            <div class="t2">粘贴文本，或从聊天里选文件</div>
+          </div>
+          <div class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="stat3">
+          <div class="sc"><div class="sv" style="color:#fff">04</div><div class="sl2">场 对 谈</div></div>
+          <div class="sc"><div class="sv" style="color:#fff">23</div><div class="sl2">句 台 词</div></div>
+          <div class="sc"><div class="sv" style="color:#5cf0dc">02</div><div class="sl2">集 听 完</div></div>
+        </div>
+
+        <div class="neon">
+          <div class="secrow"><span class="k">今日一集</span><span class="k">04:02</span></div>
+          <div class="title">光合作用为什么分两步？</div>
+          <div class="dlg">
+            <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">光合作用其实没那么难。</div></div>
+            <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div style="margin-top:13px">
+            <span class="play"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+          </div>
+        </div>
+
+        <div class="neon" style="margin-bottom:0">
+          <div class="secrow"><span class="k">我聊过的</span><span class="k">04</span></div>
+          <div class="hitem">
+            <div class="hdot vm"></div><div class="hname">数据链路层在物</div>
+            <div class="num">23 句</div><span class="play">去确认 →</span>
+          </div>
+          <div class="dlg">
+            <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hitem">
+            <div class="hdot g"></div><div class="hname">为什么有人会晕车</div>
+            <div class="num">01:48</div><span class="play">▶ 听</span>
+          </div>
+          <div class="dlg">
+            <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">为什么坐车看手机会更晕？</div></div>
+            <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">因为眼睛和内耳的信息打架了。</div></div>
+          </div>
+        </div>
+        <div class="sb"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

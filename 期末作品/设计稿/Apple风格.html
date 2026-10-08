@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Apple 设计语言参考</title>
+<style>
+/*
+  ============ 按 iOS 实际规格搭建 ============
+  字号（pt → px，按 375pt 视口 1pt≈0.907px）：
+    LargeTitle 34 → 31px   Title3 20 → 18px   Headline 17 → 15.4px
+    Body 17 → 15.4px       Subhead 15 → 13.6px  Footnote 13 → 11.8px
+    Caption 12 → 11px
+  间距：分组左右边距 16pt≈14.5px；行最小高 44pt≈40px；图标方块 29pt≈26px
+  圆角：卡片 10pt≈9px；图标方块 7pt≈6.4px
+
+  ★ 关键修正：苹果的"抬升"是**卡片比页面亮**（浅灰底 + 白卡）。
+    我之前一直是纸底 + 深一点的纸2卡 —— 关系反了。这里改成：
+      页面底 #F0EDE4（稍深）  卡片 #FBFAF6（更亮）
+*/
+:root{
+  --ink:#1a1a18; --vm:#b83f28;
+  --lbl2:#5a5750; --lbl3:#6c6760; --lbl4:#756e61;
+  --page:#f0ede4;      /* 页面底：比原来深一点，让卡片能"抬起来" */
+  --card:#fbfaf6;      /* 卡片：比页面亮 —— 这是苹果的关系 */
+  --sep:#e5e0d5;
+  --white:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#dcd8cd;font-family:"Microsoft YaHei","PingFang SC",-apple-system,sans-serif;padding:38px 26px 56px}
+.pt{text-align:center;color:var(--ink);font-size:25px;font-weight:600;letter-spacing:1px}
+.ps{text-align:center;color:var(--lbl3);font-size:13px;margin:8px 0 40px;line-height:1.85}
+.ps b{color:var(--vm)}
+.row{display:flex;justify-content:center;gap:52px;flex-wrap:wrap}
+.scheme{width:340px}
+.sname{text-align:center;color:var(--ink);font-size:16px;font-weight:600;margin-bottom:5px}
+.sdesc{text-align:center;color:var(--lbl3);font-size:12px;line-height:1.8;height:64px;margin-bottom:14px}
+.sdesc b{color:var(--ink);font-weight:600}
+
+.phone{width:340px;height:704px;background:var(--page);border:1px solid #c7c2b6;
+       border-radius:30px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.nav{height:44px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--sep);
+     font-size:15px;color:var(--ink);letter-spacing:.5px;background:rgba(240,237,228,.92)}
+.body{height:calc(100% - 44px);overflow:hidden;padding:0 14px}
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:56px;background:rgba(240,237,228,.96);
+        border-top:1px solid var(--sep);display:flex;align-items:center;justify-content:space-around}
+.tab{font-size:10.5px;color:var(--lbl4);text-align:center}
+.tab.on{color:var(--vm)}
+.tab .ic{font-size:15px;display:block;margin-bottom:2px}
+
+/* ===== 大标题（iOS 最标志性的元素）===== */
+.largetitle{font-size:31px;font-weight:700;color:var(--ink);letter-spacing:-.4px;
+            padding:6px 2px 14px;line-height:1.15}
+
+/* ===== 分组标题：13pt 灰，字距略开 ===== */
+.ghead{font-size:11.8px;font-weight:400;color:var(--lbl3);letter-spacing:.3px;
+       padding:0 16px 7px;text-transform:uppercase}
+
+/* ===== 分组卡片 ===== */
+.card{background:var(--card);border-radius:12px;overflow:hidden;margin-bottom:26px}
+.r{display:flex;align-items:center;gap:12px;padding:11px 14px;min-height:44px;position:relative}
+/* ★ 苹果的分隔线从图标右侧开始（不是通栏）—— 这个 inset 细节是"像不像苹果"的关键 */
+.r + .r:before{content:"";position:absolute;left:52px;right:0;top:0;height:1px;background:var(--sep)}
+.r.noicon + .r.noicon:before{left:14px}
+.r.noicon + .r:before{left:14px}
+
+/* ★ 图标方块：29pt、圆角 7pt、浅色底 —— 设置/提醒事项 的标志性做法 */
+.sq{width:26px;height:26px;border-radius:6.4px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+.sq.vm{background:rgba(200,69,44,.13);color:var(--vm)}   /* 朱：主功能与可播放 */
+.sq.ink{background:rgba(26,26,24,.07);color:var(--lbl2)} /* 墨：其余 */
+
+.rt{flex:1;min-width:0}
+.rtitle{font-size:15.4px;color:var(--ink);line-height:1.25;font-weight:400}
+.rtitle.b{font-weight:600}
+.rsub{font-size:13.6px;color:var(--lbl3);margin-top:3px;line-height:1.35}
+/* chevron：13pt 浅灰，苹果每个可点行都有 */
+.chev{color:var(--lbl4);font-size:15px;flex-shrink:0;line-height:1}
+.rval{color:var(--lbl3);font-size:13.6px;flex-shrink:0;margin-right:2px}
+
+/* 主功能行：比普通行高，因为它最重要 */
+.hero .rtitle{font-size:18px;font-weight:600;letter-spacing:-.2px}
+.hero{padding-top:15px;padding-bottom:15px}
+.hero .sq{width:30px;height:30px;border-radius:7.4px;font-size:15px}
+
+/* 今日一集：可播放，用朱色图标 + 标题加粗 */
+.play .rtitle{font-weight:500}
+
+/* ===== 方案 Q 用：朱色淡底主功能卡 ===== */
+.tintcard{background:rgba(200,69,44,.075);border-radius:12px;margin-bottom:26px;overflow:hidden}
+.tintcard .r + .r:before{background:rgba(200,69,44,.14)}
+/* ★ 修正：tinted group 只染图标与底色，**文字保持标签色（墨）** ——
+   我之前把整组文字都染成朱色，红过头了，那不是苹果的做法 */
+.tintcard .rtitle{color:var(--ink);font-weight:600;font-size:15.4px}
+.tintcard .rsub{color:var(--lbl2)}
+.tintcard .sq{background:var(--vm);color:var(--white)}
+.tintcard .chev{color:rgba(200,69,44,.45)}
+
+/* 底部说明：苹果常在页脚放一行小字 */
+.footnote{font-size:11.8px;color:var(--lbl4);padding:0 16px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<div class="pt">真正按 Apple 设计语言重做</div>
+<div class="ps">
+  大标题 · 分组卡片 · 图标方块 · 右侧 chevron · inset 分隔线 —— 都是 iOS 的实际规格。<br>
+  <b>关键修正：卡片比页面更亮</b>（浅底 + 亮卡），我之前做反了。
+</div>
+
+<div class="row">
+
+  <!-- ==================== P ==================== -->
+  <div class="scheme">
+    <div class="sname">P · 备忘录 / 设置 式 <span style="color:var(--vm);font-size:11.5px">← 推荐</span></div>
+    <div class="sdesc">
+      <b>34pt 大标题</b>打头，主功能是分组里最高的一行。<br>
+      最像苹果原生 App，也最稳。
+    </div>
+    <div class="phone">
+      <div class="nav">对白</div>
+      <div class="body">
+        <div class="largetitle">对白</div>
+
+        <!-- 主功能 -->
+        <div class="card">
+          <div class="r hero">
+            <div class="sq vm">＋</div>
+            <div class="rt">
+              <div class="rtitle b">投一篇文章</div>
+              <div class="rsub">粘贴文本，或从聊天里选文件</div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+
+        <!-- 今天能听 -->
+        <div class="ghead">今天能听</div>
+        <div class="card">
+          <div class="r play">
+            <div class="sq vm">▶</div>
+            <div class="rt">
+              <div class="rtitle">光合作用为什么分两步？</div>
+              <div class="rsub">抬杠 · 6 句 · 4 分钟</div>
+            </div>
+            <div class="rval">今天</div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="sq ink">往</div>
+            <div class="rt"><div class="rtitle">往期</div></div>
+            <div class="rval">6 集</div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+
+        <!-- 我的 -->
+        <div class="ghead">我的</div>
+        <div class="card" style="margin-bottom:0">
+          <div class="r">
+            <div class="sq ink">谈</div>
+            <div class="rt">
+              <div class="rtitle">数据链路层在物</div>
+              <div class="rsub">播客对谈 · 23 句 · 待确认</div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r play">
+            <div class="sq vm">▶</div>
+            <div class="rt">
+              <div class="rtitle">为什么有人会晕车</div>
+              <div class="rsub">轻松解释 · 4 句</div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r play">
+            <div class="sq vm">▶</div>
+            <div class="rt">
+              <div class="rtitle">咖啡因是怎么让你清醒的</div>
+              <div class="rsub">师生 · 4 句</div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="sq ink">腔</div>
+            <div class="rt"><div class="rtitle">默认口吻</div></div>
+            <div class="rval">睡前</div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><span class="ic">◆</span>对白</div>
+        <div class="tab"><span class="ic">◇</span>历史</div>
+        <div class="tab"><span class="ic">◇</span>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== Q ==================== -->
+  <div class="scheme">
+    <div class="sname">Q · 健康 / 提醒事项 式</div>
+    <div class="sdesc">
+      主功能用<b>朱色淡底卡</b>（苹果的 tinted group），<br>
+      整组都用强调色 —— 一眼就看出"这组是干这个的"。
+    </div>
+    <div class="phone">
+      <div class="nav">对白</div>
+      <div class="body">
+        <div class="largetitle">对白</div>
+
+        <!-- 主功能：tinted group -->
+        <div class="ghead">开始</div>
+        <div class="tintcard">
+          <div class="r hero">
+            <div class="sq">＋</div>
+            <div class="rt">
+              <div class="rtitle">投一篇文章</div>
+              <div class="rsub">粘贴文本，或从聊天里选文件</div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+
+        <div class="ghead">今天能听</div>
+        <div class="card">
+          <div class="r play">
+            <div class="sq vm">▶</div>
+            <div class="rt">
+              <div class="rtitle">光合作用为什么分两步？</div>
+              <div class="rsub">抬杠 · 6 句 · 4 分钟</div>
+            </div>
+            <div class="rval">今天</div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="sq ink">往</div>
+            <div class="rt"><div class="rtitle">往期</div></div>
+            <div class="rval">6 集</div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+
+        <div class="ghead">我的</div>
+        <div class="card" style="margin-bottom:0">
+          <div class="r">
+            <div class="sq ink">谈</div>
+            <div class="rt">
+              <div class="rtitle">数据链路层在物</div>
+              <div class="rsub">播客对谈 · 23 句 · 待确认</div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r play">
+            <div class="sq vm">▶</div>
+            <div class="rt">
+              <div class="rtitle">为什么有人会晕车</div>
+              <div class="rsub">轻松解释 · 4 句</div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r play">
+            <div class="sq vm">▶</div>
+            <div class="rt">
+              <div class="rtitle">咖啡因是怎么让你清醒的</div>
+              <div class="rsub">师生 · 4 句</div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><span class="ic">◆</span>对白</div>
+        <div class="tab"><span class="ic">◇</span>历史</div>
+        <div class="tab"><span class="ic">◇</span>我的</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

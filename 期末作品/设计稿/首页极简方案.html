@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>「对白」首页极简方案</title>
+<style>
+  /* ============ 令牌：墨与朱 ============ */
+  :root {
+    --ink:   #1a1a18;
+    --vm:    #b83f28;
+    --ink2:  #5a5750;
+    --ink3:  #6c6760;
+    --ink5:  #c7c1b7;
+    --paper: #f5f2ea;
+    --paper2:#ede9df;
+    --line:  #e2ddd2;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#e8e4da;
+    font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+    padding:40px 30px 60px;
+  }
+  .page-title {
+    text-align:center; color:var(--ink); font-size:26px; font-weight:600;
+    letter-spacing:2px; margin-bottom:6px;
+  }
+  .page-sub {
+    text-align:center; color:var(--ink3); font-size:14px; margin-bottom:44px;
+  }
+  .row { display:flex; justify-content:center; gap:56px; flex-wrap:wrap; }
+
+  .scheme { width:340px; }
+  .scheme-name {
+    text-align:center; color:var(--ink); font-size:17px; font-weight:600;
+    margin-bottom:4px;
+  }
+  .scheme-desc {
+    text-align:center; color:var(--ink3); font-size:12.5px; line-height:1.7;
+    height:44px; margin-bottom:16px;
+  }
+
+  /* 手机框 */
+  .phone {
+    width:340px; height:700px; background:var(--paper);
+    border:1px solid #cfc9bc; border-radius:26px;
+    overflow:hidden; position:relative;
+  }
+  .nav {
+    height:44px; display:flex; align-items:center; justify-content:center;
+    border-bottom:1px solid var(--line);
+    font-size:15px; color:var(--ink); letter-spacing:1px;
+  }
+  .body { height:calc(100% - 44px); display:flex; flex-direction:column; }
+  .tabbar {
+    position:absolute; bottom:0; left:0; right:0; height:56px;
+    background:var(--paper); border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-around;
+  }
+  .tab { font-size:11px; color:var(--ink3); text-align:center; }
+  .tab.on { color:var(--ink); font-weight:600; }
+
+  /* ===== 通用排版 ===== */
+  .claim { font-size:29px; font-weight:600; color:var(--ink); letter-spacing:.5px; line-height:1.25; }
+  .rail { border-left:2px solid var(--vm); padding-left:14px; }
+  .tag { font-size:11px; font-weight:700; letter-spacing:2px; color:var(--vm); }
+  .meta { font-size:12px; color:var(--ink3); }
+  .dl { display:flex; gap:8px; margin-bottom:10px; }
+  .sp { font-size:13px; font-weight:700; color:var(--ink5); width:15px; flex-shrink:0; line-height:1.65; }
+  .sp.b { color:var(--vm); }
+  .tx { font-size:14px; line-height:1.65; color:var(--ink5); }
+  .tx.now { font-size:16px; font-weight:600; color:var(--ink); }
+  .tx.now.b { color:var(--vm); }
+  .play { font-size:14px; font-weight:600; color:var(--vm); }
+  .pill {
+    height:50px; border-radius:25px; background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    color:#fbf9f4; font-size:15px; letter-spacing:1px;
+  }
+  .ghost {
+    height:50px; border-radius:25px; border:1px dashed var(--ink5);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink2); font-size:15px;
+  }
+  .linkline { font-size:12.5px; color:var(--ink3); }
+  .linkline b { color:var(--vm); font-weight:600; }
+
+  /* ================= 方案 A：极简呼吸 ================= */
+  .A .body { padding:0 22px; }
+  .A .top { flex:1; display:flex; flex-direction:column; }
+  .A .claim-wrap { padding:46px 0 34px; }
+  .A .daily { margin-bottom:34px; }
+  .A .daily .dtitle { font-size:19px; font-weight:600; color:var(--ink); line-height:1.4; margin:10px 0 16px; }
+  .A .dact { display:flex; align-items:center; justify-content:space-between; margin-top:18px; }
+  .A .foot { padding-bottom:74px; }
+  .A .foot .row2 { display:flex; justify-content:space-between; }
+
+  /* ================= 方案 B：入口→焦点→列表（QQ音乐式三层） ================= */
+  .B .body { padding:0; }
+  .B .search {
+    margin:16px 18px 0; height:40px; border-radius:20px; background:var(--paper2);
+    display:flex; align-items:center; padding:0 16px; gap:8px;
+  }
+  .B .search .ph { font-size:13.5px; color:var(--ink3); }
+  .B .focus { margin:20px 18px 0; }
+  .B .cover {
+    height:132px; background:var(--paper2); border-radius:12px;
+    display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+  }
+  /* 唱片隐喻：纯色圆盘，无渐变无阴影 */
+  .B .disc {
+    width:92px; height:92px; border-radius:46px; background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; color:#f5f2ea; letter-spacing:1px; line-height:1.35; text-align:center;
+  }
+  .B .cover .pl {
+    position:absolute; right:14px; bottom:12px; color:var(--vm); font-size:13px; font-weight:600;
+  }
+  .B .ftitle { font-size:19px; font-weight:600; color:var(--ink); margin:14px 0 4px; }
+  .B .fsub { font-size:12.5px; color:var(--ink3); }
+  .B .divider { height:1px; background:var(--line); margin:24px 18px 0; }
+  .B .secl { font-size:12px; font-weight:700; letter-spacing:2px; color:var(--ink2); margin:18px 18px 4px; }
+  .B .li { margin:0 18px; padding:13px 0; border-bottom:1px solid var(--line); display:flex; gap:12px; }
+  .B .li:last-child { border-bottom:none; }
+  .B .thumb { width:44px; height:44px; border-radius:8px; background:var(--paper2); flex-shrink:0;
+              display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--ink3); }
+  .B .li .t { font-size:14px; color:var(--ink); font-weight:500; }
+  .B .li .s { font-size:11.5px; color:var(--ink3); margin-top:4px; }
+
+  /* ================= 方案 C：单焦点海报 ================= */
+  .C .body { padding:0 26px; }
+  .C .top { flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .C .mini { font-size:12px; color:var(--ink3); letter-spacing:1px; margin-bottom:18px; }
+  .C .dtitle { font-size:30px; font-weight:600; color:var(--ink); line-height:1.32; margin-bottom:8px; letter-spacing:.5px; }
+  .C .lines { margin:26px 0 30px; }
+  .C .lines .dl { margin-bottom:14px; }
+  .C .lines .tx { font-size:16px; }
+  .C .lines .tx.now { font-size:20px; }
+  .C .cta { display:flex; align-items:center; gap:14px; }
+  .C .cta .play { font-size:16px; }
+  .C .foot { padding-bottom:74px; display:flex; justify-content:space-between; align-items:center; }
+  .C .ghost { height:46px; padding:0 22px; font-size:14px; }
+</style>
+</head>
+<body>
+
+<div class="page-title">「对白」首页 · 三个极简方向</div>
+<div class="page-sub">设计语言：墨与朱 ｜ 无卡片 · 无阴影 · 无渐变 ｜ 靠分隔线与留白分区</div>
+
+<div class="row">
+
+  <!-- ================= 方案 A ================= -->
+  <div class="scheme">
+    <div class="scheme-name">A · 极简呼吸</div>
+    <div class="scheme-desc">只留三块：主张 / 今日一集 / 投一篇文章。<br>其余全部撤走，靠留白撑节奏。</div>
+    <div class="phone A">
+      <div class="nav">对白</div>
+      <div class="body">
+        <div class="top">
+          <div class="claim-wrap"><span class="claim">把文章，<br>聊给你听。</span></div>
+          <div class="daily rail">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <span class="tag">今日一集</span><span class="meta">抬杠 · 6 句</span>
+            </div>
+            <div class="dtitle">光合作用为什么分两步？</div>
+            <div class="dl"><span class="sp">甲</span><span class="tx now">光合作用其实没那么难。</span></div>
+            <div class="dl"><span class="sp b">乙</span><span class="tx now b">难的是课本非要写得这么复杂。</span></div>
+            <div class="dl"><span class="sp">甲</span><span class="tx">那光反应到底在干嘛？</span></div>
+            <div class="dact">
+              <span class="play">▶&nbsp; 先听这集</span>
+              <span class="linkline">往期 6 集 ›</span>
+            </div>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="pill">＋　投一篇文章</div>
+          <div class="row2" style="margin-top:16px">
+            <span class="linkline">昨天听到第 3 句</span>
+            <span class="linkline"><b>最近 4 场 ›</b></span>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 方案 B ================= -->
+  <div class="scheme">
+    <div class="scheme-name">B · 三层递进</div>
+    <div class="scheme-desc">借鉴 QQ 音乐：入口（投文章）→ 焦点（今日一集）→ 列表（最近听）。<br>信息量最大但仍有秩序。</div>
+    <div class="phone B">
+      <div class="nav">对白</div>
+      <div class="body">
+        <div class="search">
+          <span style="color:var(--ink3);font-size:14px">⌕</span>
+          <span class="ph">粘贴文章，或从聊天选文件</span>
+        </div>
+        <div class="focus">
+          <div class="cover">
+            <div class="disc">今日<br>一集</div>
+            <div class="pl">▶ 开始听</div>
+          </div>
+          <div class="ftitle">光合作用为什么分两步？</div>
+          <div class="fsub">抬杠 · 6 句 · 4 分钟</div>
+        </div>
+        <div class="divider"></div>
+        <div class="secl">最近听</div>
+        <div class="li">
+          <div class="thumb">对谈</div>
+          <div>
+            <div class="t">数据链路层在物</div>
+            <div class="s">播客对谈 · 23 句 · 待确认</div>
+          </div>
+        </div>
+        <div class="li">
+          <div class="thumb">对谈</div>
+          <div>
+            <div class="t">为什么有人会晕车</div>
+            <div class="s">轻松解释 · 8 句 · 昨天</div>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 方案 C ================= -->
+  <div class="scheme">
+    <div class="scheme-name">C · 单焦点海报</div>
+    <div class="scheme-desc">首页几乎就是一张海报：今天这一集占满视觉，<br>其他动作退到最底。最有产品记忆点。</div>
+    <div class="phone C">
+      <div class="nav">对白</div>
+      <div class="body">
+        <div class="top">
+          <div class="mini">今日一集 · 抬杠</div>
+          <div class="dtitle">光合作用<br>为什么分两步？</div>
+          <div class="lines rail" style="padding-left:16px">
+            <div class="dl"><span class="sp">甲</span><span class="tx now">光合作用其实没那么难。</span></div>
+            <div class="dl"><span class="sp b">乙</span><span class="tx now b">难的是课本非要写得这么复杂。</span></div>
+            <div class="dl"><span class="sp">甲</span><span class="tx">那光反应到底在干嘛？</span></div>
+          </div>
+          <div class="cta">
+            <span class="play">▶&nbsp; 先听这集</span>
+            <span class="linkline">往期 6 集 ›</span>
+          </div>
+        </div>
+        <div class="foot">
+          <div class="ghost">＋　投一篇文章</div>
+          <span class="linkline">最近 ›</span>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

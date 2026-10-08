@@ -1,0 +1,9 @@
+{
+  "name": "admin-users",
+  "version": "1.0.0",
+  "description": "用户管理（老师点名要求的管理端能力）",
+  "main": "index.js",
+  "dependencies": {
+    "common": "file:../common/common"
+  }
+}

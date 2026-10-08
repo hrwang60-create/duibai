@@ -1,0 +1,53 @@
+{
+  "bsonType": "object",
+  "required": [
+    "title",
+    "image"
+  ],
+  "permission": {
+    "read": true,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "ID"
+    },
+    "title": {
+      "bsonType": "string",
+      "description": "标题"
+    },
+    "image": {
+      "bsonType": "string",
+      "description": "图片地址（云存储 fileID 或 URL）"
+    },
+    "link": {
+      "bsonType": "string",
+      "description": "点击跳转的页面路径，可空"
+    },
+    "sort": {
+      "bsonType": "int",
+      "description": "排序，越小越靠前",
+      "default": 0
+    },
+    "enabled": {
+      "bsonType": "bool",
+      "description": "是否启用",
+      "default": true
+    },
+    "start_at": {
+      "bsonType": "timestamp",
+      "description": "开始展示时间，可空"
+    },
+    "end_at": {
+      "bsonType": "timestamp",
+      "description": "结束展示时间，可空"
+    },
+    "created_at": {
+      "bsonType": "timestamp",
+      "description": "创建时间"
+    }
+  }
+}

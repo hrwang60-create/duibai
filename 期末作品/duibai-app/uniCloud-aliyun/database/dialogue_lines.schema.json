@@ -1,0 +1,63 @@
+{
+  "bsonType": "object",
+  "required": [
+    "script_id",
+    "seq",
+    "speaker",
+    "text"
+  ],
+  "permission": {
+    "read": false,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "ID"
+    },
+    "script_id": {
+      "bsonType": "string",
+      "description": "所属对话稿 _id"
+    },
+    "user_id": {
+      "bsonType": "string",
+      "description": "所属用户 _id"
+    },
+    "seq": {
+      "bsonType": "int",
+      "description": "句序，从 1 开始"
+    },
+    "speaker": {
+      "bsonType": "string",
+      "description": "说话人，取值限定为两个角色",
+      "enum": [
+        "A",
+        "B"
+      ]
+    },
+    "text": {
+      "bsonType": "string",
+      "description": "台词文本"
+    },
+    "source_paragraph": {
+      "bsonType": "int",
+      "description": "对应原文段落序号，0 表示无出处"
+    },
+    "flag": {
+      "bsonType": "string",
+      "description": "可疑类型：术语读法 / 无出处，空串表示无疑点",
+      "enum": [
+        "",
+        "term",
+        "no_source"
+      ]
+    },
+    "confirmed": {
+      "bsonType": "bool",
+      "description": "用户是否已确认该可疑处",
+      "default": false
+    }
+  }
+}

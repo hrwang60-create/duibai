@@ -1,0 +1,14 @@
+{
+  "name": "tts-synthesize",
+  "version": "1.0.0",
+  "description": "音频合成调度：逐句调火山豆包 TTS 2.0、上传云存储、落库；不可用时降级为纯文字稿",
+  "main": "index.js",
+  "dependencies": {
+    "common": "file:../common/common",
+    "app-config": "file:../common/app-config"
+  },
+  "cloudfunction-config": {
+    "timeout": 60,
+    "memorySize": 512
+  }
+}

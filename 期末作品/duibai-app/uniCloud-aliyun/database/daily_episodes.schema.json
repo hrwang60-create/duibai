@@ -1,0 +1,68 @@
+{
+  "bsonType": "object",
+  "required": [
+    "date_key",
+    "title"
+  ],
+  "permission": {
+    "read": true,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "ID"
+    },
+    "date_key": {
+      "bsonType": "int",
+      "description": "日期键，如 20261003，用于按日期取当天那集"
+    },
+    "title": {
+      "bsonType": "string",
+      "description": "集标题"
+    },
+    "source_title": {
+      "bsonType": "string",
+      "description": "取材自哪篇文章"
+    },
+    "source_text": {
+      "bsonType": "string",
+      "description": "原文（出处回溯用）"
+    },
+    "tone_code": {
+      "bsonType": "string",
+      "description": "口吻编码"
+    },
+    "toneName": {
+      "bsonType": "string",
+      "description": "口吻中文名（冗余字段，省一次查询）"
+    },
+    "duration_sec": {
+      "bsonType": "int",
+      "description": "时长（秒）"
+    },
+    "line_count": {
+      "bsonType": "int",
+      "description": "句数"
+    },
+    "lines": {
+      "bsonType": "array",
+      "description": "对话条目 [{speaker,text,source_paragraph}]"
+    },
+    "audio_file_id": {
+      "bsonType": "string",
+      "description": "云存储音频 fileID，可空（TTS 接上后补）"
+    },
+    "enabled": {
+      "bsonType": "bool",
+      "description": "是否上架",
+      "default": true
+    },
+    "segments": {
+      "description": "预置的逐句音频分段 [{line_index, file_id}]，离线生成",
+      "type": "array"
+    }
+  }
+}

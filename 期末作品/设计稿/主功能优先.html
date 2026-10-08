@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>主功能优先 · 首页重排</title>
+<style>
+  :root{
+    --ink:#1a1a18; --vm:#b83f28; --ink2:#5a5750; --ink3:#6c6760;
+    --ink5:#c7c1b7; --paper:#f5f2ea; --paper2:#ede9df; --line:#e2ddd2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#e8e4da;font-family:"Microsoft YaHei","PingFang SC",sans-serif;padding:38px 28px 56px}
+  .pt{text-align:center;color:var(--ink);font-size:25px;font-weight:600;letter-spacing:2px}
+  .ps{text-align:center;color:var(--ink3);font-size:13.5px;margin:8px 0 40px;line-height:1.8}
+  .ps b{color:var(--vm)}
+  .row{display:flex;justify-content:center;gap:54px;flex-wrap:wrap}
+  .scheme{width:340px}
+  .sname{text-align:center;color:var(--ink);font-size:16.5px;font-weight:600;margin-bottom:5px}
+  .sdesc{text-align:center;color:var(--ink3);font-size:12.5px;line-height:1.8;height:64px;margin-bottom:14px}
+  .phone{width:340px;height:700px;background:var(--paper);border:1px solid #cfc9bc;border-radius:26px;overflow:hidden;position:relative}
+  .nav{height:44px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink);letter-spacing:1px}
+  .body{height:calc(100% - 44px);overflow:hidden}
+  .tabbar{position:absolute;bottom:0;left:0;right:0;height:56px;background:var(--paper);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-around}
+  .tab{font-size:11px;color:var(--ink3);text-align:center}
+  .tab.on{color:var(--ink);font-weight:600}
+
+  .claim{font-size:23px;font-weight:600;color:var(--ink);letter-spacing:.5px}
+  .sechead{display:flex;align-items:baseline;justify-content:space-between;margin:22px 18px 11px}
+  .sechead .t{font-size:14px;font-weight:600;color:var(--ink2);letter-spacing:1px}
+  .sechead .m{font-size:11.5px;color:var(--ink3)}
+
+  /* ============ H · 输入区就是主角 ============ */
+  .drop{margin:0 18px;border:1.5px dashed var(--ink5);border-radius:14px;padding:24px 20px 22px;
+        display:flex;flex-direction:column;align-items:center;text-align:center}
+  .drop .ic{width:34px;height:34px;border-radius:17px;background:var(--ink);color:var(--paper);
+            display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:14px}
+  .drop .d1{font-size:18px;font-weight:600;color:var(--ink);letter-spacing:.5px}
+  .drop .d2{font-size:12.5px;color:var(--ink3);margin-top:9px;line-height:1.7}
+  .drop .arrow{margin-top:15px;font-size:13.5px;font-weight:600;color:var(--vm)}
+
+  /* 今日一集（降级：朱竖轨小块，无圆盘） */
+  .mini{border-left:2px solid var(--vm);padding-left:13px;margin:0 18px}
+  .mini .mt{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--vm)}
+  .mini .mtitle{font-size:16px;font-weight:600;color:var(--ink);margin:9px 0 11px;line-height:1.4}
+  .mini .dl{display:flex;gap:7px;margin-bottom:7px}
+  .mini .sp{font-size:11.5px;font-weight:700;color:var(--ink5);width:14px;flex-shrink:0;line-height:1.6}
+  .mini .sp.b{color:var(--vm)}
+  .mini .tx{font-size:13px;line-height:1.6;color:var(--ink3)}
+  .mini .act{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+  .mini .play{font-size:13.5px;font-weight:600;color:var(--vm)}
+  .mini .past{font-size:11.5px;color:var(--ink3)}
+
+  .li{margin:0 18px;padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:11px;align-items:center}
+  .li:last-child{border-bottom:none}
+  .thumb{width:36px;height:36px;border-radius:8px;background:var(--paper2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink)}
+  .li .t{font-size:13.5px;color:var(--ink);font-weight:500}
+  .li .s{font-size:11px;color:var(--ink3);margin-top:3px}
+  .li .r{margin-left:auto;font-size:11.5px;color:var(--vm);flex-shrink:0}
+
+  /* ============ I · 双入口并列 ============ */
+  .duo{display:flex;gap:11px;margin:0 18px}
+  .dc{flex:1;border-radius:14px;padding:17px 15px;display:flex;flex-direction:column;min-height:152px}
+  .dc.main{background:var(--ink)}
+  .dc.sub{background:var(--paper2)}
+  .dc .dt{font-size:15.5px;font-weight:600;line-height:1.35}
+  .dc.main .dt{color:#fbf9f4}
+  .dc.sub .dt{color:var(--ink)}
+  .dc .dd{font-size:11px;margin-top:8px;line-height:1.6}
+  .dc.main .dd{color:var(--ink5)}
+  .dc.sub .dd{color:var(--ink3)}
+  .dc .go{margin-top:auto;font-size:12.5px;font-weight:600}
+  .dc.main .go{color:var(--vm)}
+  .dc.sub .go{color:var(--vm)}
+  /* 朱色小圆盘做子入口的视觉锚 */
+  .dc.sub .dot{width:56px;height:56px;border-radius:28px;border:1.4px solid var(--ink5);
+               display:flex;flex-direction:column;align-items:center;justify-content:center;
+               color:var(--ink2);font-size:10px;letter-spacing:.5px;margin-bottom:14px}
+  .dc.sub .dot .b{font-size:14px;font-weight:600;color:var(--ink)}
+
+  /* 横滑往期 */
+  .hs{display:flex;gap:10px;padding:2px 0 2px 18px;overflow:hidden}
+  .hcard{width:86px;flex-shrink:0}
+  .hcard .cf{width:86px;height:86px;border-radius:10px;background:var(--paper2);
+             display:flex;align-items:center;justify-content:center}
+  .hcard .cf .mi{width:50px;height:50px;border-radius:25px;border:1.4px solid var(--ink5);
+                 display:flex;flex-direction:column;align-items:center;justify-content:center;
+                 color:var(--ink2);font-size:9.5px;line-height:1.35}
+  .hcard .cf .mi .b{font-size:12.5px;font-weight:600;color:var(--ink)}
+  .hcard .ct{font-size:12px;color:var(--ink);margin-top:8px;line-height:1.4;height:34px;overflow:hidden}
+</style>
+</head>
+<body>
+
+<div class="pt">主功能优先 · 首页重排</div>
+<div class="ps">
+  前提：<b>「投一篇文章」是主功能</b>，今日一集是辅助。<br>
+  左边把主功能做成首页最大的东西；右边给两个入口同样的重量，让你对比。
+</div>
+
+<div class="row">
+
+  <!-- ==================== H ==================== -->
+  <div class="scheme">
+    <div class="sname">H · 输入区就是主角</div>
+    <div class="sdesc">
+      主功能占首页最大一块，<b>虚线框 = 可以往这里放东西</b>。<br>
+      今日一集降到朱竖轨小块 —— 它是"不知道投什么？先听一段"。
+    </div>
+    <div class="phone">
+      <div class="nav">对白</div>
+      <div class="body">
+
+        <div style="padding:22px 18px 20px">
+          <span class="claim">把文章，聊给你听。</span>
+        </div>
+
+        <!-- ★ 主功能：一个真正的"投入口" -->
+        <div class="drop">
+          <div class="ic">⌶</div>
+          <div class="d1">把文章贴进来</div>
+          <div class="d2">粘贴文本，或从微信聊天里选个文件<br>两个人把它聊成一段对谈</div>
+          <div class="arrow">开始 →</div>
+        </div>
+
+        <!-- 辅助：今日一集（降级） -->
+        <div class="sechead"><span class="t">先听一段</span><span class="m">今日一集</span></div>
+        <div class="mini">
+          <div class="mt">今日一集 · 抬杠</div>
+          <div class="mtitle">光合作用为什么分两步？</div>
+          <div class="dl"><span class="sp">甲</span><span class="tx">光合作用其实没那么难。</span></div>
+          <div class="dl"><span class="sp b">乙</span><span class="tx">难的是课本非要写得这么复杂。</span></div>
+          <div class="act">
+            <span class="play">▶　听这集</span>
+            <span class="past">往期 6 集 ›</span>
+          </div>
+        </div>
+
+        <!-- 三级：最近 -->
+        <div class="sechead" style="margin-top:24px"><span class="t">我聊过的</span><span class="m">全部 ›</span></div>
+        <div class="li">
+          <div class="thumb">谈</div>
+          <div><div class="t">数据链路层在物</div><div class="s">播客对谈 · 23 句 · 待确认</div></div>
+          <div class="r">去确认 ›</div>
+        </div>
+      </div>
+      <div class="tabbar"><div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div></div>
+    </div>
+  </div>
+
+  <!-- ==================== I ==================== -->
+  <div class="scheme">
+    <div class="sname">I · 双入口并列</div>
+    <div class="sdesc">
+      主功能用<b>墨色实底</b>（最大对比）压住右侧的纸色子入口，<br>
+      下面再接横滑往期与列表 —— 保住你要的 QQ 音乐节奏。
+    </div>
+    <div class="phone">
+      <div class="nav">对白</div>
+      <div class="body">
+
+        <div style="padding:22px 18px 18px">
+          <span class="claim">把文章，聊给你听。</span>
+        </div>
+
+        <!-- ★ 两个入口，主功能用墨底压住 -->
+        <div class="duo">
+          <div class="dc main">
+            <div class="dt">投一篇文章</div>
+            <div class="dd">粘贴文本<br>或从聊天选文件</div>
+            <div class="go">开始聊 →</div>
+          </div>
+          <div class="dc sub">
+            <div class="dot"><span class="b">10-05</span><span>今日</span></div>
+            <div class="go">▶　听这集</div>
+          </div>
+        </div>
+
+        <!-- 横滑往期 -->
+        <div class="sechead"><span class="t">往期</span><span class="m" style="color:var(--vm)">滑动浏览 →</span></div>
+        <div class="hs">
+          <div class="hcard"><div class="cf"><div class="mi"><span class="b">10-04</span><span>往期</span></div></div><div class="ct">为什么有人会晕车？</div></div>
+          <div class="hcard"><div class="cf"><div class="mi"><span class="b">10-03</span><span>往期</span></div></div><div class="ct">咖啡因是怎么让你清醒的？</div></div>
+          <div class="hcard"><div class="cf"><div class="mi"><span class="b">10-02</span><span>往期</span></div></div><div class="ct">为什么熬夜会变丑？</div></div>
+        </div>
+
+        <!-- 列表 -->
+        <div class="sechead"><span class="t">我聊过的</span><span class="m">全部 ›</span></div>
+        <div class="li">
+          <div class="thumb">谈</div>
+          <div><div class="t">数据链路层在物</div><div class="s">播客对谈 · 23 句 · 待确认</div></div>
+          <div class="r">去确认 ›</div>
+        </div>
+      </div>
+      <div class="tabbar"><div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

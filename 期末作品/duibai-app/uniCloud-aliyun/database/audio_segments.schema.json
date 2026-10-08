@@ -1,0 +1,51 @@
+{
+  "bsonType": "object",
+  "required": [
+    "line_id",
+    "file_id"
+  ],
+  "permission": {
+    "read": false,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "ID"
+    },
+    "line_id": {
+      "bsonType": "string",
+      "description": "对应对话条目 _id，一对一"
+    },
+    "script_id": {
+      "bsonType": "string",
+      "description": "所属对话稿 _id"
+    },
+    "user_id": {
+      "bsonType": "string",
+      "description": "所属用户 _id"
+    },
+    "speaker": {
+      "bsonType": "string",
+      "description": "音色角色",
+      "enum": [
+        "A",
+        "B"
+      ]
+    },
+    "file_id": {
+      "bsonType": "string",
+      "description": "云存储 fileID"
+    },
+    "duration": {
+      "bsonType": "double",
+      "description": "时长（秒）"
+    },
+    "created_at": {
+      "bsonType": "timestamp",
+      "description": "合成时间"
+    }
+  }
+}

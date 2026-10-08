@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>排版与布局规格</title>
+<style>
+/*
+  ============================================================
+  「对白」排版与布局规格
+  ------------------------------------------------------------
+  这份是**结构与尺度**的方案，不含配色与质感 —— 后者是表层，
+  换主题时排版与布局不该跟着变。
+
+  排版：字号阶梯靠数学比例，行高与字距按字号分段
+  布局：4pt 基准网格 → 8 段间距 → 三条对齐轴 → 区块高度比例
+  ============================================================ */
+:root{
+  --ink:#141418; --ink2:#4a4a52; --ink3:#7a7a84; --ink4:#a8a8b0;
+  --line:#e6e6e4; --line2:#f0f0ee; --bg:#fbfbfa; --vm:#b83f28;
+  --mono:ui-monospace,"SF Mono",Consolas,monospace;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Noto Serif SC","Songti SC","Noto Serif CJK SC",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f2f2f0;padding:36px 34px 52px;font-family:var(--sans);color:var(--ink)}
+.hd{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:26px;
+    display:flex;align-items:baseline;justify-content:space-between}
+.hd h1{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:.5px}
+.hd .meta{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.6px}
+
+.cols{display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap}
+.colL{flex:1 1 600px;min-width:560px}
+.colR{flex:0 0 470px}
+
+.sh{display:flex;align-items:baseline;gap:12px;margin:30px 0 15px}
+.sh:first-child{margin-top:0}
+.sh .n{font-family:var(--mono);font-size:11px;color:var(--vm);letter-spacing:.6px}
+.sh .t{font-family:var(--serif);font-size:16px;font-weight:600;letter-spacing:.5px}
+.sh .d{flex:1;border-bottom:1px solid var(--line);height:1px}
+.sh .c{font-size:11.5px;color:var(--ink3)}
+
+/* ---------- 排版阶梯：每行 = 数值卡 + 实样 ---------- */
+.scale{border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
+.srow{display:flex;align-items:flex-end;gap:0;border-bottom:1px solid var(--line2);padding:0}
+.srow:last-child{border-bottom:none}
+.spec{flex:0 0 148px;padding:12px 14px;background:#f7f7f5;border-right:1px solid var(--line);
+      display:flex;flex-direction:column;gap:3px}
+.spec .name{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink);letter-spacing:.3px}
+.spec .v{font-family:var(--mono);font-size:10px;color:var(--ink3);line-height:1.5}
+.spec .use{font-size:10px;color:var(--ink4);margin-top:2px}
+.demo{flex:1;padding:10px 16px;overflow:hidden}
+/* 演示字体：标题走宋体，正文走黑体 —— 与方案一致 */
+.d-disp{font-family:var(--serif);font-size:38px;font-weight:600;letter-spacing:-1.1px;line-height:1.08}
+.d-title{font-family:var(--serif);font-size:29px;font-weight:600;letter-spacing:-.9px;line-height:1.15}
+.d-h1{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.5px;line-height:1.3}
+.d-h2{font-family:var(--sans);font-size:18px;font-weight:600;letter-spacing:-.2px;line-height:1.35}
+.d-bodyL{font-family:var(--sans);font-size:15px;font-weight:400;letter-spacing:0;line-height:1.6}
+.d-body{font-family:var(--sans);font-size:13.5px;font-weight:400;letter-spacing:.1px;line-height:1.65}
+.d-cap{font-family:var(--sans);font-size:12px;font-weight:400;letter-spacing:.1px;line-height:1.5;color:var(--ink2)}
+.d-label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:2.2px;color:var(--ink3)}
+.d-num{font-family:var(--mono);font-size:11.5px;font-weight:400;letter-spacing:.6px;color:var(--ink2)}
+
+/* ---------- 布局骨架 ---------- */
+.wire{border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:16px;
+      display:flex;gap:16px}
+.frame{width:210px;flex-shrink:0}
+.fbox{border:1.5px solid var(--ink);border-radius:14px;height:600px;position:relative;
+      padding:0 10px;display:flex;flex-direction:column}
+.fnav{height:26px;display:flex;align-items:center;justify-content:center;
+      font-family:var(--mono);font-size:9px;color:var(--ink4);border-bottom:1px dashed var(--line)}
+.blk{border:1px dashed var(--ink4);border-radius:7px;margin-top:7px;position:relative;
+     display:flex;align-items:center;justify-content:center;
+     font-family:var(--mono);font-size:9px;color:var(--ink3);line-height:1.35;text-align:center}
+.blk.solid{border-style:solid;border-color:var(--ink2);background:#f4f4f2}
+.blk.accent{border-color:var(--vm);color:var(--vm);background:rgba(200,69,44,.045)}
+.blk .h{position:absolute;right:-1px;top:-1px;background:var(--ink);color:#fff;
+        font-family:var(--mono);font-size:8.5px;padding:1px 5px;border-radius:0 6px 0 6px}
+.blk.accent .h{background:var(--vm)}
+.notes{flex:1;padding-top:2px}
+.nt{display:flex;gap:9px;margin-bottom:11px;font-size:11.5px;line-height:1.6}
+.nt .k{font-family:var(--mono);font-size:10.5px;color:var(--vm);flex-shrink:0;width:52px;padding-top:1px}
+.nt .v{flex:1;color:var(--ink2)}
+.nt .v b{color:var(--ink);font-weight:600}
+
+/* ---------- 间距体系 ---------- */
+.sp{display:flex;align-items:flex-end;gap:13px;border:1px solid var(--line);border-radius:10px;
+    background:var(--bg);padding:16px 18px;margin-top:0}
+.spi{text-align:center}
+.spb{background:var(--ink);border-radius:2px;margin:0 auto 6px}
+.spn{font-family:var(--mono);font-size:10.5px;color:var(--ink3)}
+
+/* ---------- 对齐轴 ---------- */
+.axes{border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:16px 18px}
+.ax{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
+.ax:last-child{margin-bottom:0}
+.axr{width:78px;flex-shrink:0;font-family:var(--mono);font-size:10.5px;color:var(--vm);padding-top:2px}
+.axt{flex:1;font-size:11.5px;color:var(--ink2);line-height:1.6}
+.axt b{color:var(--ink);font-weight:600}
+.bar{height:22px;border-radius:4px;display:flex;align-items:center;
+     font-family:var(--mono);font-size:9px;padding-left:7px;color:#fff}
+
+.rules{display:flex;gap:22px;flex-wrap:wrap}
+.rule{flex:1 1 240px;font-size:11.5px;line-height:1.75;color:var(--ink2)}
+.rule b{color:var(--ink);font-weight:600}
+.rule code{font-family:var(--mono);font-size:10.5px;background:#eee;padding:1px 4px;border-radius:3px}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <h1>「对白」排版与布局规格</h1>
+  <span class="meta">TYPE &amp; LAYOUT SPEC · v1 · 375pt 基准视口</span>
+</div>
+
+<div class="cols">
+
+  <!-- ==================== 左：排版系统 ==================== -->
+  <div class="colL">
+
+    <div class="sh"><span class="n">01</span><span class="t">排版阶梯</span><span class="d"></span><span class="c">字号按 1.26 比例递降 · 行高字距分档</span></div>
+
+    <div class="scale">
+      <div class="srow">
+        <div class="spec"><span class="name">Display</span><span class="v">38 / -1.1 / 1.08</span><span class="use">首页主张（单行）</span></div>
+        <div class="demo"><span class="d-disp">把文章，聊给你听。</span></div>
+      </div>
+      <div class="srow">
+        <div class="spec"><span class="name">Title</span><span class="v">29 / -0.9 / 1.15</span><span class="use">页面大标题</span></div>
+        <div class="demo"><span class="d-title">我聊过的</span></div>
+      </div>
+      <div class="srow">
+        <div class="spec"><span class="name">H1</span><span class="v">22 / -0.5 / 1.30</span><span class="use">主功能名 · 集名</span></div>
+        <div class="demo"><span class="d-h1">把文章贴进来</span></div>
+      </div>
+      <div class="srow">
+        <div class="spec"><span class="name">H2</span><span class="v">18 / -0.2 / 1.35</span><span class="use">区块标题</span></div>
+        <div class="demo"><span class="d-h2">光合作用为什么分两步？</span></div>
+      </div>
+      <div class="srow">
+        <div class="spec"><span class="name">Body-L</span><span class="v">15 / 0 / 1.60</span><span class="use">台词（主）</span></div>
+        <div class="demo"><span class="d-bodyL">光合作用其实没那么难。</span></div>
+      </div>
+      <div class="srow">
+        <div class="spec"><span class="name">Body</span><span class="v">13.5 / +0.1 / 1.65</span><span class="use">台词（次）· 列表</span></div>
+        <div class="demo"><span class="d-body">难的是课本非要写得这么复杂。</span></div>
+      </div>
+      <div class="srow">
+        <div class="spec"><span class="name">Caption</span><span class="v">12 / +0.1 / 1.50</span><span class="use">说明 · 状态</span></div>
+        <div class="demo"><span class="d-cap">粘贴文本，或从聊天里选个文件</span></div>
+      </div>
+      <div class="srow">
+        <div class="spec"><span class="name">Num</span><span class="v">11.5 / +0.6 / 1.40</span><span class="use">时间 · 句数（等宽）</span></div>
+        <div class="demo"><span class="d-num">抬杠 · 6 句 · 04:02</span></div>
+      </div>
+      <div class="srow">
+        <div class="spec"><span class="name">Label</span><span class="v">11 / +2.2 / 1.40</span><span class="use">区块标签（宽字距）</span></div>
+        <div class="demo"><span class="d-label">今 日 一 集</span></div>
+      </div>
+    </div>
+
+    <div class="sh" style="margin-top:26px"><span class="n">02</span><span class="t">排版规则</span><span class="d"></span><span class="c">四条硬规则</span></div>
+    <div class="rules">
+      <div class="rule">
+        <b>① 行高按字号分档</b><br>
+        大字号行高收紧（1.08–1.30），小字号放松（1.5–1.65）。
+        行高全用 1.5 会让标题散、正文挤。<br>
+        <code>Display 1.08 / Title 1.15 / H1 1.30 / Body 1.6</code>
+      </div>
+      <div class="rule">
+        <b>② 字距按字号反着给</b><br>
+        大字号要<b>负字距</b>（字才成"块"），小字号要<b>正字距</b>（才不挤）。
+        标签用超宽字距当"标记"。<br>
+        <code>Display −1.1 / Body +0.1 / Label +2.2</code>
+      </div>
+      <div class="rule">
+        <b>③ 字体按角色分工</b><br>
+        标题走<b>宋体</b>（有笔锋、纸稿感），正文走<b>黑体</b>（清晰），
+        数字走<b>等宽</b>（精确、成列对齐）。<br>
+        <code>serif / sans / mono 三种</code>
+      </div>
+      <div class="rule">
+        <b>④ 正文行长 20–26 字</b><br>
+        一行超过 30 字，眼睛回行会找错行。台词列固定左轴、
+        右留 48px 余量保证行长可控。
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== 右：布局系统 ==================== -->
+  <div class="colR">
+
+    <div class="sh"><span class="n">03</span><span class="t">布局骨架</span><span class="d"></span><span class="c">首页 · 区块高度比例</span></div>
+
+    <div class="wire">
+      <div class="frame">
+        <div class="fbox">
+          <div class="fnav">native nav 46</div>
+          <div class="blk" style="height:52px">
+            <span class="h">52</span>标题行<br>标题 + 计数
+          </div>
+          <div class="blk accent" style="height:76px">
+            <span class="h">76</span>主功能<br>H1 22pt
+          </div>
+          <div class="blk" style="height:34px">
+            <span class="h">34</span>标签行
+          </div>
+          <div class="blk solid" style="height:132px">
+            <span class="h">132</span>今日一集<br>标题 + 2 句台词 + 动作
+          </div>
+          <div class="blk" style="height:34px">
+            <span class="h">34</span>标签行
+          </div>
+          <div class="blk solid" style="height:158px">
+            <span class="h">158</span>我聊过的<br>2 条 × (标题 + 2 句)
+          </div>
+          <div class="blk" style="height:22px;border-color:transparent"></div>
+          <div class="blk" style="height:60px;position:absolute;left:10px;right:10px;bottom:10px">
+            <span class="h">60</span>tab bar（悬浮）
+          </div>
+        </div>
+      </div>
+
+      <div class="notes">
+        <div class="nt"><span class="k">1:1.9</span><span class="v"><b>主功能 : 今日一集</b> 的高度比。
+          主线内容永远比次线内容高，比例靠高度差建立，不靠颜色。</span></div>
+        <div class="nt"><span class="k">34px</span><span class="v"><b>标签行固定高</b>。
+          每个区块上方都有一行 34px 的"标签行"（宽字距标签 + 等宽计数），
+          它是块与块之间的<b>呼吸位</b>，也保证每块开头结构一致。</span></div>
+        <div class="nt"><span class="k">3 段</span><span class="v"><b>一屏只放 3 块内容</b>
+          （主功能 / 今日一集 / 我聊过的）。超过 3 块，节奏就散，
+          用户不再知道先看哪。</span></div>
+        <div class="nt"><span class="k">20px</span><span class="v"><b>左右安全边距</b>。
+          小于 16px 显得挤，大于 24px 显得空。</span></div>
+        <div class="nt"><span class="k">76px</span><span class="v"><b>底部安全区</b>
+          （tab bar 60 + 留白 16）。所有可滚动内容最后都必须留出这段。</span></div>
+      </div>
+    </div>
+
+    <div class="sh" style="margin-top:26px"><span class="n">04</span><span class="t">间距体系</span><span class="d"></span><span class="c">4pt 基准 · 8 段</span></div>
+    <div class="sp">
+      <div class="spi"><div class="spb" style="width:16px;height:4px"></div><div class="spn">4</div></div>
+      <div class="spi"><div class="spb" style="width:16px;height:8px"></div><div class="spn">8</div></div>
+      <div class="spi"><div class="spb" style="width:16px;height:12px"></div><div class="spn">12</div></div>
+      <div class="spi"><div class="spb" style="width:16px;height:16px"></div><div class="spn">16</div></div>
+      <div class="spi"><div class="spb" style="width:16px;height:20px"></div><div class="spn">20</div></div>
+      <div class="spi"><div class="spb" style="width:16px;height:28px"></div><div class="spn">28</div></div>
+      <div class="spi"><div class="spb" style="width:16px;height:36px"></div><div class="spn">36</div></div>
+      <div class="spi"><div class="spb" style="width:16px;height:52px"></div><div class="spn">52</div></div>
+    </div>
+
+    <div class="axes" style="margin-top:14px">
+      <div class="ax"><span class="axr">内 4</span><span class="axt">
+        <b>元素内间距</b> — 图标与文字、标签与数值之间</span></div>
+      <div class="ax"><span class="axr">行 12</span><span class="axt">
+        <b>行间</b> — 列表项两行之间、台词两句之间</span></div>
+      <div class="ax"><span class="axr">块 28</span><span class="axt">
+        <b>块间</b> — 内容块与内容块之间（配合 34px 标签行）</span></div>
+      <div class="ax"><span class="axr">区 52</span><span class="axt">
+        <b>区隔</b> — 页面顶部/底部的呼吸位，只在首尾用</span></div>
+    </div>
+
+    <div class="sh" style="margin-top:26px"><span class="n">05</span><span class="t">对齐轴</span><span class="d"></span><span class="c">三条轴 · 不混用</span></div>
+    <div class="axes">
+      <div class="ax"><span class="axr">A 主左轴</span><span class="axt">
+        <div class="bar" style="background:#141418;width:100%">标题 · 标签 · 说明 · 甲</div>
+      </span></div>
+      <div class="ax"><span class="axr">B 次右轴</span><span class="axt">
+        <div class="bar" style="background:#b83f28;width:100%;margin-left:auto">乙 · 动作 · 计数</div>
+        <div style="font-size:10.5px;color:var(--ink3);margin-top:5px">
+          靠右对齐形成第二条轴 —— 与主左轴之间就是"对话"的张力</div>
+      </span></div>
+      <div class="ax"><span class="axr">C 缩进轴</span><span class="axt">
+        <div class="bar" style="background:#7a7a84;width:100%;margin-left:14px">条目内的第二层（对话痕迹）</div>
+        <div style="font-size:10.5px;color:var(--ink3);margin-top:5px">
+          缩进 14px = 竖轨宽 2.5 + 间隙 11.5，只用于<b>嵌套</b>一层，不叠第二层</div>
+      </span></div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

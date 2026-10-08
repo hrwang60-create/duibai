@@ -1,0 +1,51 @@
+{
+  "bsonType": "object",
+  "required": [
+    "stage"
+  ],
+  "permission": {
+    "read": false,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "ID"
+    },
+    "user_id": {
+      "bsonType": "string",
+      "description": "所属用户 _id"
+    },
+    "script_id": {
+      "bsonType": "string",
+      "description": "关联对话稿 _id，可空"
+    },
+    "stage": {
+      "bsonType": "string",
+      "description": "环节：parse / dialogue / tts",
+      "enum": [
+        "parse",
+        "dialogue",
+        "tts"
+      ]
+    },
+    "ms": {
+      "bsonType": "int",
+      "description": "耗时（毫秒）"
+    },
+    "ok": {
+      "bsonType": "bool",
+      "description": "是否成功"
+    },
+    "error_code": {
+      "bsonType": "string",
+      "description": "失败时的错误码，可空"
+    },
+    "created_at": {
+      "bsonType": "timestamp",
+      "description": "记录时间"
+    }
+  }
+}

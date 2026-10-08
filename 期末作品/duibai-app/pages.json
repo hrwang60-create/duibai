@@ -1,0 +1,128 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "对白",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/daily/daily",
+			"style": {
+				"navigationBarTitleText": "每日一集"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/generate/generate",
+			"style": {
+				"navigationBarTitleText": "生成中",
+				"disableScroll": true
+			}
+		},
+		{
+			"path": "pages/confirm/confirm",
+			"style": {
+				"navigationBarTitleText": "确认"
+			}
+		},
+		{
+			"path": "pages/result/result",
+			"style": {
+				"navigationBarTitleText": "对谈"
+			}
+		},
+		{
+			"path": "pages/history/history",
+			"style": {
+				"navigationBarTitleText": "历史记录"
+			}
+		},
+		{
+			"path": "pages/article/article",
+			"style": {
+				"navigationBarTitleText": "原文"
+			}
+		},
+		{
+			"path": "pages/profile/profile",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/error/error",
+			"style": {
+				"navigationBarTitleText": "提示"
+			}
+		},
+		{
+			"path": "pages/admin/dashboard/index",
+			"style": {
+				"navigationBarTitleText": "管理首页"
+			}
+		},
+		{
+			"path": "pages/admin/users/index",
+			"style": {
+				"navigationBarTitleText": "用户管理"
+			}
+		},
+		{
+			"path": "pages/admin/banners/index",
+			"style": {
+				"navigationBarTitleText": "Banner 管理"
+			}
+		},
+		{
+			"path": "pages/admin/tones/index",
+			"style": {
+				"navigationBarTitleText": "口吻模板"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "对白",
+		"navigationBarBackgroundColor": "#ede7d9",
+		"backgroundColor": "#ede7d9",
+		"backgroundColorTop": "#ede7d9",
+		"backgroundColorBottom": "#ede7d9"
+	},
+	"tabBar": {
+		"color": "#6c6760",
+		"selectedColor": "#1a1a18",
+		"backgroundColor": "#f5f2ea",
+		"borderStyle": "white",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "对白",
+				"iconPath": "static/icons/tab-home-off.png",
+				"selectedIconPath": "static/icons/tab-home-on.png"
+			},
+			{
+				"pagePath": "pages/history/history",
+				"text": "历史",
+				"iconPath": "static/icons/tab-history-off.png",
+				"selectedIconPath": "static/icons/tab-history-on.png"
+			},
+			{
+				"pagePath": "pages/profile/profile",
+				"text": "我的",
+				"iconPath": "static/icons/tab-mine-off.png",
+				"selectedIconPath": "static/icons/tab-mine-on.png"
+			}
+		]
+	},
+	"easycom": {
+		"autoscan": true,
+		"custom": {}
+	}
+}

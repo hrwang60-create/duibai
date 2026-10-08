@@ -1,0 +1,35 @@
+{
+  "bsonType": "object",
+  "required": [
+    "article_id",
+    "seq"
+  ],
+  "permission": {
+    "read": false,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "ID"
+    },
+    "article_id": {
+      "bsonType": "string",
+      "description": "所属文章 _id"
+    },
+    "user_id": {
+      "bsonType": "string",
+      "description": "所属用户 _id（便于权限判定）"
+    },
+    "seq": {
+      "bsonType": "int",
+      "description": "段落在文章内的序号，从 1 开始，连续唯一"
+    },
+    "text": {
+      "bsonType": "string",
+      "description": "段落原文"
+    }
+  }
+}

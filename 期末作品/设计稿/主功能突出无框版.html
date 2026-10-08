@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>主功能突出 · 无空框方案</title>
+<style>
+  :root{
+    --ink:#1a1a18; --vm:#b83f28; --ink2:#5a5750; --ink3:#6c6760;
+    --ink5:#c7c1b7; --paper:#f5f2ea; --paper2:#ede9df; --line:#e2ddd2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#e8e4da;font-family:"Microsoft YaHei","PingFang SC",sans-serif;padding:38px 28px 56px}
+  .pt{text-align:center;color:var(--ink);font-size:25px;font-weight:600;letter-spacing:2px}
+  .ps{text-align:center;color:var(--ink3);font-size:13.5px;margin:8px 0 40px;line-height:1.8}
+  .ps b{color:var(--vm)}
+  .row{display:flex;justify-content:center;gap:54px;flex-wrap:wrap}
+  .scheme{width:340px}
+  .sname{text-align:center;color:var(--ink);font-size:16.5px;font-weight:600;margin-bottom:5px}
+  .sdesc{text-align:center;color:var(--ink3);font-size:12.5px;line-height:1.8;height:64px;margin-bottom:14px}
+  .phone{width:340px;height:700px;background:var(--paper);border:1px solid #cfc9bc;border-radius:26px;overflow:hidden;position:relative}
+  .nav{height:44px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink);letter-spacing:1px}
+  .body{height:calc(100% - 44px);overflow:hidden}
+  .tabbar{position:absolute;bottom:0;left:0;right:0;height:56px;background:var(--paper);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-around}
+  .tab{font-size:11px;color:var(--ink3);text-align:center}
+  .tab.on{color:var(--ink);font-weight:600}
+
+  .claim{font-size:23px;font-weight:600;color:var(--ink);letter-spacing:.5px}
+  .rule{height:1px;background:var(--line)}
+  .sechead{display:flex;align-items:baseline;justify-content:space-between;margin:0 18px 10px}
+  .sechead .t{font-size:13px;font-weight:700;letter-spacing:2px;color:var(--ink2)}
+  .sechead .m{font-size:11.5px;color:var(--ink3)}
+  .pill{height:50px;border-radius:25px;background:var(--ink);color:#fbf9f4;
+        display:flex;align-items:center;justify-content:center;font-size:15.5px;letter-spacing:1px;font-weight:500}
+
+  /* 今日一集（朱竖轨小块） */
+  .mini{border-left:2px solid var(--vm);padding-left:13px;margin:0 18px}
+  .mini .mt{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--vm);margin-bottom:9px}
+  .mini .mtitle{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:11px;line-height:1.4}
+  .mini .dl{display:flex;gap:0;margin-bottom:6px}
+  .mini .sp{font-size:11.5px;font-weight:700;color:var(--ink5);width:20px;flex-shrink:0;line-height:1.6;margin-right:5px}
+  .mini .sp.b{color:var(--vm)}
+  .mini .tx{font-size:13px;line-height:1.6;color:var(--ink3)}
+  .mini .act{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+  .mini .play{font-size:13.5px;font-weight:600;color:var(--vm)}
+  .mini .past{font-size:11.5px;color:var(--ink3)}
+
+  .li{margin:0 18px;padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:11px;align-items:center}
+  .li:last-child{border-bottom:none}
+  .thumb{width:36px;height:36px;border-radius:8px;background:var(--paper2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink)}
+  .li .t{font-size:13.5px;color:var(--ink);font-weight:500}
+  .li .s{font-size:11px;color:var(--ink3);margin-top:3px}
+  .li .r{margin-left:auto;font-size:11.5px;color:var(--vm);flex-shrink:0}
+
+  /* ============ J · 无框：靠字号与留白分层 ============ */
+  .J .maintitle{font-size:22px;font-weight:600;color:var(--ink);letter-spacing:.5px}
+  .J .maindesc{font-size:13px;color:var(--ink3);margin-top:9px;line-height:1.65}
+  .J .mainrow{display:flex;align-items:baseline;gap:10px;margin-top:20px}
+  .J .mainrow .a{font-size:12px;color:var(--ink3)}
+  .J .mainrow .b{font-size:12.5px;font-weight:600;color:var(--vm)}
+
+  /* ============ K · 示例：主功能区里放真实转换 ============ */
+  .K .before{font-size:12.5px;color:var(--ink3);line-height:1.65}
+  .K .before .lb{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--ink5);display:block;margin-bottom:6px}
+  .K .arrow{display:flex;align-items:center;gap:9px;margin:13px 0}
+  .K .arrow .ln{flex:1;height:1px;background:var(--line)}
+  .K .arrow .tx{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--vm)}
+  .K .after .lb{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--vm);display:block;margin-bottom:7px}
+  .K .after .dl{display:flex;gap:0;margin-bottom:5px}
+  .K .after .sp{font-size:11.5px;font-weight:700;color:var(--ink);width:20px;flex-shrink:0;line-height:1.6;margin-right:5px}
+  .K .after .sp.b{color:var(--vm)}
+  .K .after .tx{font-size:13.5px;line-height:1.6;color:var(--ink)}
+  .K .after .tx.b{color:var(--vm)}
+</style>
+</head>
+<body>
+
+<div class="pt">主功能突出 · 去掉空框</div>
+<div class="ps">
+  两个方案都<b>不用卡片、不用虚线框</b>，也不靠"占大块"来突出 ——<br>
+  而是靠<b>字号层级 + 唯一的黑色胶囊 + 留白</b>。中间不会再有空洞。
+</div>
+
+<div class="row">
+
+  <!-- ==================== J ==================== -->
+  <div class="scheme">
+    <div class="sname">J · 无框，靠层级</div>
+    <div class="sdesc">
+      主功能区只有三行：大标题 / 说明 / 黑胶囊。<br>
+      没有任何框，但它是首页<b>字最大、唯一的黑色块</b>，一眼就有最重。
+    </div>
+    <div class="phone">
+      <div class="nav">对白</div>
+      <div class="body">
+
+        <div style="padding:24px 18px 0">
+          <span class="claim">把文章，聊给你听。</span>
+        </div>
+
+        <!-- ★ 主功能：无框，靠字号与黑胶囊 -->
+        <div style="padding:30px 18px 32px">
+          <div class="maintitle">投一篇文章</div>
+          <div class="maindesc">粘贴文本，或从微信聊天里选个文件。<br>两个人把它聊成一段对谈。</div>
+          <div style="margin-top:20px" class="pill">＋　粘贴一篇文章</div>
+        </div>
+
+        <div class="rule"></div>
+
+        <!-- 辅助：先听一段 -->
+        <div style="padding:22px 0 20px">
+          <div class="sechead"><span class="t">先听一段</span><span class="m">今日一集</span></div>
+          <div class="mini">
+            <div class="mt">抬杠 · 6 句 · 4 分钟</div>
+            <div class="mtitle">光合作用为什么分两步？</div>
+            <div class="dl"><span class="sp">甲</span><span class="tx">光合作用其实没那么难。</span></div>
+            <div class="dl"><span class="sp b">乙</span><span class="tx">难的是课本非要写得这么复杂。</span></div>
+            <div class="act">
+              <span class="play">▶　听这集</span>
+              <span class="past">往期 6 集 ›</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rule" style="margin:0 18px"></div>
+
+        <div style="padding:20px 0 0">
+          <div class="sechead"><span class="t">我聊过的</span><span class="m">全部 ›</span></div>
+          <div class="li">
+            <div class="thumb">谈</div>
+            <div><div class="t">数据链路层在物</div><div class="s">播客对谈 · 23 句 · 待确认</div></div>
+            <div class="r">去确认 ›</div>
+          </div>
+          <div class="li">
+            <div class="thumb">听</div>
+            <div><div class="t">为什么有人会晕车</div><div class="s">轻松解释 · 4 句 · 已生成声音</div></div>
+            <div class="r">▶ 听</div>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar"><div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div></div>
+    </div>
+  </div>
+
+  <!-- ==================== K ==================== -->
+  <div class="scheme">
+    <div class="sname">K · 无框，但用示例说明</div>
+    <div class="sdesc">
+      同样无框，但主功能区里放<b>一次真实的转换</b>：<br>原文 → 对谈。既填满了空间，又让人秒懂产品在做什么。
+    </div>
+    <div class="phone">
+      <div class="nav">对白</div>
+      <div class="body">
+
+        <div style="padding:24px 18px 0">
+          <span class="claim">把文章，聊给你听。</span>
+        </div>
+
+        <!-- ★ 主功能：无框 + 真实转换示例 -->
+        <div style="padding:28px 18px 26px">
+          <div class="before">
+            <span class="lb">你的一篇文章</span>
+            光合作用分为光反应和暗反应两个阶段，光反应需要光直接参与…
+          </div>
+
+          <div class="arrow">
+            <span class="tx">变成两个人聊</span><span class="ln"></span>
+          </div>
+
+          <div class="after">
+            <div class="dl"><span class="sp">甲</span><span class="tx">光合作用其实没那么难。</span></div>
+            <div class="dl"><span class="sp b">乙</span><span class="tx b">难的是课本非要写得这么复杂。</span></div>
+          </div>
+
+          <div style="margin-top:22px" class="pill">＋　粘贴你的文章</div>
+        </div>
+
+        <div class="rule"></div>
+
+        <div style="padding:20px 0 0">
+          <div class="sechead"><span class="t">先听一段</span><span class="m">今日一集</span></div>
+          <div class="mini">
+            <div class="mt">抬杠 · 6 句 · 4 分钟</div>
+            <div class="mtitle">光合作用为什么分两步？</div>
+            <div class="act" style="margin-top:10px">
+              <span class="play">▶　听这集</span>
+              <span class="past">往期 6 集 ›</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:18px 0 0">
+          <div class="sechead"><span class="t">我聊过的</span><span class="m">全部 ›</span></div>
+          <div class="li">
+            <div class="thumb">谈</div>
+            <div><div class="t">数据链路层在物</div><div class="s">播客对谈 · 23 句</div></div>
+            <div class="r">去确认 ›</div>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar"><div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -6,3 +6,34 @@ __pycache__/
 # 系统文件
 .DS_Store
 Thumbs.db
+
+# ── 本项目不提交的内容 ──────────────────────────────
+# AI 工作笔记（内部过程记录，不是作品的一部分）
+.workbuddy/
+
+# 实验一二三的材料（另一个作业的产物）
+实验*/
+__exp*_page-*.png
+__ref*_page-*.png
+
+# 录屏视频（53MB，单独提交，不进仓库）
+期末作品/提交物/最终交付/*.mp4
+期末作品/**/*.mp4
+
+# 密钥与本地配置（重要：config.json 里是明文 AppSecret）
+**/app-config/config.json
+**/.env
+**/.env.*
+
+# 编译产物与依赖
+**/unpackage/
+**/node_modules/
+**/project.config.json
+**/project.private.config.json
+
+# 临时渲染
+__*
+
+# 用户自己打的提交包（含录屏视频，50MB+，不入库）
+期末作品/提交物/*.zip
+期末作品/提交物/最终交付/

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>特色布局 · 对话即布局</title>
+<style>
+/*
+  ============================================================
+  为什么之前都"老气"
+  ------------------------------------------------------------
+  我一直在做「通用 App 的排版」：网格、卡片、分栏、字号层级。
+  这些东西任何 App 都能用，所以它不表征「对白」，
+  也就不可能有"特色" —— 只能在"精致/平庸"之间浮动。
+
+  「对白」独有的视觉符号是什么？——**两个人的对话本身**。
+  这个符号我一直没在首页用过。
+
+  这一版把它拿来当**布局骨架**：
+    · 甲靠左、乙靠右，中间留出"被打断"的空位
+    · 主功能（投一篇文章）就放在**对话的回应位** ——
+      像两个人在等你把文章递过去，而不是一个孤立的按钮
+    · 今日一集同样用对话形式露出，一眼就知道产品在做什么
+  ============================================================
+*/
+:root{
+  --vm:#ff4d33;
+  --mono:Consolas,"Cascadia Mono",ui-monospace,monospace;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Noto Serif SC","Songti SC","Noto Serif CJK SC","SimSun",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#d9d9d4;padding:38px 26px 56px;font-family:var(--sans)}
+.h1{text-align:center;color:#17171a;font-size:23px;font-weight:600;letter-spacing:-.3px}
+.sub{text-align:center;color:#7a7a80;font-size:12.5px;margin:9px 0 34px;line-height:1.9}
+.sub b{color:var(--vm)}
+.row{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;align-items:flex-start}
+.scheme{width:348px}
+.sname{text-align:center;color:#17171a;font-size:15.5px;font-weight:600;margin-bottom:4px}
+.sdesc{text-align:center;color:#7a7a80;font-size:11.5px;line-height:1.8;height:58px;margin-bottom:12px}
+.sdesc b{color:#17171a}
+.phone{width:348px;height:704px;border-radius:32px;overflow:hidden;position:relative;
+       box-shadow:0 14px 36px rgba(0,0,0,.16)}
+
+/* ================= 深色版 ================= */
+.dark{background:#141416;color:#f0ede4}
+.dark .nav{background:rgba(20,20,22,.95);border-bottom:1px solid #242428}
+.dark .brand{font-family:var(--serif);color:#f0ede4}
+.dark .topmeta{color:#5a5a62}
+.dark .L{color:#f0ede4}
+.dark .L.dim{color:#6d6d76}
+.dark .R{color:var(--vm)}
+.dark .R.dim{color:rgba(255,77,51,.62)}
+.dark .railL{background:#4a4a52}
+.dark .railR{background:var(--vm)}
+.dark .cta{background:rgba(255,77,51,.055);border:1px solid rgba(255,77,51,.30)}
+.dark .cta .t{color:#f0ede4}
+.dark .cta .s{color:#8f8f97}
+.dark .hr{background:#242428}
+.dark .footk{color:#5a5a62}
+.dark .footv{color:#8f8f97}
+.dark .tabbar{background:rgba(20,20,22,.97);border-top:1px solid #242428}
+.dark .tab{color:#5a5a62}
+.dark .tab.on{color:var(--vm)}
+
+/* ================= 浅色版（纸与墨，验证是不是配色的问题）================= */
+.paper{background:#f2f0e9;color:#1a1a18}
+.paper .nav{background:rgba(242,240,233,.95);border-bottom:1px solid #e0ddd2}
+.paper .brand{font-family:var(--serif);color:#1a1a18}
+.paper .topmeta{color:#a5a094}
+.paper .L{color:#1a1a18}
+.paper .L.dim{color:#6c6760}
+.paper .R{color:#b83f28}
+.paper .R.dim{color:rgba(200,69,44,.62)}
+.paper .railL{background:#c3bfb2}
+.paper .railR{background:#b83f28}
+.paper .cta{background:#fff;border:1px solid #b83f28}
+.paper .cta .t{color:#1a1a18}
+.paper .cta .s{color:#6c6760}
+.paper .hr{background:#e0ddd2}
+.paper .footk{color:#a5a094}
+.paper .footv{color:#6c6760}
+.paper .tabbar{background:rgba(242,240,233,.97);border-top:1px solid #e0ddd2}
+.paper .tab{color:#a5a094}
+.paper .tab.on{color:#b83f28}
+
+/* ================= 共用骨架 ================= */
+.nav{height:46px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.body{padding:0 22px;height:calc(100% - 46px);overflow:hidden;display:flex;flex-direction:column}
+
+.brandrow{display:flex;align-items:baseline;justify-content:space-between;padding:14px 0 24px}
+.brand{font-size:28px;font-weight:600;letter-spacing:.5px}
+.topmeta{font-family:var(--mono);font-size:11px;letter-spacing:1px}
+
+/* —— 对话：甲靠左、乙靠右，各有一条竖轨 —— */
+.dlg{display:flex;flex-direction:column;gap:17px}
+.turn{display:flex;gap:9px;align-items:flex-start;max-width:94%}
+.turn.L{align-self:flex-start}
+.turn.R{align-self:flex-end;flex-direction:row-reverse}
+.rail{width:3px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:20px}
+.railL{background:#f0ede4}
+.railR{background:var(--vm)}
+.turn .who{font-size:11px;font-weight:700;letter-spacing:1px;flex-shrink:0;padding-top:3px}
+.turn .say{font-size:16.5px;line-height:1.62;letter-spacing:.1px}
+
+/* —— 主功能放在"回应位"：对话在等你递文章 —— */
+.cta{margin-top:20px;border-radius:16px;padding:17px 18px;display:flex;align-items:center;gap:14px}
+.cta .plus{width:38px;height:38px;border-radius:12px;background:var(--vm);
+           display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta .tt{flex:1;min-width:0}
+.cta .t{font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:-.1px}
+.cta .s{font-size:12px;margin-top:5px;line-height:1.5}
+.cta .arr{flex-shrink:0;color:var(--vm)}
+
+/* —— 底部：今日一集 + 入口 —— */
+.hr{height:1px;margin:30px 0 20px}
+.footrow{display:flex;align-items:baseline;justify-content:space-between}
+.footk{font-family:var(--serif);font-size:11.5px;letter-spacing:2.4px}
+.footv{font-family:var(--mono);font-size:11px;letter-spacing:.8px}
+.foottitle{font-size:14.5px;font-weight:500;margin-top:9px;line-height:1.4}
+.footact{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.play{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--vm)}
+.minilink{font-size:12px;color:var(--vm);opacity:.85}
+
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:60px;display:flex;
+        align-items:center;justify-content:space-around}
+.tab{font-size:10.5px;text-align:center;font-weight:500}
+.tab svg{display:block;margin:0 auto 3px}
+.spacer{height:66px}
+</style>
+</head>
+<body>
+
+<div class="h1">特色布局 · 拿"对话"当骨架</div>
+<div class="sub">
+  之前每版都用<b>通用 App 的排版</b>（网格、卡片、分栏）—— 任何 App 都能用，所以不表征「对白」，也就不可能有特色。<br>
+  这一版把<b>「两个人的对话」本身</b>拿来当布局：甲靠左、乙靠右，主功能就放在<b>对话的回应位</b>。
+</div>
+
+<div class="row">
+
+  <!-- ============ 深色 ============ -->
+  <div class="scheme">
+    <div class="sname">W · 对话即布局（深墨）</div>
+    <div class="sdesc">甲靠左、乙靠右，各有竖轨。主功能是<b>对话在等你回应</b>——<br>不是孤立的按钮。</div>
+    <div class="phone dark">
+      <div class="nav"></div>
+      <div class="body">
+        <div class="brandrow"><span class="brand">对白</span><span class="topmeta">01/07</span></div>
+
+        <div class="dlg">
+          <div class="turn L">
+            <div class="rail railL"></div>
+            <div>
+              <div class="who L">甲</div>
+              <div class="say L">我想听点别的。</div>
+            </div>
+          </div>
+          <div class="turn R">
+            <div class="rail railR"></div>
+            <div style="text-align:right">
+              <div class="who R">乙</div>
+              <div class="say R">把你要的文章给我。</div>
+            </div>
+          </div>
+          <div class="turn L">
+            <div class="rail railL"></div>
+            <div>
+              <div class="who L dim">甲</div>
+              <div class="say L dim">随便什么？</div>
+            </div>
+          </div>
+          <div class="turn R">
+            <div class="rail railR"></div>
+            <div style="text-align:right">
+              <div class="who R">乙</div>
+              <div class="say R">随便什么。课本、笔记都行。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 主功能：对话的回应位 -->
+        <div class="cta">
+          <div class="plus"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div class="tt">
+            <div class="t">把文章贴进来</div>
+            <div class="s">粘贴文本，或从聊天里选文件</div>
+          </div>
+          <div class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="footrow"><span class="footk">今 日 一 集</span><span class="footv">04:02</span></div>
+        <div class="foottitle">光合作用为什么分两步？</div>
+        <div class="footact">
+          <span class="play"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+          <span class="minilink">往期 06 · 我聊过的 04 →</span>
+        </div>
+        <div class="spacer"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 浅色：验证是不是配色的问题 ============ -->
+  <div class="scheme">
+    <div class="sname">W′ · 同一布局（纸与墨）</div>
+    <div class="sdesc">布局完全一样，只换成<b>纸色底</b>——<br>用来判断你说的"老气"到底是<b>布局</b>还是<b>配色</b>。</div>
+    <div class="phone paper">
+      <div class="nav"></div>
+      <div class="body">
+        <div class="brandrow"><span class="brand">对白</span><span class="topmeta">01/07</span></div>
+
+        <div class="dlg">
+          <div class="turn L">
+            <div class="rail railL"></div>
+            <div>
+              <div class="who L">甲</div>
+              <div class="say L">我想听点别的。</div>
+            </div>
+          </div>
+          <div class="turn R">
+            <div class="rail railR"></div>
+            <div style="text-align:right">
+              <div class="who R">乙</div>
+              <div class="say R">把你要的文章给我。</div>
+            </div>
+          </div>
+          <div class="turn L">
+            <div class="rail railL"></div>
+            <div>
+              <div class="who L dim">甲</div>
+              <div class="say L dim">随便什么？</div>
+            </div>
+          </div>
+          <div class="turn R">
+            <div class="rail railR"></div>
+            <div style="text-align:right">
+              <div class="who R">乙</div>
+              <div class="say R">随便什么。课本、笔记都行。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta">
+          <div class="plus"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div class="tt">
+            <div class="t">把文章贴进来</div>
+            <div class="s">粘贴文本，或从聊天里选文件</div>
+          </div>
+          <div class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="footrow"><span class="footk">今 日 一 集</span><span class="footv">04:02</span></div>
+        <div class="foottitle">光合作用为什么分两步？</div>
+        <div class="footact">
+          <span class="play"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+          <span class="minilink">往期 06 · 我聊过的 04 →</span>
+        </div>
+        <div class="spacer"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

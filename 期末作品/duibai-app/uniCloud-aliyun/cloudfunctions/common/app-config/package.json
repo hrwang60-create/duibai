@@ -1,0 +1,6 @@
+{
+  "name": "app-config",
+  "version": "1.0.0",
+  "description": "应用配置与密钥（读取优先级：云函数环境变量 > config.json > 代码默认值）",
+  "main": "index.js"
+}

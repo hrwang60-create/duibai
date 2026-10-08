@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>历史页 / 我的页</title>
+<style>
+/*
+  同一条语言，三个 tab 一套：
+    · 宋体标题 + 黑体正文 + 等宽数字
+    · 对话符号「叠」在真实内容上（不做假对话占位）
+    · 朱色只用于：可执行的动作、当前状态
+  两个页面的分量不同：
+    · 历史页 = 首页「我聊过的」的完整版（更多 + 分组 + 筛选）
+    · 我的页 = 工具页，特色必须克制，否则不像设置页
+*/
+:root{
+  --vm:#ff4d33; --vm2:#b83f28;
+  --mono:Consolas,"Cascadia Mono",ui-monospace,monospace;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Noto Serif SC","Songti SC","Noto Serif CJK SC","SimSun",serif;
+  --bg:#141416; --card:#1c1c1f; --tx:#f0ede4; --tx2:#8f8f97; --tx3:#5a5a62; --line:#26262a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#d9d9d4;padding:38px 26px 56px;font-family:var(--sans)}
+.h1{text-align:center;color:#17171a;font-size:23px;font-weight:600;letter-spacing:-.3px}
+.sub{text-align:center;color:#7a7a80;font-size:12.5px;margin:9px 0 34px;line-height:1.9}
+.sub b{color:var(--vm2)}
+.row{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;align-items:flex-start}
+.scheme{width:348px}
+.sname{text-align:center;color:#17171a;font-size:15.5px;font-weight:600;margin-bottom:4px}
+.sdesc{text-align:center;color:#7a7a80;font-size:11.5px;line-height:1.8;height:60px;margin-bottom:12px}
+.sdesc b{color:#17171a}
+.phone{width:348px;height:704px;background:var(--bg);border-radius:32px;overflow:hidden;
+       position:relative;box-shadow:0 14px 36px rgba(0,0,0,.18)}
+.nav{height:46px;border-bottom:1px solid var(--line)}
+.body{padding:0 20px;height:calc(100% - 46px);overflow:hidden}
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:60px;background:rgba(20,20,22,.97);
+        border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-around}
+.tab{font-size:10.5px;text-align:center;font-weight:500;color:var(--tx3)}
+.tab.on{color:var(--vm)}
+.tab svg{display:block;margin:0 auto 3px}
+
+.brandrow{display:flex;align-items:baseline;justify-content:space-between;padding:14px 0 16px}
+.brand{font-family:var(--serif);font-size:27px;font-weight:600;color:var(--tx);letter-spacing:.5px}
+.topmeta{font-family:var(--mono);font-size:11px;color:var(--tx3);letter-spacing:.8px}
+
+/* ---------- 筛选 ---------- */
+.filters{display:flex;gap:7px;margin-bottom:22px}
+.f{font-size:12px;padding:6px 13px;border-radius:14px;color:var(--tx2);
+   border:1px solid var(--line);white-space:nowrap}
+.f.on{background:var(--vm);color:#fff;border-color:var(--vm);font-weight:600}
+
+/* ---------- 时间分组 ---------- */
+.gwrap{margin-bottom:20px}
+.ghead{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.gname{font-family:var(--serif);font-size:11.5px;letter-spacing:2.6px;color:var(--tx3)}
+.gline{flex:1;height:1px;background:var(--line)}
+.gnum{font-family:var(--mono);font-size:10.5px;color:var(--tx3)}
+
+/* ---------- 条目：对话痕迹左右交错 ---------- */
+.item{margin-bottom:18px}
+.ihead{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.dot{width:5.5px;height:5.5px;border-radius:3px;background:var(--vm);flex-shrink:0}
+.dot.g{background:#3a3a40}
+.itt{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+     font-size:14px;font-weight:500;color:var(--tx)}
+.imeta{font-family:var(--mono);font-size:10.5px;color:var(--tx2);flex-shrink:0;letter-spacing:.4px}
+.iact{font-size:11px;font-weight:600;color:var(--vm);flex-shrink:0}
+.dlg{display:flex;flex-direction:column;gap:6px}
+.line{display:flex;gap:8px;align-items:flex-start}
+.line.a{align-self:flex-start;max-width:96%}
+.line.b{align-self:flex-end;flex-direction:row-reverse;max-width:96%}
+.rail{width:2.5px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:14px}
+.line.a .rail{background:#4a4a52}
+.line.b .rail{background:var(--vm)}
+.who{font-size:10px;font-weight:700;flex-shrink:0;padding-top:3px}
+.line.a .who{color:var(--tx2)}
+.line.b .who{color:var(--vm)}
+.sayA{font-size:13.5px;line-height:1.6;color:var(--tx)}
+.sayB{font-size:13.5px;line-height:1.6;color:var(--vm);text-align:right}
+
+/* ---------- 我的页 ---------- */
+.metop{padding:10px 0 26px}
+.uname{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--tx);letter-spacing:.3px}
+.ustat{font-size:12.5px;color:var(--tx2);margin-top:8px}
+
+/* 数据：等宽大字 + 宋体标签 —— 数字感 */
+.stats{display:flex;gap:10px;margin-bottom:26px}
+.stat{flex:1;background:var(--card);border-radius:14px;padding:15px 13px}
+.sn{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--tx);
+    line-height:1;letter-spacing:-1.2px}
+.sn.vm{color:var(--vm)}
+.sl{font-family:var(--serif);font-size:11px;color:var(--tx2);margin-top:9px;letter-spacing:1px}
+
+.sec{margin-bottom:22px}
+.sech{font-family:var(--serif);font-size:11.5px;letter-spacing:2.6px;color:var(--tx3);margin-bottom:10px}
+.card{background:var(--card);border-radius:14px;overflow:hidden}
+.r{display:flex;align-items:center;gap:12px;padding:13px 15px;position:relative}
+.r + .r:before{content:"";position:absolute;left:15px;right:15px;top:0;height:1px;background:var(--line)}
+.r .rt{flex:1;font-size:14px;color:var(--tx)}
+.r .rv{font-family:var(--mono);font-size:11.5px;color:var(--tx2);letter-spacing:.4px}
+.r .rc{color:var(--tx3);font-size:14px}
+.r .rb{font-size:11px;font-weight:600;color:var(--vm)}
+
+/* 退出：唯一的"重"动作 */
+.out{margin:0 0 8px;height:46px;border-radius:14px;border:1px solid rgba(255,77,51,.34);
+     display:flex;align-items:center;justify-content:center;
+     font-size:14px;font-weight:600;color:var(--vm)}
+.spacer{height:66px}
+</style>
+</head>
+<body>
+
+<div class="h1">历史页 · 我的页</div>
+<div class="sub">
+  同一条语言：宋体标题 + 黑体正文 + 等宽数字，对话符号<b>叠在真实台词上</b>。<br>
+  但两个页面的<b>分量不同</b> —— 历史页是首页「我聊过的」的完整版；我的页是工具页，特色刻意克制。
+</div>
+
+<div class="row">
+
+  <!-- ================= 历史页 ================= -->
+  <div class="scheme">
+    <div class="sname">历史页 · 我聊过的</div>
+    <div class="sdesc">
+      首页那个区块的<b>完整版</b>：时间分组 + 筛选 + 更多条目。<br>
+      每条都露<b>真实对话痕迹</b>，右侧直接给"下一步动作"。
+    </div>
+    <div class="phone">
+      <div class="nav"></div>
+      <div class="body">
+        <div class="brandrow"><span class="brand">我聊过的</span><span class="topmeta">共 04</span></div>
+
+        <div class="filters">
+          <span class="f on">全部</span>
+          <span class="f">待确认 1</span>
+          <span class="f">可播放 2</span>
+        </div>
+
+        <!-- 今天 -->
+        <div class="gwrap">
+          <div class="ghead"><span class="gname">今 天</span><span class="gline"></span><span class="gnum">02</span></div>
+
+          <div class="item">
+            <div class="ihead">
+              <div class="dot"></div>
+              <div class="itt">数据链路层在物</div>
+              <div class="imeta">23 句</div>
+              <div class="iact">去确认 →</div>
+            </div>
+            <div class="dlg">
+              <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">咱们今天聊数据链路层概述吧。</div></div>
+              <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">好啊，这层听着就挺重要的。</div></div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="ihead">
+              <div class="dot g"></div>
+              <div class="itt">为什么有人会晕车</div>
+              <div class="imeta">01:48</div>
+              <div class="iact">▶ 听</div>
+            </div>
+            <div class="dlg">
+              <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">为什么坐车看手机会更晕？</div></div>
+              <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">因为眼睛和内耳给的信息打架了。</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 昨天 -->
+        <div class="gwrap">
+          <div class="ghead"><span class="gname">昨 天</span><span class="gline"></span><span class="gnum">01</span></div>
+
+          <div class="item">
+            <div class="ihead">
+              <div class="dot g"></div>
+              <div class="itt">咖啡因是怎么让你清醒的</div>
+              <div class="imeta">02:10</div>
+              <div class="iact">▶ 听</div>
+            </div>
+            <div class="dlg">
+              <div class="line a"><div class="rail"></div><div class="who">甲</div><div class="sayA">咖啡因到底是怎么起作用的？</div></div>
+              <div class="line b"><div class="rail"></div><div class="who">乙</div><div class="sayB">它挡住了一个让你犯困的信号。</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 我的页 ================= -->
+  <div class="scheme">
+    <div class="sname">我的页 · 工具页</div>
+    <div class="sdesc">
+      工具页不表演特色，但也不该像"没人设计过"。<br>
+      用<b>等宽大数字</b>做数据区，朱色只出现在能执行的动作上。
+    </div>
+    <div class="phone">
+      <div class="nav"></div>
+      <div class="body">
+        <div class="metop">
+          <div class="uname">王浩然</div>
+          <div class="ustat">微信登录 · 聊过 4 场，听完 2 集</div>
+        </div>
+
+        <!-- 数据：等宽大字 -->
+        <div class="stats">
+          <div class="stat"><div class="sn">04</div><div class="sl">场 对 谈</div></div>
+          <div class="stat"><div class="sn">23</div><div class="sl">句 台 词</div></div>
+          <div class="stat"><div class="sn vm">02</div><div class="sl">集 听 完</div></div>
+        </div>
+
+        <!-- 偏好 -->
+        <div class="sec">
+          <div class="sech">偏 好</div>
+          <div class="card">
+            <div class="r"><span class="rt">默认口吻</span><span class="rv">睡前</span><span class="rc">›</span></div>
+            <div class="r"><span class="rt">音色</span><span class="rv">女声 · 男声</span><span class="rc">›</span></div>
+          </div>
+        </div>
+
+        <!-- 其他 -->
+        <div class="sec">
+          <div class="sech">其 他</div>
+          <div class="card">
+            <div class="r"><span class="rt">本地缓存</span><span class="rv">12.4 MB</span><span class="rb">清理</span></div>
+            <div class="r"><span class="rt">意见反馈</span><span class="rc">›</span></div>
+            <div class="r"><span class="rt">关于对白</span><span class="rv">v1.0.0</span><span class="rc">›</span></div>
+          </div>
+        </div>
+
+        <div class="out">退出登录</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

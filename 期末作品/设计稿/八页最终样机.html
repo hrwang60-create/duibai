@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>八个页面 · 最终样机</title>
+<style>
+/* ============================================================
+   「对白」八个页面 · 高保真样机  视觉：纸与墨
+   纸张分层：页面 #F2F0E9 → 卡片 #FBFAF6（卡片比页面亮，块才浮得起来）
+   色彩只有两个：墨 #1A1A18 / 朱 #B83F28，其余全中性灰
+   无渐变、无发光、无玻璃拟态、无阴影（卡片靠"更亮的纸"分层，不靠投影）
+   ============================================================ */
+:root{
+  --mono:ui-monospace,"SF Mono",Consolas,monospace;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Noto Serif SC","Songti SC","Noto Serif CJK SC",serif;
+  --ink:#1a1a18; --vm:#b83f28;
+  --tx:#1a1a18; --tx2:#5a5750; --tx3:#6c6760; --tx4:#756e61;
+  /* ---- 纸阶（定稿 C：只留两层）----
+     页面 89.0% → 卡片/主功能 93.9%，明度差 4.9%，色相统一 43°、饱和统一 36%
+     主功能与卡片同色，靠「圆角 22 vs 18」+「朱色圆按钮」区分，不再有第三层白 */
+  --page:#ede7d9; --card:#f5f2ea; --line:#e2ddcd; --line2:#eae5d9;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#e6e3d9;padding:38px 24px 54px;font-family:var(--sans);color:var(--ink)}
+.h1{text-align:center;color:var(--ink);font-size:23px;font-weight:600;letter-spacing:-.3px}
+.sub{text-align:center;color:var(--tx3);font-size:12.5px;margin:9px 0 34px;line-height:1.9}
+.sub b{color:var(--vm)}
+.grid{display:grid;grid-template-columns:repeat(4,375px);gap:34px 26px;justify-content:center}
+.pg{width:375px}
+.cap{margin-bottom:10px;text-align:center}
+.cap .n{font-family:var(--mono);font-size:10.5px;color:var(--vm);letter-spacing:.6px}
+.cap .t{color:var(--ink);font-size:14.5px;font-weight:600;margin-top:3px}
+.cap .s{color:var(--tx3);font-size:10.5px;margin-top:3px;line-height:1.5}
+
+.phone{width:375px;height:772px;border-radius:30px;overflow:hidden;position:relative;
+       background:var(--page);border:1px solid #d2ccbe;
+       box-shadow:0 18px 44px rgba(70,58,34,.13)}
+.glow{display:none}
+.bd{padding:0 20px;position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+
+.nav{height:46px;display:flex;align-items:center;justify-content:space-between;
+     font-size:13px;color:var(--tx2);flex-shrink:0}
+.nav .back{display:flex;align-items:center;gap:5px}
+.nav .ttl{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+          text-align:center;font-size:13.5px;color:var(--tx);padding:0 8px}
+.nav .rt{font-family:var(--mono);font-size:11px;color:var(--tx3)}
+
+/* 卡片：比页面更亮的纸 + 一条极细边。无阴影 —— 靠"更亮"分层，不靠投影 */
+.gl{background:var(--card);border:1px solid var(--line);border-radius:18px}
+
+.tagrow{display:flex;align-items:baseline;justify-content:space-between;
+        height:30px;flex-shrink:0;padding-top:9px}
+.tag{font-family:var(--serif);font-size:11px;letter-spacing:2.4px;color:var(--tx3)}
+.cnt{font-family:var(--mono);font-size:10.5px;letter-spacing:.5px;color:var(--tx3)}
+
+.dlg{display:flex;flex-direction:column;gap:7px}
+.ln{display:flex;gap:8px;align-items:flex-start}
+.ln.a{align-self:flex-start;max-width:96%}
+.ln.b{align-self:flex-end;flex-direction:row-reverse;max-width:96%}
+.rl{width:2.5px;border-radius:2px;align-self:stretch;min-height:13px;flex-shrink:0}
+.a .rl{background:var(--ink)}
+.b .rl{background:var(--vm)}
+.who{font-size:9.5px;font-weight:700;flex-shrink:0;padding-top:3px}
+.a .who{color:var(--tx2)}
+.b .who{color:var(--vm)}
+.say{font-size:13.5px;line-height:1.6;color:var(--tx)}
+.b .say{color:var(--vm);text-align:right}
+.sp{flex:1}
+/* tabBar：通栏纸色 + 顶部一条发丝线（推荐 A）
+   之前是悬浮墨色胶囊 —— 与页面对比度 14.5:1，页面上没有比它更重的东西，必然跳。
+   现在底部导航成为「纸的底边」：靠文字颜色区分选中，不靠色块建立存在感。 */
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:76px;
+        display:flex;align-items:center;justify-content:space-around;z-index:3;
+        padding-bottom:12px;background:var(--page);border-top:1px solid var(--line);
+        border-radius:0;box-shadow:none}
+.tb{font-size:10px;text-align:center;font-weight:500;color:var(--tx3)}
+.tb.on{color:var(--ink);font-weight:600}
+.tb svg{display:block;margin:0 auto 3px}
+.act{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--vm)}
+
+/* ---------- 01 首页 ---------- */
+.brandrow{display:flex;align-items:baseline;justify-content:space-between;padding:4px 2px 16px}
+.brand{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--ink);letter-spacing:.4px}
+/* 主功能：一行输入框（E1 定稿）
+   白纸底 + 大圆角 + 占位文字 + 右侧朱色圆按钮 —— 谁也不靠重色块，但控件感明确 */
+.ctaE1{background:var(--card);border:1px solid var(--line);border-radius:22px;
+       padding:13px 14px 13px 19px;display:flex;align-items:center;justify-content:space-between;
+       gap:12px;margin-bottom:6px}
+.e1ph{font-size:15.5px;color:var(--tx4);letter-spacing:.2px}
+.e1btn{width:36px;height:36px;border-radius:18px;background:var(--vm);color:#fff;flex-shrink:0;
+       display:flex;align-items:center;justify-content:center}
+.card{border-radius:18px;padding:15px}
+.title1{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:12px;letter-spacing:-.1px}
+.hrow{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.hdot{width:5px;height:5px;border-radius:3px;flex-shrink:0;background:var(--vm)}
+.hdot.g{background:var(--tx4)}
+.hname{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+       font-size:13px;font-weight:500;color:var(--tx)}
+.hnum{font-family:var(--mono);font-size:10px;color:var(--tx3);flex-shrink:0}
+.split{height:1px;background:var(--line2);margin:12px 0 11px}
+
+/* ---------- 02 每日一集 ---------- */
+.bigcard{border-radius:18px;padding:16px}
+.todaytag{font-family:var(--mono);font-size:10px;letter-spacing:1.4px;color:var(--vm)}
+.bigttl{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--ink);margin:9px 0 13px;line-height:1.25}
+.tl{margin-top:6px;flex:1;overflow:hidden}
+.node{display:flex;gap:9px;align-items:flex-start;margin-bottom:14px}
+.rail{width:34px;flex-shrink:0;display:flex;flex-direction:column;align-items:center}
+.rdot{width:9px;height:9px;border-radius:5px;border:1.5px solid var(--tx4);
+      background:transparent;margin-top:6px}
+.rdot.on{background:var(--vm);border-color:var(--vm)}
+.rline{flex:1;width:1.5px;background:var(--line);margin-top:5px}
+.ndate{font-family:var(--mono);font-size:10px;color:var(--tx3);letter-spacing:.6px}
+.nttl{font-size:13.5px;color:var(--tx);margin-top:4px;line-height:1.4}
+.nmeta{font-family:var(--mono);font-size:9.5px;color:var(--tx3);margin-top:4px}
+
+/* ---------- 03 结果页 ---------- */
+.flow{flex:1;overflow:hidden;display:flex;flex-direction:column;gap:16px;padding-top:6px}
+.fl-ln{font-size:14px;line-height:1.55;color:var(--tx4)}
+.fl-ln.cur{font-size:20px;font-weight:600;color:var(--ink);line-height:1.35}
+.fl-ln.cur.b{color:var(--vm)}
+.fl-rail{display:flex;gap:9px;align-items:flex-start}
+.player{border-radius:18px;padding:12px 14px 13px;margin-bottom:14px}
+.prow{display:flex;align-items:center;justify-content:space-between}
+.spd{font-family:var(--mono);font-size:11px;color:var(--tx3)}
+.spd.on{color:var(--vm);font-weight:700}
+.btns{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:9px}
+.hint{text-align:center;font-family:var(--mono);font-size:9.5px;color:var(--tx3);margin-top:8px}
+
+/* ---------- 04 确认页 ---------- */
+.sus{border-radius:18px;padding:15px;margin-bottom:12px}
+.sushead{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.qmk{width:19px;height:19px;border-radius:10px;background:var(--vm);color:#fff;
+     font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sustag{font-size:12px;color:var(--tx2);flex:1}
+.susnum{font-family:var(--mono);font-size:10px;color:var(--tx3)}
+.susq{font-size:14px;color:var(--tx);line-height:1.55;margin-bottom:11px}
+.susact{display:flex;gap:9px}
+.pill{font-size:11.5px;font-weight:600;padding:7px 15px;border-radius:15px;
+      border:1px solid var(--line);color:var(--tx2);background:var(--page)}
+.pill.on{background:var(--vm);border-color:var(--vm);color:#fff}
+.bigbtn{height:48px;border-radius:22px;background:var(--ink);color:#fbf9f4;font-size:14.5px;
+        font-weight:600;display:flex;align-items:center;justify-content:center}
+
+/* ---------- 05 生成中 ---------- */
+.ring{width:140px;height:140px;border-radius:70px;margin:0 auto;position:relative;
+      background:conic-gradient(var(--vm) 0 35%, var(--line) 35% 100%);
+      display:flex;align-items:center;justify-content:center}
+.ringin{width:116px;height:116px;border-radius:58px;background:var(--page);
+        display:flex;flex-direction:column;align-items:center;justify-content:center}
+.rnum{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-1px}
+.rlab{font-size:10.5px;color:var(--tx3);margin-top:4px}
+.gtext{text-align:center;font-size:13.5px;color:var(--tx2);margin-top:22px}
+.stage{border-radius:16px;padding:14px 15px}
+.st{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.st:last-child{margin-bottom:0}
+.sdot{width:6px;height:6px;border-radius:3px;flex-shrink:0;background:var(--vm)}
+.sdot.g{background:var(--tx4)}
+.sname{font-size:12.5px;color:var(--tx);flex:1}
+.sstate{font-family:var(--mono);font-size:10px;color:var(--tx3)}
+.sstate.on{color:var(--vm)}
+
+/* ---------- 06 历史 ---------- */
+.filters{display:flex;gap:6px;margin-bottom:6px}
+.f{font-size:11.5px;padding:6px 13px;border-radius:14px;font-weight:500;
+   color:var(--tx2);border:1px solid var(--line);background:var(--card)}
+.f.on{background:var(--ink);color:#fbf9f4;border-color:var(--ink);font-weight:600}
+.grow{display:flex;align-items:center;gap:9px;height:26px;flex-shrink:0}
+.gk{font-family:var(--serif);font-size:11px;letter-spacing:2.4px;color:var(--tx3)}
+.gline{flex:1;height:1px;background:var(--line)}
+.gn{font-family:var(--mono);font-size:10px;color:var(--tx3)}
+
+/* ---------- 07 我的 ---------- */
+.uwrap{padding:4px 2px 18px}
+.uname{font-family:var(--serif);font-size:25px;font-weight:600;color:var(--ink);letter-spacing:.3px}
+.usub{font-size:12px;color:var(--tx2);margin-top:7px}
+.stats{display:flex;gap:9px;margin-bottom:6px}
+.sc{flex:1;border-radius:16px;padding:14px 12px}
+.sv{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--ink);line-height:1;letter-spacing:-1px}
+.sv.vm{color:var(--vm)}
+.sl{font-family:var(--serif);font-size:10px;color:var(--tx2);margin-top:8px;letter-spacing:1px}
+.sk{font-family:var(--serif);font-size:11px;letter-spacing:2.4px;color:var(--tx3);
+    display:block;height:26px;padding-top:9px}
+.grp{border-radius:18px;padding:0;overflow:hidden}
+.r{display:flex;align-items:center;gap:11px;padding:13px 15px;position:relative}
+.r+.r:before{content:"";position:absolute;left:15px;right:15px;top:0;height:1px;background:var(--line2)}
+.rt{flex:1;font-size:13.5px;color:var(--tx)}
+.rv{font-family:var(--mono);font-size:11px;color:var(--tx2)}
+.rc{font-size:13px;color:var(--tx3)}
+.rb{font-size:10.5px;font-weight:600;color:var(--vm)}
+.out{height:46px;border-radius:20px;border:1px solid var(--vm);
+     background:transparent;color:var(--vm);font-size:13.5px;font-weight:600;
+     display:flex;align-items:center;justify-content:center;margin-top:4px}
+
+/* ---------- 08 原文 ---------- */
+.para{margin-bottom:16px}
+.pnum{font-family:var(--mono);font-size:10px;color:var(--vm);letter-spacing:.8px;margin-bottom:6px}
+.ptext{font-size:13.5px;line-height:1.75;color:var(--tx2)}
+</style>
+</head>
+<body>
+
+<div class="h1">「对白」八个页面 · 最终样机</div>
+<div class="sub">
+  视觉：<b>纸与墨</b>（页面 #EFEADE → 卡片 #FCFBF7，靠&quot;更亮的纸&quot;分层）· 结构按《各页面布局方案》· 排版按《排版与布局规格》。<br>
+  每张都是最终形态 —— 内容、字体、层级、动作都按真实数据画。
+</div>
+
+<div class="grid">
+
+  <!-- ================= 01 首页 ================= -->
+  <div class="pg">
+    <div class="cap"><div class="n">01</div><div class="t">首页 · 对白</div><div class="s">主功能 + 今日一集 + 我聊过的</div></div>
+    <div class="phone">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="bd">
+        <div class="brandrow"><span class="brand">对白</span><span class="cnt">10-06</span></div>
+
+        <div class="ctaE1">
+          <span class="e1ph">把文章贴进来…</span>
+          <span class="e1btn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fbf9f4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 0L7.5 7.5M12 3l4.5 4.5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg></span>
+        </div>
+
+        <div class="tagrow"><span class="tag">今 日 一 集</span><span class="cnt">04:02</span></div>
+        <div class="title1">光合作用为什么分两步？</div>
+        <div class="gl card">
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">光合作用其实没那么难。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:13px">
+            <span class="act"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+            <span class="act" style="opacity:.72">往期 07 →</span>
+          </div>
+        </div>
+
+        <div class="tagrow"><span class="tag">我 聊 过 的</span><span class="cnt">全部 04 →</span></div>
+        <div class="gl card">
+          <div class="hrow"><i class="hdot"></i><div class="hname">数据链路层在物</div><div class="hnum">23 句</div><span class="act">去确认 →</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hrow"><i class="hdot g"></i><div class="hname">为什么有人会晕车</div><div class="hnum">01:48</div><span class="act">▶ 听</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">为什么坐车看手机会更晕？</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">因为眼睛和内耳的信息打架了。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hrow"><i class="hdot g"></i><div class="hname">咖啡因是怎么让你清醒的</div><div class="hnum">02:10</div><span class="act">▶ 听</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咖啡因到底是怎么起作用的？</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">它挡住了一个让你犯困的信号。</div></div>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tb on"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 02 每日一集 ================= -->
+  <div class="pg">
+    <div class="cap"><div class="n">02</div><div class="t">每日一集</div><div class="s">今日大卡 + 往期时间轴</div></div>
+    <div class="phone">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="bd">
+        <div class="nav">
+          <span class="back">‹ 返回</span>
+          <span class="ttl">每日一集</span>
+          <span class="rt">共 07</span>
+        </div>
+
+        <div class="gl bigcard" style="margin-top:6px">
+          <div class="todaytag">今日 · 04:02</div>
+          <div class="bigttl">光合作用为什么分两步？</div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">光合作用其实没那么难。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+            <span class="act"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>开始听</span>
+            <span class="act" style="opacity:.72">抬杠 · 6 句</span>
+          </div>
+        </div>
+
+        <div class="tagrow"><span class="tag">往 期</span><span class="cnt">06</span></div>
+        <div class="tl">
+          <div class="node">
+            <div class="rail"><div class="rdot on"></div><div class="rline"></div></div>
+            <div><div class="ndate">10-04</div><div class="nttl">为什么有人会晕车？</div><div class="nmeta">轻松解释 · 4 句 · 01:48</div></div>
+          </div>
+          <div class="node">
+            <div class="rail"><div class="rdot"></div><div class="rline"></div></div>
+            <div><div class="ndate">10-03</div><div class="nttl">咖啡因是怎么让你清醒的？</div><div class="nmeta">师生 · 4 句 · 02:10</div></div>
+          </div>
+          <div class="node">
+            <div class="rail"><div class="rdot"></div><div class="rline"></div></div>
+            <div><div class="ndate">10-02</div><div class="nttl">为什么熬夜会变丑？</div><div class="nmeta">访谈 · 4 句 · 02:32</div></div>
+          </div>
+          <div class="node">
+            <div class="rail"><div class="rdot"></div></div>
+            <div><div class="ndate">10-01</div><div class="nttl">空调为什么会让房间变干？</div><div class="nmeta">老少 · 4 句 · 01:55</div></div>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 03 结果页 ================= -->
+  <div class="pg">
+    <div class="cap"><div class="n">03</div><div class="t">结果页 · 对话流</div><div class="s">核心页 · 当前句放大 + 播放条</div></div>
+    <div class="phone">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="bd">
+        <div class="nav">
+          <span class="back">‹</span>
+          <span class="ttl">光合作用为什么分两步？</span>
+          <span class="rt">1/6</span>
+        </div>
+
+        <div class="flow">
+          <div class="fl-ln" style="color:#756e61">甲 · 光合作用其实没那么难。</div>
+          <div class="fl-ln" style="color:#756e61;text-align:right">乙 · 难的是课本非要写得这么复杂。</div>
+          <div class="fl-rail">
+            <div class="rl" style="background:#1a1a18"></div>
+            <div>
+              <div class="fl-ln cur">那光反应到底在干嘛？</div>
+              <div style="font-family:var(--mono);font-size:9.5px;color:var(--tx3);margin-top:7px">出处 P1 · 改这句</div>
+            </div>
+          </div>
+          <div class="fl-rail" style="flex-direction:row-reverse;align-self:flex-end">
+            <div class="rl" style="background:var(--vm)"></div>
+            <div style="text-align:right">
+              <div class="fl-ln cur b">简单说，就是先把能量和氢存起来。</div>
+            </div>
+          </div>
+          <div class="fl-ln" style="color:#756e61">甲 · 那暗反应呢？</div>
+          <div class="fl-ln" style="color:#c0bab0;text-align:right">乙 · 暗反应负责把二氧化碳变成糖。</div>
+          <div class="fl-ln" style="color:#cbc6bd">甲 · 所以它其实不「暗」？</div>
+        </div>
+
+        <div class="gl player">
+          <div class="prow">
+            <span class="spd">0.8×</span><span class="spd on">1×</span><span class="spd">1.25×</span><span class="spd">1.5×</span>
+          </div>
+          <div class="btns">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6c6760" stroke-width="2" stroke-linecap="round"><path d="M11 6v12M19 6v12M8 12H3m0 0l3-3m-3 3l3 3"/></svg>
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#fbf9f4"><path d="M7 4.5v15l13-7.5z"/></svg>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6c6760" stroke-width="2" stroke-linecap="round"><path d="M13 6v12M5 6v12M16 12h5m0 0l-3-3m3 3l-3 3"/></svg>
+          </div>
+          <div class="hint">点任意一句可重听 · 侧滑可改</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 04 确认页 ================= -->
+  <div class="pg">
+    <div class="cap"><div class="n">04</div><div class="t">确认页 · 可疑处</div><div class="s">逐条回应后才放行</div></div>
+    <div class="phone">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="bd">
+        <div class="nav">
+          <span class="back">‹ 返回</span>
+          <span class="ttl">有 2 处想确认</span>
+          <span class="rt">2/2</span>
+        </div>
+
+        <div class="gl sus" style="margin-top:8px">
+          <div class="sushead">
+            <div class="qmk">?</div>
+            <div class="sustag">这句在原文里找不到出处</div>
+            <div class="susnum">第 3 句</div>
+          </div>
+          <div class="susq">甲　那光反应到底在干嘛？</div>
+          <div class="susact">
+            <span class="pill on">确认没问题</span>
+            <span class="pill">修改这一句</span>
+            <span class="pill">查看原文</span>
+          </div>
+        </div>
+
+        <div class="gl sus">
+          <div class="sushead">
+            <div class="qmk">?</div>
+            <div class="sustag">用了原文没有的术语</div>
+            <div class="susnum">第 7 句</div>
+          </div>
+          <div class="susq">乙　这里其实是「光解水」，不是「分解水」。</div>
+          <div class="susact">
+            <span class="pill on">确认没问题</span>
+            <span class="pill">修改这一句</span>
+            <span class="pill">查看原文</span>
+          </div>
+        </div>
+
+        <div class="sp"></div>
+        <div class="bigbtn" style="margin-bottom:16px">全部确认，开始生成声音</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 05 生成中 ================= -->
+  <div class="pg">
+    <div class="cap"><div class="n">05</div><div class="t">生成中</div><div class="s">单焦点 · 无返回（防误退）</div></div>
+    <div class="phone">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="bd">
+        <div class="nav"><span></span><span class="ttl"></span><span></span></div>
+
+        <div class="sp"></div>
+        <div class="ring">
+          <div class="ringin">
+            <div class="rnum">8<span style="font-size:15px;color:var(--tx3)">/23</span></div>
+            <div class="rlab">句</div>
+          </div>
+        </div>
+        <div class="gtext">正在让两个人聊起来…</div>
+        <div class="sp"></div>
+
+        <div class="gl stage" style="margin-bottom:16px">
+          <div class="st"><i class="sdot"></i><div class="sname">把文章切成段</div><div class="sstate">完成</div></div>
+          <div class="st"><i class="sdot"></i><div class="sname">生成对话</div><div class="sstate">完成</div></div>
+          <div class="st"><i class="sdot g"></i><div class="sname">合成声音</div><div class="sstate on">进行中 8/23</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 06 历史 ================= -->
+  <div class="pg">
+    <div class="cap"><div class="n">06</div><div class="t">历史 · 我聊过的</div><div class="s">时间分组 · 与首页区块同构</div></div>
+    <div class="phone">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="bd">
+        <div class="brandrow" style="padding-top:12px;padding-bottom:14px">
+          <span class="brand" style="font-size:24px">我聊过的</span><span class="cnt">共 04</span>
+        </div>
+        <div class="filters">
+          <span class="f on">全部</span><span class="f">待确认 1</span><span class="f">可播放 2</span>
+        </div>
+
+        <div class="grow"><span class="gk">今 天</span><span class="gline"></span><span class="gn">02</span></div>
+        <div class="gl card" style="padding:14px">
+          <div class="hrow"><i class="hdot"></i><div class="hname">数据链路层在物</div><div class="hnum">23 句</div><span class="act">去确认 →</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hrow"><i class="hdot g"></i><div class="hname">为什么有人会晕车</div><div class="hnum">01:48</div><span class="act">▶ 听</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">为什么坐车看手机会更晕？</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">因为眼睛和内耳的信息打架了。</div></div>
+          </div>
+        </div>
+
+        <div class="grow" style="margin-top:14px"><span class="gk">昨 天</span><span class="gline"></span><span class="gn">01</span></div>
+        <div class="gl card" style="padding:14px">
+          <div class="hrow"><i class="hdot g"></i><div class="hname">咖啡因是怎么让你清醒的</div><div class="hnum">02:10</div><span class="act">▶ 听</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咖啡因到底是怎么起作用的？</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">它挡住了一个让你犯困的信号。</div></div>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tb on"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 07 我的 ================= -->
+  <div class="pg">
+    <div class="cap"><div class="n">07</div><div class="t">我的 · 工具页</div><div class="s">等宽大数字 + 两组设置</div></div>
+    <div class="phone">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="bd">
+        <div class="uwrap" style="padding-top:14px">
+          <div class="uname">王浩然</div>
+          <div class="usub">微信登录 · 聊过 4 场</div>
+        </div>
+
+        <div class="stats" style="margin-bottom:6px">
+          <div class="sc gl"><div class="sv">04</div><div class="sl">场 对 谈</div></div>
+          <div class="sc gl"><div class="sv">23</div><div class="sl">句 台 词</div></div>
+          <div class="sc gl"><div class="sv vm">02</div><div class="sl">集 可 听</div></div>
+        </div>
+
+        <span class="sk">偏 好</span>
+        <div class="gl grp">
+          <div class="r"><span class="rt">默认口吻</span><span class="rv">睡前</span><span class="rc">›</span></div>
+          <div class="r"><span class="rt">音色</span><span class="rv">女声 · 男声</span><span class="rc">›</span></div>
+        </div>
+
+        <span class="sk">其 他</span>
+        <div class="gl grp">
+          <div class="r"><span class="rt">本地缓存</span><span class="rv">12.4 MB</span><span class="rb">清理</span></div>
+          <div class="r"><span class="rt">意见反馈</span><span class="rc">›</span></div>
+          <div class="r"><span class="rt">关于对白</span><span class="rv">v1.0.0</span><span class="rc">›</span></div>
+        </div>
+
+        <div class="out">退出登录</div>
+        <div class="sp"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tb"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tb on"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 08 原文 ================= -->
+  <div class="pg">
+    <div class="cap"><div class="n">08</div><div class="t">原文 · 可回溯</div><div class="s">段落编号 P1/P2/P3</div></div>
+    <div class="phone">
+      <div class="glow"><i></i><i></i><i></i></div>
+      <div class="bd">
+        <div class="nav">
+          <span class="back">‹ 返回</span>
+          <span class="ttl">原文</span>
+          <span class="rt">3 段</span>
+        </div>
+
+        <div style="font-family:var(--serif);font-size:17px;font-weight:600;color:#fff;margin:8px 0 18px;line-height:1.35">
+          3.1 数据链路层概述
+        </div>
+
+        <div style="flex:1;overflow:hidden">
+          <div class="para">
+            <div class="pnum">P1</div>
+            <div class="ptext">数据链路层在物理层之上，负责把一条可能出错的物理链路，变成一条可靠的、给网络层用的链路。它的基本单位是「帧」。</div>
+          </div>
+          <div class="para">
+            <div class="pnum">P2</div>
+            <div class="ptext">链路层要解决三件事：封装成帧、差错检测、以及流量控制。封装成帧就是加上首部和尾部，让接收方知道从哪里开始读。</div>
+          </div>
+          <div class="para">
+            <div class="pnum">P3</div>
+            <div class="ptext">差错检测常用 CRC。它的原理是把这个帧当成一个多项式，除以一个约定的生成多项式，把余数附在帧尾。</div>
+          </div>
+          <div class="para">
+            <div class="pnum">P4</div>
+            <div class="ptext" style="color:#a8a29a">注意：链路层只保证「帧在链路上不出错」，不保证「端到端可靠」——那是传输层的事。</div>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "login",
+  "version": "1.0.0",
+  "description": "微信登录：用 code 换 openid，建档并签发令牌",
+  "main": "index.js",
+  "dependencies": {
+    "common": "file:../common/common",
+    "app-config": "file:../common/app-config"
+  }
+}

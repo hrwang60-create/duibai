@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>往期 · 滑动选择方案</title>
+<style>
+  :root{
+    --ink:#1a1a18; --vm:#b83f28; --ink2:#5a5750; --ink3:#6c6760;
+    --ink5:#c7c1b7; --paper:#f5f2ea; --paper2:#ede9df; --line:#e2ddd2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#e8e4da;font-family:"Microsoft YaHei","PingFang SC",sans-serif;padding:38px 28px 56px}
+  .pt{text-align:center;color:var(--ink);font-size:25px;font-weight:600;letter-spacing:2px}
+  .ps{text-align:center;color:var(--ink3);font-size:13.5px;margin:8px 0 40px;line-height:1.7}
+  .row{display:flex;justify-content:center;gap:54px;flex-wrap:wrap}
+  .scheme{width:340px}
+  .sname{text-align:center;color:var(--ink);font-size:16.5px;font-weight:600;margin-bottom:5px}
+  .sdesc{text-align:center;color:var(--ink3);font-size:12.5px;line-height:1.8;height:62px;margin-bottom:14px}
+  .phone{width:340px;height:700px;background:var(--paper);border:1px solid #cfc9bc;border-radius:26px;overflow:hidden;position:relative}
+  .nav{height:44px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink);letter-spacing:1px}
+  .body{height:calc(100% - 44px);overflow:hidden;position:relative}
+  .tabbar{position:absolute;bottom:0;left:0;right:0;height:56px;background:var(--paper);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-around}
+  .tab{font-size:11px;color:var(--ink3);text-align:center}
+  .tab.on{color:var(--ink);font-weight:600}
+
+  .sechead{display:flex;align-items:baseline;justify-content:space-between;margin:22px 18px 12px}
+  .sechead .t{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:.5px}
+  .sechead .m{font-size:12px;color:var(--ink3)}
+
+  /* 顶部搜索胶囊（保持一致） */
+  .search{margin:14px 18px 0;height:38px;border-radius:19px;background:var(--paper2);display:flex;align-items:center;padding:0 15px;gap:9px}
+  .search .icon{width:14px;height:14px;border:1.6px solid var(--ink3);border-radius:50%;position:relative;flex-shrink:0}
+  .search .icon:after{content:"";position:absolute;right:-4px;bottom:-3px;width:5px;height:1.6px;background:var(--ink3);transform:rotate(45deg)}
+  .search .ph{font-size:13.5px;color:var(--ink3)}
+
+  /* ============== F · 横滑卡片，点哪张听哪张 ============== */
+  .fs{display:flex;gap:11px;padding:2px 0 2px 18px;overflow:hidden}
+  .fcard{width:132px;flex-shrink:0;border-top:2px solid var(--line);padding-top:11px}
+  .fcard.cur{border-top-color:var(--vm)}
+  .fcard .fd{display:flex;align-items:center;gap:6px;margin-bottom:9px}
+  .fcard .dot{width:7px;height:7px;border-radius:4px;border:1.4px solid var(--ink5)}
+  .fcard .dot.on{background:var(--vm);border-color:var(--vm)}
+  .fcard .dd{font-size:10.5px;color:var(--ink5);letter-spacing:.5px}
+  .fcard .ft{font-size:13.5px;color:var(--ink);line-height:1.45;height:58px;overflow:hidden;font-weight:500}
+  .fcard .fm{font-size:10.5px;color:var(--ink5);margin-top:8px}
+  .fcard.cur .ft{color:var(--vm)}
+  .fmore{font-size:12px;color:var(--ink3);margin:14px 18px 0;text-align:right}
+
+  /* ============== G · 居中选中轮播 ============== */
+  .gview{height:210px;position:relative;overflow:hidden;margin-top:4px}
+  .gtrack{display:flex;align-items:center;height:100%;justify-content:center;gap:0}
+  .gcard{width:196px;height:186px;border-radius:14px;background:var(--paper2);flex-shrink:0;
+         display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+  .gcard.side{width:150px;height:158px;opacity:.45;transform:scale(.97)}
+  .gcard .disc{width:84px;height:84px;border-radius:42px;background:var(--ink);
+               display:flex;flex-direction:column;align-items:center;justify-content:center;
+               color:var(--paper);font-size:10px;letter-spacing:2px;line-height:1.5}
+  .gcard .disc .big{font-size:18px;font-weight:600;letter-spacing:1px}
+  .gcard .disc .sm{font-size:9px;color:var(--ink5);letter-spacing:3px;margin-top:2px}
+  .gcard .badge{position:absolute;left:12px;top:11px;font-size:10px;color:var(--vm);font-weight:600;letter-spacing:1px}
+  .gcard .heard{position:absolute;right:12px;top:11px;font-size:9.5px;color:var(--ink5)}
+  .gcard .pl{position:absolute;right:13px;bottom:11px;font-size:12.5px;font-weight:600;color:var(--vm)}
+  .gcard.side .disc{width:64px;height:64px;border-radius:32px}
+  .gcard.left .disc{margin-right:-46px}
+  .gcard.right .disc{margin-left:-46px}
+  .gcard.side .disc .big{font-size:14px}
+
+  .gdots{display:flex;justify-content:center;gap:7px;margin-top:16px}
+  .gdots i{width:6px;height:6px;border-radius:3px;background:var(--ink5);display:block}
+  .gdots i.on{background:var(--vm);width:16px}
+
+  .ginfo{text-align:center;padding:0 26px;margin-top:18px}
+  .gtitle{font-size:17px;font-weight:600;color:var(--ink);line-height:1.4}
+  .gsub{font-size:12px;color:var(--ink3);margin-top:8px}
+  .gbtn{margin:20px 40px 0;height:46px;border-radius:23px;background:var(--ink);
+        display:flex;align-items:center;justify-content:center;color:#fbf9f4;font-size:14.5px;letter-spacing:1px}
+
+  .hint{font-size:11px;color:var(--ink5);text-align:center;margin-top:14px;letter-spacing:.5px}
+</style>
+</head>
+<body>
+
+<div class="pt">往期一集 · 两种「滑动选择」</div>
+<div class="ps">
+  左：横滑卡片，<b style="color:var(--vm)">滑到哪张点哪张，一步播放</b><br>
+  右：居中选中轮播，<b style="color:var(--vm)">滑动切换 → 中间那张即选中 → 点按钮播放</b>
+</div>
+
+<div class="row">
+
+  <!-- ==================== F ==================== -->
+  <div class="scheme">
+    <div class="sname">F · 横滑卡片（一步）</div>
+    <div class="sdesc">
+      <b style="color:var(--vm)">点任意一张直接播</b>，卡片横向滑动浏览。<br>
+      没有"先选中再确认"这一步 —— 少一次点击，也少一层犹豫。
+    </div>
+    <div class="phone">
+      <div class="nav">对白</div>
+      <div class="body">
+        <div class="search"><span class="icon"></span><span class="ph">粘贴文章，或从聊天选文件</span></div>
+
+        <!-- 今日一集（保持大卡） -->
+        <div class="sechead" style="margin-top:20px"><span class="t">今日一集</span><span class="m">抬杠 · 6 句 · 4 分钟</span></div>
+        <div style="margin:0 18px">
+          <div style="height:112px;background:var(--paper2);border-radius:12px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center">
+            <div style="width:78px;height:78px;border-radius:39px;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--paper)">
+              <span style="font-size:16px;font-weight:600;letter-spacing:1px">10-05</span>
+              <span style="font-size:8.5px;color:var(--ink5);letter-spacing:3px;margin-top:2px">今日</span>
+            </div>
+            <div style="position:absolute;right:13px;bottom:11px;font-size:12.5px;font-weight:600;color:var(--vm)">▶ 开始听</div>
+          </div>
+          <div style="font-size:16px;font-weight:600;color:var(--ink);margin-top:11px">光合作用为什么分两步？</div>
+        </div>
+
+        <!-- 往期：横滑 -->
+        <div class="sechead"><span class="t">往期</span><span class="m" style="color:var(--vm)">滑动浏览 →</span></div>
+        <div class="fs">
+          <div class="fcard cur">
+            <div class="fd"><span class="dot on"></span><span class="dd">10-04</span></div>
+            <div class="ft">为什么有人会晕车？</div>
+            <div class="fm">轻松解释 · 4 句</div>
+          </div>
+          <div class="fcard">
+            <div class="fd"><span class="dot"></span><span class="dd">10-03</span></div>
+            <div class="ft">咖啡因是怎么让你清醒的？</div>
+            <div class="fm">师生 · 4 句</div>
+          </div>
+          <div class="fcard">
+            <div class="fd"><span class="dot"></span><span class="dd">10-02</span></div>
+            <div class="ft">为什么熬夜会变丑？</div>
+            <div class="fm">访谈 · 4 句</div>
+          </div>
+        </div>
+        <div class="fmore">全部 7 集 ›</div>
+
+        <div class="hint" style="margin-top:26px">空心点 = 没听过　实心朱点 = 听过</div>
+      </div>
+      <div class="tabbar"><div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div></div>
+    </div>
+  </div>
+
+  <!-- ==================== G ==================== -->
+  <div class="scheme">
+    <div class="sname">G · 居中选中轮播</div>
+    <div class="sdesc">
+      <b style="color:var(--vm)">中间那张就是当前选中</b>，两侧缩小淡化。<br>
+      下方标题与按钮跟着变，确认后播放。仪式感更强。
+    </div>
+    <div class="phone">
+      <div class="nav">对白</div>
+      <div class="body">
+        <div class="search"><span class="icon"></span><span class="ph">粘贴文章，或从聊天选文件</span></div>
+
+        <div class="sechead" style="margin-top:20px"><span class="t">挑一集听</span><span class="m">共 7 集</span></div>
+
+        <!-- 轮播：两侧露出、淡化；中间完整 -->
+        <div class="gview">
+          <div class="gtrack">
+            <div class="gcard side left">
+              <div class="disc"><span class="big">10-05</span><span class="sm">今日</span></div>
+            </div>
+            <div class="gcard">
+              <span class="badge">正在看</span>
+              <span class="heard">听过</span>
+              <div class="disc"><span class="big">10-03</span><span class="sm">往期</span></div>
+              <div class="pl">▶ 听这集</div>
+            </div>
+            <div class="gcard side right">
+              <div class="disc"><span class="big">10-02</span><span class="sm">往期</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 指示点：当前那颗拉长成朱色短条 -->
+        <div class="gdots"><i></i><i></i><i class="on"></i><i></i><i></i></div>
+
+        <div class="ginfo">
+          <div class="gtitle">咖啡因是怎么让你清醒的？</div>
+          <div class="gsub">师生 · 4 句 · 3 分钟</div>
+        </div>
+
+        <div class="gbtn">▶　听这一集</div>
+
+        <div class="hint">← 左右滑动切换 · 点中间那张也能直接听</div>
+      </div>
+      <div class="tabbar"><div class="tab on">对白</div><div class="tab">历史</div><div class="tab">我的</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,822 @@
+{
+  "code": 0,
+  "msg": "ok",
+  "data": {
+    "meta": {
+      "exported_at": "2026-10-03T06:35:59.790Z",
+      "space": "mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d（uniCloud 阿里云）",
+      "masked": true,
+      "mask_rule": "openid → 前 3 位 + 固定前缀 MASKED_ + sha256 前 8 位",
+      "collections": 11,
+      "total_records": 58,
+      "counts": {
+        "users": 3,
+        "articles": 2,
+        "paragraphs": 6,
+        "scripts": 1,
+        "dialogue_lines": 14,
+        "audio_segments": 14,
+        "tones": 6,
+        "banners": 2,
+        "gen_logs": 3,
+        "feedbacks": 0,
+        "daily_episodes": 7
+      },
+      "ms": 4073
+    },
+    "tables": {
+      "users": [
+        {
+          "_id": "6abfc982f0821082b2816089",
+          "openid": "MASKED_sel****ea0e0633",
+          "nickname": "自检账号",
+          "avatar": "",
+          "role": "user",
+          "status": 1,
+          "created_at": 1790953858142,
+          "last_login": 1790953858142
+        },
+        {
+          "_id": "6ac091eca09a9bc9df7d35e2",
+          "openid": "MASKED_dbe****db137e0d",
+          "nickname": "导出工具账号",
+          "avatar": "",
+          "role": "user",
+          "status": 1,
+          "created_at": 1791005164356,
+          "last_login": 1791005164356
+        },
+        {
+          "_id": "6ac0a1f57ad52d07cd00633e",
+          "openid": "MASKED_dem****095b56d8",
+          "nickname": "演示账号",
+          "avatar": "",
+          "role": "admin",
+          "status": 1,
+          "created_at": 1791009269227,
+          "last_login": 1791009269227
+        }
+      ],
+      "articles": [
+        {
+          "_id": "6ac0a12909664cad6db7f0da",
+          "user_id": "6abfc982f0821082b2816089",
+          "title": "自检用文章",
+          "content": "光合作用分为光反应和暗反应两个阶段。\n\n光反应在类囊体薄膜上进行，需要光直接参与，产物是 ATP 和 NADPH。\n\n暗反应在叶绿体基质中进行，不需要光直接参与，但要用掉光反应产出的 ATP 和 NADPH。\n\n中午光照最强时，气孔关闭导致二氧化碳供应不足，光合作用反而下降，这叫光合午休。",
+          "char_count": 145,
+          "created_at": 1791009064974
+        },
+        {
+          "_id": "6ac0a1f63d029ce81a489cc1",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "title": "光合作用为什么分两步？",
+          "content": "光合作用分为光反应和暗反应两个阶段。\n\n光反应在类囊体薄膜上进行，需要光直接参与，产物是 ATP 和 NADPH。\n\n暗反应在叶绿体基质中进行，不需要光直接参与，但要用掉光反应产出的 ATP 和 NADPH。\n\n中午光照最强时，气孔关闭导致二氧化碳供应不足，光合作用反而下降，这叫光合午休。",
+          "char_count": 145,
+          "created_at": 1791009269629
+        }
+      ],
+      "paragraphs": [
+        {
+          "_id": "6ac0a129f2949cf0bddc357c",
+          "article_id": "6ac0a12909664cad6db7f0da",
+          "user_id": "6abfc982f0821082b2816089",
+          "seq": 1,
+          "text": "光合作用分为光反应和暗反应两个阶段。"
+        },
+        {
+          "_id": "6ac0a12af2949cf0bddc3585",
+          "article_id": "6ac0a12909664cad6db7f0da",
+          "user_id": "6abfc982f0821082b2816089",
+          "seq": 2,
+          "text": "光反应在类囊体薄膜上进行，需要光直接参与，产物是 ATP 和 NADPH。"
+        },
+        {
+          "_id": "6ac0a1f68b0da47cf40ab26c",
+          "article_id": "6ac0a1f63d029ce81a489cc1",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 1,
+          "text": "光合作用分为光反应和暗反应两个阶段。"
+        },
+        {
+          "_id": "6ac0a1f699c624830197442a",
+          "article_id": "6ac0a1f63d029ce81a489cc1",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 2,
+          "text": "光反应在类囊体薄膜上进行，需要光直接参与，产物是 ATP 和 NADPH。"
+        },
+        {
+          "_id": "6ac0a1f7862066debe897432",
+          "article_id": "6ac0a1f63d029ce81a489cc1",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 3,
+          "text": "暗反应在叶绿体基质中进行，不需要光直接参与，但要用掉光反应产出的 ATP 和 NADPH。"
+        },
+        {
+          "_id": "6ac0a1f77ad52d07cd00635c",
+          "article_id": "6ac0a1f63d029ce81a489cc1",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 4,
+          "text": "中午光照最强时，气孔关闭导致二氧化碳供应不足，光合作用反而下降，这叫光合午休。"
+        }
+      ],
+      "scripts": [
+        {
+          "_id": "6ac0a1fa652341e9ea599133",
+          "article_id": "6ac0a1f63d029ce81a489cc1",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "tone_code": "bicker",
+          "status": "generated",
+          "line_count": 14,
+          "pending_confirm": 0,
+          "preview": [
+            "光合作用为什么分两步？我觉得根本没必要。",
+            "怎么没必要？它本来就分光反应和暗反应两个阶段。"
+          ],
+          "created_at": 1791009274335
+        }
+      ],
+      "dialogue_lines": [
+        {
+          "_id": "6ac0a1fb7ae7087f8446d9b2",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 1,
+          "speaker": "A",
+          "text": "光合作用为什么分两步？我觉得根本没必要。",
+          "source_paragraph": 1,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1fbce5ec960c9bae652",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 2,
+          "speaker": "B",
+          "text": "怎么没必要？它本来就分光反应和暗反应两个阶段。",
+          "source_paragraph": 1,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1fbfe975f7c84a51322",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 3,
+          "speaker": "A",
+          "text": "那光反应到底在哪儿进行？",
+          "source_paragraph": 2,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1fc99c6248301974498",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 4,
+          "speaker": "B",
+          "text": "在类囊体薄膜上，而且需要光直接参与。",
+          "source_paragraph": 2,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1fc9755e3f85adb5130",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 5,
+          "speaker": "A",
+          "text": "它产出什么？",
+          "source_paragraph": 2,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1fc8a5c78af1f4d99ba",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 6,
+          "speaker": "B",
+          "text": "产物是 ATP 和 NADPH。",
+          "source_paragraph": 2,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1fd466d41bad7011540",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 7,
+          "speaker": "A",
+          "text": "暗反应呢？它在哪儿？",
+          "source_paragraph": 3,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1fd862066debe8974bc",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 8,
+          "speaker": "B",
+          "text": "在叶绿体基质中进行，不需要光直接参与。",
+          "source_paragraph": 3,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1fd7ad52d07cd0063ed",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 9,
+          "speaker": "A",
+          "text": "不需要光，那它自己就能干？",
+          "source_paragraph": 3,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1feeef9cb3c25807597",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 10,
+          "speaker": "B",
+          "text": "不行，它要用掉光反应产出的 ATP 和 NADPH。",
+          "source_paragraph": 3,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1fe652341e9ea59919b",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 11,
+          "speaker": "A",
+          "text": "那中午光照最强，光合作用应该最旺吧？",
+          "source_paragraph": 4,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1fef0821082b28f4bcd",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 12,
+          "speaker": "B",
+          "text": "反而下降，这叫光合午休。",
+          "source_paragraph": 4,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1ffe0ec194ad98c5307",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 13,
+          "speaker": "A",
+          "text": "为什么？光那么强。",
+          "source_paragraph": 4,
+          "flag": "",
+          "confirmed": false
+        },
+        {
+          "_id": "6ac0a1ffa7c4326ddb7a46ae",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "seq": 14,
+          "speaker": "B",
+          "text": "因为气孔关闭，二氧化碳供应不足。",
+          "source_paragraph": 4,
+          "flag": "",
+          "confirmed": false
+        }
+      ],
+      "audio_segments": [
+        {
+          "_id": "6ac0a205a09a9bc9df7ea16f",
+          "line_id": "6ac0a1fb7ae7087f8446d9b2",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "A",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/3514378c-d9a1-4f9b-9a3c-478a57550c1a.mp3",
+          "size": 29037,
+          "duration": 0,
+          "created_at": 1791009284898
+        },
+        {
+          "_id": "6ac0a208fe975f7c84a5145d",
+          "line_id": "6ac0a1fbce5ec960c9bae652",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "B",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/b3e19534-b358-4e79-998a-aaf13d9db2e6.mp3",
+          "size": 34221,
+          "duration": 0,
+          "created_at": 1791009287773
+        },
+        {
+          "_id": "6ac0a20b652341e9ea5992b2",
+          "line_id": "6ac0a1fbfe975f7c84a51322",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "A",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/73971434-2cac-4578-b776-b9414c1ad568.mp3",
+          "size": 16365,
+          "duration": 0,
+          "created_at": 1791009290459
+        },
+        {
+          "_id": "6ac0a20d8b0da47cf40ab40b",
+          "line_id": "6ac0a1fc99c6248301974498",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "B",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/2ed24d53-4446-44be-ac84-3b0d0323e4a9.mp3",
+          "size": 32301,
+          "duration": 0,
+          "created_at": 1791009293384
+        },
+        {
+          "_id": "6ac0a20f2eea65a57fdbbd01",
+          "line_id": "6ac0a1fc9755e3f85adb5130",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "A",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/4de71620-e5ce-41e8-9e67-2bd7b84f3d20.mp3",
+          "size": 9837,
+          "duration": 0,
+          "created_at": 1791009295434
+        },
+        {
+          "_id": "6ac0a2128b0da47cf40ab466",
+          "line_id": "6ac0a1fc8a5c78af1f4d99ba",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "B",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/be76bdf4-950a-4e83-a29d-549bfc2df5e9.mp3",
+          "size": 27693,
+          "duration": 0,
+          "created_at": 1791009298223
+        },
+        {
+          "_id": "6ac0a215a7c4326ddb7a4842",
+          "line_id": "6ac0a1fd466d41bad7011540",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "A",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/e0f8bab0-8fc3-4451-81fa-128b5ad66ddf.mp3",
+          "size": 16365,
+          "duration": 0,
+          "created_at": 1791009300669
+        },
+        {
+          "_id": "6ac0a217189f86a4076bc3e7",
+          "line_id": "6ac0a1fd862066debe8974bc",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "B",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/a1ad104f-6d1d-42bf-9251-c146967c2534.mp3",
+          "size": 32301,
+          "duration": 0,
+          "created_at": 1791009303332
+        },
+        {
+          "_id": "6ac0a21beef9cb3c258077e8",
+          "line_id": "6ac0a1fd7ad52d07cd0063ed",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "A",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/c9af33f1-1bed-4e44-b2e9-20ec6cff530a.mp3",
+          "size": 19437,
+          "duration": 0,
+          "created_at": 1791009306818
+        },
+        {
+          "_id": "6ac0a21efe975f7c84a51623",
+          "line_id": "6ac0a1feeef9cb3c25807597",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "B",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/5898004f-7701-42ec-9ed2-f2abd81949bb.mp3",
+          "size": 38637,
+          "duration": 0,
+          "created_at": 1791009309970
+        },
+        {
+          "_id": "6ac0a221fe975f7c84a5165a",
+          "line_id": "6ac0a1fe652341e9ea59919b",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "A",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/4948435a-c9bf-4371-8577-cab254698323.mp3",
+          "size": 30957,
+          "duration": 0,
+          "created_at": 1791009312734
+        },
+        {
+          "_id": "6ac0a223e0ec194ad98c55fa",
+          "line_id": "6ac0a1fef0821082b28f4bcd",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "B",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/21cf4540-d052-4276-bcdf-067440d57622.mp3",
+          "size": 25965,
+          "duration": 0,
+          "created_at": 1791009315089
+        },
+        {
+          "_id": "6ac0a22599c62483019747ec",
+          "line_id": "6ac0a1ffe0ec194ad98c5307",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "A",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/c7f6a39b-fd00-4235-9860-fbcb3186e308.mp3",
+          "size": 16365,
+          "duration": 0,
+          "created_at": 1791009317178
+        },
+        {
+          "_id": "6ac0a228eef9cb3c25807919",
+          "line_id": "6ac0a1ffa7c4326ddb7a46ae",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "speaker": "B",
+          "file_id": "https://mp-3ca9b9fc-c332-44f5-ab89-c2acb84e9b8d.cdn.bspapp.com/cloudstorage/ddd254ef-5795-4a59-b592-dbed5a5e3823.mp3",
+          "size": 27693,
+          "duration": 0,
+          "created_at": 1791009320202
+        }
+      ],
+      "tones": [
+        {
+          "_id": "tone_teacher_student",
+          "code": "teacher_student",
+          "name": "师生",
+          "description": "一位老师带着学生一问一答，学生替你问出疑惑",
+          "prompt_template": "你是一位耐心老师，把下面文章的书面语改写成【老师】与【学生】的双人口语对话。学生要主动追问、复述、举例；老师负责讲解与纠正。句子要短，避免书面长句。",
+          "sample": "学生：等下，这两个阶段是分开干的？",
+          "enabled": true,
+          "sort": 1
+        },
+        {
+          "_id": "tone_bicker",
+          "code": "bicker",
+          "name": "抬杠",
+          "description": "两个人各持一边，在争论中把事实讲清楚",
+          "prompt_template": "你写两个人的对话，两人观点相左、互相质疑抬杠，在争辩中把文章的事实与结论讲清楚。可以有反问和反驳，但不得编造原文没有的事实。",
+          "sample": "甲：那按你这么说，中午太阳最大岂不是最快？",
+          "enabled": true,
+          "sort": 2
+        },
+        {
+          "_id": "tone_elder_young",
+          "code": "elder_young",
+          "name": "老少",
+          "description": "一位长辈和一个年轻人对话，长辈爱打比方",
+          "prompt_template": "你写一位长辈（甲）与一位年轻人（乙）的对话。长辈习惯用生活经验和打比方来解释，年轻人负责提出疑问。语气亲切，句子口语化。",
+          "sample": "甲：这就跟家里烧水一个道理，火再旺也得有个锅接着。",
+          "enabled": true,
+          "sort": 3
+        },
+        {
+          "_id": "tone_interview",
+          "code": "interview",
+          "name": "访谈",
+          "description": "主持人提问，嘉宾回答，节奏平稳",
+          "prompt_template": "你写一段访谈：甲是主持人，负责按逻辑顺序提问；乙是受访者，负责回答。问题要推进理解，不能只是复述原文。",
+          "sample": "甲：那这里最关键的一步是哪一步？",
+          "enabled": true,
+          "sort": 4
+        },
+        {
+          "_id": "tone_podcast",
+          "code": "podcast",
+          "name": "播客对谈",
+          "description": "两个熟人闲聊式对谈，轻松随意",
+          "prompt_template": "你写两个熟人闲聊式的对谈，语气轻松随意，可以有感叹和插话，但核心事实必须与原文一致。句子短，节奏快。",
+          "sample": "乙：哎这个我之前真理解错了。",
+          "enabled": true,
+          "sort": 5
+        },
+        {
+          "_id": "tone_bedtime",
+          "code": "bedtime",
+          "name": "睡前",
+          "description": "语速放慢、句子更短、语气轻柔",
+          "prompt_template": "你写一段睡前听的对话，语速慢、句子短、语气轻，避免激烈争论和数字密集的段落。用平缓的对谈把文章要点讲清楚。",
+          "sample": "甲：简单说，就是……",
+          "enabled": true,
+          "sort": 6
+        }
+      ],
+      "banners": [
+        {
+          "_id": "banner_1",
+          "title": "把文章，聊给你听",
+          "image": "static/images/banner-default.png",
+          "link": "",
+          "sort": 1,
+          "enabled": true
+        },
+        {
+          "_id": "banner_2",
+          "title": "通勤路上，用耳朵读完一篇",
+          "image": "static/images/banner-default.png",
+          "link": "",
+          "sort": 2,
+          "enabled": true
+        }
+      ],
+      "gen_logs": [
+        {
+          "_id": "6ac0a1ff189f86a4076bc1f9",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "stage": "dialogue",
+          "ms": 7973,
+          "ok": true,
+          "error_code": "",
+          "created_at": 1791009279378
+        },
+        {
+          "_id": "6ac0a2184b9247e4653e33b8",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "stage": "tts",
+          "ms": 22403,
+          "ok": true,
+          "error_code": "",
+          "created_at": 1791009303650
+        },
+        {
+          "_id": "6ac0a229bd02207f3af3af6e",
+          "user_id": "6ac0a1f57ad52d07cd00633e",
+          "script_id": "6ac0a1fa652341e9ea599133",
+          "stage": "tts",
+          "ms": 16497,
+          "ok": true,
+          "error_code": "",
+          "created_at": 1791009320529
+        }
+      ],
+      "feedbacks": [],
+      "daily_episodes": [
+        {
+          "_id": "ep_20261003",
+          "date_key": 20261003,
+          "title": "光合作用为什么分两步？",
+          "source_title": "光合作用（节选）",
+          "source_text": "光合作用分为光反应和暗反应两个阶段。光反应在类囊体薄膜上进行，需要光直接参与，产物是 ATP 和 NADPH。暗反应在叶绿体基质中进行，不需要光直接参与，但要用掉光反应产出的 ATP 和 NADPH。",
+          "tone_code": "bicker",
+          "toneName": "抬杠",
+          "duration_sec": 402,
+          "line_count": 6,
+          "lines": [
+            {
+              "speaker": "A",
+              "text": "光合作用其实没那么难。",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "难的是课本非要写得这么复杂。",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "A",
+              "text": "那光反应到底在干嘛？",
+              "source_paragraph": 2
+            },
+            {
+              "speaker": "B",
+              "text": "简单说，就是先把能量和氢存起来，装成两节电池。",
+              "source_paragraph": 2
+            },
+            {
+              "speaker": "A",
+              "text": "所以暗反应是花电池的那一步？",
+              "source_paragraph": 3
+            },
+            {
+              "speaker": "B",
+              "text": "对，而且它不需要光直接参与——不是不能在光下发生。",
+              "source_paragraph": 3
+            }
+          ],
+          "audio_file_id": "",
+          "enabled": true
+        },
+        {
+          "_id": "ep_20261002",
+          "date_key": 20261002,
+          "title": "为什么有人会晕车？",
+          "source_title": "前庭系统与运动病（节选）",
+          "source_text": "内耳前庭系统感受身体的运动，而眼睛看到的往往是相对静止的车厢。两套信号冲突时，大脑无法判断身体到底在不在动，就可能引发恶心、出汗等反应。",
+          "tone_code": "teach",
+          "toneName": "轻松解释",
+          "duration_sec": 252,
+          "line_count": 4,
+          "lines": [
+            {
+              "speaker": "A",
+              "text": "我一直不明白，为什么坐车会晕，自己开车反而不晕？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "因为开车的人知道车要往哪儿拐，身体先有准备。",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "A",
+              "text": "所以是脑子被骗了？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "不是被骗，是两套信号打架：耳朵说在动，眼睛说没动。",
+              "source_paragraph": 1
+            }
+          ],
+          "audio_file_id": "",
+          "enabled": true
+        },
+        {
+          "_id": "ep_20261001",
+          "date_key": 20261001,
+          "title": "咖啡因是怎么让你清醒的？",
+          "source_title": "腺苷与咖啡因（节选）",
+          "source_text": "腺苷与受体结合会产生困倦感。咖啡因的结构与腺苷相似，会占据受体位置，阻断困倦信号，但它并没有消除疲劳，只是让你暂时感觉不到。",
+          "tone_code": "interview",
+          "toneName": "课堂讨论",
+          "duration_sec": 321,
+          "line_count": 4,
+          "lines": [
+            {
+              "speaker": "A",
+              "text": "喝咖啡到底是提神，还是透支？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "它没消除疲劳，只是把「困」这个信号暂时挡住了。",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "A",
+              "text": "那等它代谢掉，困劲儿会一次性回来？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "对，这就是为什么咖啡劲过去之后会突然特别困。",
+              "source_paragraph": 1
+            }
+          ],
+          "audio_file_id": "",
+          "enabled": true
+        },
+        {
+          "_id": "ep_20260930",
+          "date_key": 20260930,
+          "title": "为什么熬夜会变丑？",
+          "source_title": "睡眠与皮肤修复（节选）",
+          "source_text": "睡眠不足会影响皮质醇分泌、皮肤屏障修复与微循环，导致眼周水肿、肤色暗沉、黑眼圈加重。",
+          "tone_code": "podcast",
+          "toneName": "朋友聊天",
+          "duration_sec": 236,
+          "line_count": 4,
+          "lines": [
+            {
+              "speaker": "A",
+              "text": "熬夜为什么会写在脸上？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "因为皮肤的修复班是夜里上的，你不睡它就没法干活。",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "A",
+              "text": "那熬夜之后补一觉能补回来吗？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "能补一部分，但连着熬几天，账就还不上了。",
+              "source_paragraph": 1
+            }
+          ],
+          "audio_file_id": "",
+          "enabled": true
+        },
+        {
+          "_id": "ep_20260929",
+          "date_key": 20260929,
+          "title": "空调为什么会让房间变干？",
+          "source_title": "空调除湿原理（节选）",
+          "source_text": "空调制冷时蒸发器温度低于露点，空气中的水蒸气在其表面凝结成水排出室外，因此室内绝对含水量下降；同时低温使相对湿度进一步降低。",
+          "tone_code": "rigorous",
+          "toneName": "严谨讲解",
+          "duration_sec": 284,
+          "line_count": 4,
+          "lines": [
+            {
+              "speaker": "A",
+              "text": "空调一开就觉得嗓子干，是心理作用吗？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "不是。制冷时空气里的水会在冷管上凝成水珠排到室外。",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "A",
+              "text": "所以是水被带走了。",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "对，室内温度降了，水也少了。",
+              "source_paragraph": 1
+            }
+          ],
+          "audio_file_id": "",
+          "enabled": true
+        },
+        {
+          "_id": "ep_20260928",
+          "date_key": 20260928,
+          "title": "冬天摸铁栏杆为什么更冷？",
+          "source_title": "导热系数与体感温度（节选）",
+          "source_text": "温度相同的物体，因导热系数不同，与皮肤接触时的热流速率不同。金属导热系数远高于木头，会更快带走手部热量，因此感觉更冷。",
+          "tone_code": "teach",
+          "toneName": "轻松解释",
+          "duration_sec": 198,
+          "line_count": 4,
+          "lines": [
+            {
+              "speaker": "A",
+              "text": "铁栏杆和木扶手明明是同一个温度吧？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "是同一个温度，但金属抢热抢得快。",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "A",
+              "text": "所以不是它更冷，是我凉得更快？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "对，感觉冷是因为你的手在快速失温。",
+              "source_paragraph": 1
+            }
+          ],
+          "audio_file_id": "",
+          "enabled": true
+        },
+        {
+          "_id": "ep_20260927",
+          "date_key": 20260927,
+          "title": "手机为什么越用越卡？",
+          "source_title": "系统性能衰减（节选）",
+          "source_text": "系统长期使用后，后台常驻进程增多、存储碎片化、以及电池老化带来的性能调度策略变化，都会让响应变慢。",
+          "tone_code": "bicker",
+          "toneName": "抬杠",
+          "duration_sec": 265,
+          "line_count": 4,
+          "lines": [
+            {
+              "speaker": "A",
+              "text": "手机越用越卡，是不是厂商故意的？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "有一部分是，但更多是软件自己长胖了。",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "A",
+              "text": "那恢复出厂设置真有用？",
+              "source_paragraph": 1
+            },
+            {
+              "speaker": "B",
+              "text": "有用，因为那等于把屋子清空重来一遍。",
+              "source_paragraph": 1
+            }
+          ],
+          "audio_file_id": "",
+          "enabled": true
+        }
+      ]
+    }
+  }
+}

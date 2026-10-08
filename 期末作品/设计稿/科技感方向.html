@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>科技感方向 · 冷纸 / 深墨</title>
+<style>
+/*
+  ============ 科技感的四个来源（都不违背墨与朱）============
+  1. 色温调冷：暖米 → 冷灰纸 / 近黑墨（"黄"是古风感的最大来源）
+  2. 几何线条图标：替掉"＋▶往谈腔"这些汉字方块
+  3. 等宽数字与编号：01/07 · SOURCE P03 · 4:02 · VOICE B
+  4. 状态点 + 发丝线 + 精确对齐
+*/
+:root{
+  --vm:#b83f28;
+  --mono:ui-monospace,"SF Mono",Consolas,"Cascadia Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#d9d9d4;font-family:"Microsoft YaHei","PingFang SC",-apple-system,sans-serif;padding:38px 26px 56px}
+.pt{text-align:center;color:#17171a;font-size:25px;font-weight:600;letter-spacing:1px}
+.ps{text-align:center;color:#7a7a80;font-size:13px;margin:8px 0 40px;line-height:1.85}
+.ps b{color:var(--vm)}
+.row{display:flex;justify-content:center;gap:52px;flex-wrap:wrap}
+.scheme{width:340px}
+.sname{text-align:center;color:#17171a;font-size:16px;font-weight:600;margin-bottom:5px}
+.sdesc{text-align:center;color:#7a7a80;font-size:12px;line-height:1.8;height:64px;margin-bottom:14px}
+.sdesc b{color:#17171a;font-weight:600}
+.phone{width:340px;height:704px;border-radius:30px;overflow:hidden;position:relative;
+       box-shadow:0 12px 34px rgba(0,0,0,.10)}
+.nav{height:44px;display:flex;align-items:center;justify-content:center;
+     font-size:15px;letter-spacing:.5px}
+.body{height:calc(100% - 44px);overflow:hidden;padding:0 14px}
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:56px;display:flex;
+        align-items:center;justify-content:space-around}
+.tab{font-size:10.5px;text-align:center}
+.tab svg{display:block;margin:0 auto 3px}
+
+/* ===== 大标题 + 右侧编号（数字感）===== */
+.ttlwrap{display:flex;align-items:baseline;justify-content:space-between;padding:6px 2px 14px}
+.largetitle{font-size:31px;font-weight:700;letter-spacing:-.4px;line-height:1.15}
+.ttlmeta{font-family:var(--mono);font-size:11px;letter-spacing:.5px;opacity:.5}
+
+.ghead{font-size:11px;letter-spacing:1.2px;padding:0 16px 7px;text-transform:uppercase;
+       font-family:var(--mono)}
+
+.card{border-radius:12px;overflow:hidden;margin-bottom:24px}
+.r{display:flex;align-items:center;gap:10px;padding:11px 14px;min-height:44px;position:relative}
+.r + .r:before{content:"";position:absolute;left:52px;right:0;top:0;height:1px}
+.rt{flex:1;min-width:0}
+.rtitle{font-size:15.4px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rsub{font-size:12.5px;margin-top:3px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chev{font-size:15px;flex-shrink:0;line-height:1;opacity:.45}
+.rval{font-size:12.5px;flex-shrink:0;margin-right:4px;font-family:var(--mono);color:inherit;opacity:.75}
+/* ★ 状态点：科技感的"系统状态"语汇（4px 小点，紧贴图标左侧） */
+.st{width:5px;height:5px;border-radius:2.5px;flex-shrink:0}
+
+/* 图标方块：几何线性图标，取代汉字 */
+.sq{width:26px;height:26px;border-radius:7px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center}
+.hero .sq{width:30px;height:30px;border-radius:8px}
+.hero .rtitle{font-size:18px;font-weight:600;letter-spacing:-.2px}
+.hero{padding-top:15px;padding-bottom:15px}
+
+/* ==================== R · 冷纸 ==================== */
+.R{background:#efefec;color:#17171a}
+.R .nav{background:rgba(239,239,236,.94);border-bottom:1px solid #e2e3e1;color:#17171a}
+.R .card{background:#ffffff}
+.R .r + .r:before{background:#ececeb}
+.R .rtitle{color:#17171a}
+.R .rsub{color:#82828a}
+.R .ghead{color:#9a9aa2}
+.R .ttlmeta{color:#9a9aa2}
+.R .tabbar{background:rgba(239,239,236,.96);border-top:1px solid #e2e3e1}
+.R .tab{color:#a0a0a8}
+.R .tab.on{color:var(--vm)}
+.R .sq.vm{background:rgba(200,69,44,.10);color:var(--vm)}
+.R .sq.ink{background:#f2f2f0;color:#6a6a72}
+.R .chev{color:#b0b0b8}
+.R .st{background:#c9c9c8}
+.R .st.vm{background:var(--vm)}
+
+/* ==================== S · 深墨（以墨为底、纸为字）==================== */
+/* 妙处：墨与朱的"墨"本来就是黑 —— 深色不是改装，是把立意反过来用 */
+.S{background:#121214;color:#f0ede4}
+.S .nav{background:rgba(18,18,20,.94);border-bottom:1px solid #232326;color:#f0ede4}
+.S .card{background:#1c1c1f}
+.S .r + .r:before{background:#2a2a2e}
+.S .rtitle{color:#f0ede4}
+.S .rsub{color:#8c8c94}
+.S .ghead{color:#5e5e66}
+.S .ttlmeta{color:#5e5e66}
+.S .tabbar{background:rgba(18,18,20,.96);border-top:1px solid #232326}
+.S .tab{color:#5e5e66}
+.S .tab.on{color:#ff4d33}
+.S .sq.vm{background:rgba(255,77,51,.14);color:#ff4d33}
+.S .sq.ink{background:#26262a;color:#8c8c94}
+.S .chev{color:#4a4a52}
+.S .st{background:#3a3a40}
+.S .st.vm{background:#ff4d33}
+</style>
+</head>
+<body>
+
+<div class="pt">科技感方向 · 冷纸 / 深墨</div>
+<div class="ps">
+  科技感来自：<b>色温调冷</b>（去掉"黄"）· <b>几何线性图标</b>（取代汉字方块）· <b>等宽数字编号</b> · 状态点<br>
+  右边那个不是"深色主题"——「墨与朱」的<b>墨本来就是黑</b>，深色是把立意反过来用。
+</div>
+
+<div class="row">
+
+  <!-- ==================== R · 冷纸 ==================== -->
+  <div class="scheme">
+    <div class="sname">R · 冷纸（浅色科技感）</div>
+    <div class="sdesc">
+      保留浅色底，但<b>去黄调冷</b>（#EFEFEC）· 卡片纯白 · 图标改几何线条 ·
+      数据用<b>等宽字体</b>。
+    </div>
+    <div class="phone R">
+      <div class="nav">对白</div>
+      <div class="body">
+        <div class="ttlwrap">
+          <span class="largetitle">对白</span>
+          <span class="ttlmeta">01 / 07</span>
+        </div>
+
+        <div class="card">
+          <div class="r hero">
+            <div class="sq vm">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </div>
+            <div class="rt">
+              <div class="rtitle">投一篇文章</div>
+              <div class="rsub">粘贴文本，或从聊天里选个文件</div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+
+        <div class="ghead">今天能听</div>
+        <div class="card">
+          <div class="r hero" style="padding-top:12px;padding-bottom:12px">
+            <div class="sq vm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>
+            </div>
+            <div class="rt">
+              <div class="rtitle">光合作用为什么分两步？</div>
+              <div class="rsub">今日 · 抬杠 · <span style="font-family:var(--mono)">6</span> 句 · <span style="font-family:var(--mono)">04:02</span></div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="sq ink">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+            </div>
+            <div class="rt"><div class="rtitle">往期</div></div>
+            <div class="rval">06</div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+
+        <div class="ghead">我的</div>
+        <div class="card" style="margin-bottom:0">
+          <div class="r">
+            <div class="st vm"></div><div class="sq ink">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </div>
+            <div class="rt">
+              <div class="rtitle">数据链路层在物</div>
+              <div class="rsub">播客对谈 · <span style="font-family:var(--mono)">23</span> 句 · 待确认 <span style="font-family:var(--mono)">2</span></div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="st vm"></div><div class="sq vm">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>
+            </div>
+            <div class="rt">
+              <div class="rtitle">为什么有人会晕车</div>
+              <div class="rsub">轻松解释 · <span style="font-family:var(--mono)">4</span> 句 · <span style="font-family:var(--mono)">01:48</span></div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="st vm"></div><div class="sq vm">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>
+            </div>
+            <div class="rt">
+              <div class="rtitle">咖啡因是怎么让你清醒的</div>
+              <div class="rsub">师生 · <span style="font-family:var(--mono)">4</span> 句 · <span style="font-family:var(--mono)">02:10</span></div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="st"></div><div class="sq ink">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>
+            </div>
+            <div class="rt"><div class="rtitle">默认口吻</div></div>
+            <div class="rval">bedtime</div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== S · 深墨 ==================== -->
+  <div class="scheme">
+    <div class="sname">S · 深墨 <span style="color:#ff4d33;font-size:11.5px">← 推荐</span></div>
+    <div class="sdesc">
+      <b>以墨为底、纸为字</b>，朱色提亮到 #FF4D33。<br>
+      同样的结构，但科技感是另一个量级 —— 而且更贴"墨与朱"的立意。
+    </div>
+    <div class="phone S">
+      <div class="nav">对白</div>
+      <div class="body">
+        <div class="ttlwrap">
+          <span class="largetitle">对白</span>
+          <span class="ttlmeta">01 / 07</span>
+        </div>
+
+        <div class="card">
+          <div class="r hero">
+            <div class="sq vm">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </div>
+            <div class="rt">
+              <div class="rtitle">投一篇文章</div>
+              <div class="rsub">粘贴文本，或从聊天里选个文件</div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+
+        <div class="ghead">今天能听</div>
+        <div class="card">
+          <div class="r hero" style="padding-top:12px;padding-bottom:12px">
+            <div class="sq vm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>
+            </div>
+            <div class="rt">
+              <div class="rtitle">光合作用为什么分两步？</div>
+              <div class="rsub">今日 · 抬杠 · <span style="font-family:var(--mono)">6</span> 句 · <span style="font-family:var(--mono)">04:02</span></div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="sq ink">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+            </div>
+            <div class="rt"><div class="rtitle">往期</div></div>
+            <div class="rval">06</div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+
+        <div class="ghead">我的</div>
+        <div class="card" style="margin-bottom:0">
+          <div class="r">
+            <div class="st vm"></div><div class="sq ink">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </div>
+            <div class="rt">
+              <div class="rtitle">数据链路层在物</div>
+              <div class="rsub">播客对谈 · <span style="font-family:var(--mono)">23</span> 句 · 待确认 <span style="font-family:var(--mono)">2</span></div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="st vm"></div><div class="sq vm">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>
+            </div>
+            <div class="rt">
+              <div class="rtitle">为什么有人会晕车</div>
+              <div class="rsub">轻松解释 · <span style="font-family:var(--mono)">4</span> 句 · <span style="font-family:var(--mono)">01:48</span></div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="st vm"></div><div class="sq vm">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>
+            </div>
+            <div class="rt">
+              <div class="rtitle">咖啡因是怎么让你清醒的</div>
+              <div class="rsub">师生 · <span style="font-family:var(--mono)">4</span> 句 · <span style="font-family:var(--mono)">02:10</span></div>
+            </div>
+            <div class="chev">›</div>
+          </div>
+          <div class="r">
+            <div class="st"></div><div class="sq ink">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>
+            </div>
+            <div class="rt"><div class="rtitle">默认口吻</div></div>
+            <div class="rval">bedtime</div>
+            <div class="chev">›</div>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

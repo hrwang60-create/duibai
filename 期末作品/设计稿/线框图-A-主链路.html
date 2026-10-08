@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>对白 · 低保真功能线框图 A（主链路）</title>
+<link rel="stylesheet" href="wf.css">
+</head>
+<body>
+
+<div class="hd">
+  <h1>「对白」低保真功能线框图 · A 主链路</h1>
+  <p>灰阶线框 · 橙圈编号对应《页面功能规格》· 5 屏：首页默认 → 首页输入 → 生成中 → 确认 → 结果</p>
+</div>
+
+<div class="grid">
+
+  <!-- ============ A1 首页 · 默认 ============ -->
+  <div class="cell">
+    <div class="cap">A1 首页 <em>／默认态</em></div>
+    <div class="p">
+      <div class="padn">
+        <div class="top"><span><span class="ni">1</span>对白</span><span>我的</span></div>
+
+        <div class="b ghost" style="height:40px;justify-content:flex-start;padding-left:2px;border:none;background:none;color:#3A3A3A;font-size:13px;font-weight:600">
+          <span class="ni">2</span>把文章，<br>聊给你听。
+        </div>
+
+        <div class="b col" style="height:auto;align-items:stretch;padding:8px;text-align:left;margin-bottom:12px">
+          <div style="color:#9A9A9A;font-size:9px;margin-bottom:6px"><span class="ni">3</span>示例对谈 · 自动缓慢推进（1.5s 一句）</div>
+          <div class="dl vm"><span class="sp">甲</span><span class="tx">光合作用其实没那么难。</span></div>
+          <div class="dl now"><span class="sp">乙</span><span class="tx">难的是课本非要写得这么复杂。</span></div>
+          <div class="dl vm dim"><span class="sp">甲</span><span class="tx">那光反应到底在干嘛？</span></div>
+          <div class="dl dim"><span class="sp">乙</span><span class="tx">简单说，就是先把能量存下来。</span></div>
+        </div>
+
+        <div class="b ink" style="height:42px"><span class="ni">4</span>＋ 投一篇文章</div>
+
+        <div class="b solid" style="height:auto;flex-direction:column;align-items:stretch;text-align:left;padding:9px">
+          <div style="font-size:9px;color:#9A9A9A;margin-bottom:6px"><span class="ni">5</span>最近</div>
+          <div class="row" style="margin-bottom:5px">
+            <span class="grow" style="font-size:10px;color:#555">光合作用为什么分两步？</span>
+            <span style="font-size:9px;color:#A0A0A0">6:42 · 抬杠</span>
+          </div>
+          <div class="row">
+            <span class="grow" style="font-size:10px;color:#555">马克思主义与中国</span>
+            <span style="font-size:9px;color:#A0A0A0">14:32 · 严谨</span>
+          </div>
+        </div>
+      </div>
+      <div class="tab"><div class="on"><span class="ni">6</span>对白</div><div>历史</div><div>我的</div></div>
+    </div>
+  </div>
+
+  <!-- ============ A2 首页 · 输入展开 ============ -->
+  <div class="cell">
+    <div class="cap">A2 首页 <em>／点「投一篇文章」后展开</em></div>
+    <div class="p">
+      <div class="padn">
+        <div class="top"><span><span class="ni">1</span>← 收起</span><span>投一篇文章</span></div>
+
+        <div class="b" style="height:96px;justify-content:flex-start;align-items:flex-start;text-align:left">
+          <span class="ni">2</span>粘贴文章内容…
+        </div>
+
+        <div class="row" style="margin-bottom:8px">
+          <div class="b grow low" style="margin:0"><span class="ni">3</span>选择文件</div>
+          <div class="b grow low" style="margin:0">从聊天选</div>
+        </div>
+
+        <div class="note"><span class="ni">4</span>实时显示：3280 字 · 预计约 4 分钟</div>
+
+        <div class="b solid" style="height:auto;flex-direction:column;align-items:stretch;text-align:left;padding:9px">
+          <div style="font-size:9px;color:#9A9A9A;margin-bottom:7px"><span class="ni">5</span>选择对谈口吻</div>
+          <div>
+            <span class="pill on">抬杠讨论</span><span class="pill">轻松解释</span>
+            <span class="pill">朋友聊天</span><span class="pill">新闻播客</span>
+            <span class="pill">严谨讲解</span><span class="pill">课堂讨论</span>
+          </div>
+          <div class="note" style="margin:6px 0 0 0"><span class="ni">6</span>选中即预览（不用等生成）：</div>
+          <div class="dl vm" style="padding-left:0;margin-bottom:3px"><span class="sp">甲</span><span class="tx">你确定这句话成立？</span></div>
+          <div class="dl" style="padding-left:0;margin-bottom:0"><span class="sp">乙</span><span class="tx">当然，你自己看原文。</span></div>
+        </div>
+
+        <div class="b ink" style="height:42px"><span class="ni">7</span>开始聊</div>
+      </div>
+      <div class="tab"><div class="on">对白</div><div>历史</div><div>我的</div></div>
+    </div>
+  </div>
+
+  <!-- ============ A3 生成中 ============ -->
+  <div class="cell">
+    <div class="cap">A3 生成中 <em>／阶段反馈 + 对话预演</em></div>
+    <div class="p">
+      <div class="padn">
+        <div class="b ghost" style="height:38px;justify-content:flex-start;border:none;background:none;color:#3A3A3A;font-size:13px;font-weight:600">
+          <span class="ni">1</span>正在把它聊开…
+        </div>
+
+        <div class="b solid" style="height:auto;flex-direction:column;align-items:stretch;text-align:left;padding:10px">
+          <div style="font-size:9px;color:#9A9A9A;margin-bottom:7px"><span class="ni">2</span>阶段清单（✓完成 ●进行中 ○未开始）</div>
+          <div style="font-size:10px;color:#767676;line-height:1.9">
+            ✓ 正在阅读文章<br>
+            ✓ 正在拆分内容<br>
+            <b style="color:#333">● 正在组织对话</b><br>
+            ○ 正在检查出处<br>
+            ○ 准备声音
+          </div>
+        </div>
+
+        <div class="note"><span class="ni">3</span>已用 12 秒 · <b>不显示百分比</b>（模型是黑盒，编造进度是假的）</div>
+
+        <div class="b solid" style="height:auto;flex-direction:column;align-items:stretch;text-align:left;padding:10px">
+          <div style="font-size:9px;color:#9A9A9A;margin-bottom:7px"><span class="ni">4</span>对话预演（用户不干等）</div>
+          <div class="dl vm" style="padding-left:0;margin-bottom:4px"><span class="sp">甲</span><span class="tx">所以你的意思是……</span></div>
+          <div class="dl" style="padding-left:0;margin-bottom:4px"><span class="sp">乙</span><span class="tx">简单来说，就是……</span></div>
+          <div class="dl dim" style="padding-left:0;margin-bottom:0"><span class="sp">甲</span><span class="tx">等等，这里是不是……</span></div>
+        </div>
+
+        <div class="b low" style="margin-top:14px"><span class="ni">5</span>取消</div>
+      </div>
+      <div class="tab"><div class="on">对白</div><div>历史</div><div>我的</div></div>
+    </div>
+  </div>
+
+  <!-- ============ A4 确认 ============ -->
+  <div class="cell">
+    <div class="cap">A4 确认 <em>／可疑处让对话「卡住」</em></div>
+    <div class="p">
+      <div class="padn">
+        <div class="top"><span><span class="ni">1</span>有 3 处需要你确认</span><span>1 / 3</span></div>
+
+        <div style="position:relative;margin-bottom:12px">
+          <div class="rail" style="top:6px;bottom:6px"></div>
+          <div class="raildot" style="top:120px"></div>
+          <div class="dl vm dim"><span class="sp">甲</span><span class="tx">那这些反应到底在哪儿发生？</span></div>
+
+          <div class="b" style="height:auto;flex-direction:column;align-items:stretch;text-align:left;padding:9px;border-left:3px solid #E5502F;border-radius:6px">
+            <div style="margin-bottom:6px"><span class="qm">?</span>
+              <span style="font-size:9.5px;color:#B83F28;font-weight:600"> <span class="ni">2</span>可能的问题</span></div>
+            <div style="font-size:10px;color:#444;margin-bottom:5px">原文说的是「类囊体薄膜」，<br>台词写成了「叶绿体基质」</div>
+            <div class="note" style="margin:0"><span class="ni">3</span>对照原文，不让你凭记忆判断</div>
+          </div>
+
+          <div class="row" style="margin-bottom:8px">
+            <div class="b grow low" style="margin:0"><span class="ni">4</span>查看原文</div>
+            <div class="b grow low" style="margin:0">修改这一句</div>
+          </div>
+          <div class="b low" style="border-style:solid"><span class="ni">5</span>确认没问题</div>
+
+          <div class="dl" style="opacity:.35"><span class="sp">乙</span><span class="tx">在类囊体薄膜上进行。</span></div>
+        </div>
+
+        <div class="note" style="text-align:center"><span class="ni">6</span>对话停在这里 —— 回应之后才继续</div>
+        <div class="b ink" style="height:40px"><span class="ni">7</span>全部确认，开始生成声音</div>
+      </div>
+      <div class="tab"><div class="on">对白</div><div>历史</div><div>我的</div></div>
+    </div>
+  </div>
+
+  <!-- ============ A5 结果 ============ -->
+  <div class="cell">
+    <div class="cap">A5 结果 <em>／对话流（不是播放器）· 70% 精力在这页</em></div>
+    <div class="p">
+      <div class="padn" style="padding-bottom:56px">
+        <div class="top"><span><span class="ni">1</span>← 光合作用到底怎么回事</span><span>⋯</span></div>
+
+        <div style="position:relative;height:320px">
+          <div class="rail" style="top:4px;bottom:auto;height:310px"></div>
+          <div class="raildot" style="top:140px"></div>
+
+          <div class="dl dim"><span class="sp">甲</span><span class="tx">所以光反应发生在叶绿体基质？</span></div>
+
+          <div class="dl now vm"><span class="sp">乙</span><span class="tx">不是。原文说的是<br>「类囊体薄膜」。</span></div>
+          <div class="note" style="padding-left:14px;margin:-2px 0 10px 0">
+            <span class="ni">2</span>出处 <u style="color:#B83F28">P3</u> 可点 · <span style="color:#333">改这句</span>
+          </div>
+
+          <div class="dl"><span class="sp">甲</span><span class="tx">那 ATP 和 NADPH 是干嘛的？</span></div>
+          <div class="dl dim vm"><span class="sp">乙</span><span class="tx">给后面的暗反应供能。</span></div>
+        </div>
+
+        <div class="b low" style="border-style:dashed"><span class="ni">3</span>这里听不清？重新聊（点击才出现底部浮层 F1）</div>
+
+        <div class="b solid" style="height:auto;flex-direction:column;align-items:stretch;text-align:center;padding:10px">
+          <div style="font-size:9px;color:#9A9A9A;margin-bottom:8px;text-align:left"><span class="ni">4</span>播放控制（辅助 · 人小 · 靠底）</div>
+          <div class="row" style="justify-content:center;gap:5px;margin-bottom:9px">
+            <span class="pill" style="margin:0">0.8×</span><span class="pill on" style="margin:0">1.0×</span>
+            <span class="pill" style="margin:0">1.25×</span><span class="pill" style="margin:0">1.5×</span>
+          </div>
+          <div class="row" style="justify-content:center;gap:16px">
+            <span style="font-size:13px;color:#777">⟨</span>
+            <span style="font-size:16px;color:#333">▶</span>
+            <span style="font-size:13px;color:#777">⟩</span>
+          </div>
+        </div>
+      </div>
+      <div class="tab"><div class="on">对白</div><div>历史</div><div>我的</div></div>
+    </div>
+  </div>
+
+</div>
+
+<div style="height:50px"></div>
+</body>
+</html>

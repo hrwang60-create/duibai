@@ -1,0 +1,58 @@
+{
+  "bsonType": "object",
+  "required": [
+    "article_id",
+    "tone_code"
+  ],
+  "permission": {
+    "read": false,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "ID"
+    },
+    "article_id": {
+      "bsonType": "string",
+      "description": "所属文章 _id"
+    },
+    "user_id": {
+      "bsonType": "string",
+      "description": "所属用户 _id"
+    },
+    "tone_code": {
+      "bsonType": "string",
+      "description": "口吻编码，必须存在于 tones.code"
+    },
+    "status": {
+      "bsonType": "string",
+      "description": "状态：generated / confirmed / audio_ready / failed",
+      "enum": [
+        "generated",
+        "confirmed",
+        "audio_ready",
+        "failed"
+      ],
+      "default": "generated"
+    },
+    "line_count": {
+      "bsonType": "int",
+      "description": "对话条目数"
+    },
+    "pending_confirm": {
+      "bsonType": "int",
+      "description": "待确认的可疑项数量"
+    },
+    "preview": {
+      "bsonType": "array",
+      "description": "前两句台词，供历史页显示「对话痕迹」"
+    },
+    "created_at": {
+      "bsonType": "timestamp",
+      "description": "创建时间"
+    }
+  }
+}

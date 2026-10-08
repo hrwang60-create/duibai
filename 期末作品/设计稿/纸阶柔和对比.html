@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>纸阶 · 三种柔和度</title>
+<style>
+/*
+  ============================================================
+  为什么"白色不够和谐"
+  ------------------------------------------------------------
+  主功能原来用 #FDFCF9：明度 98.4%（几乎纯白）、饱和 50%
+  —— 比下面的页面(34.5%)和卡片(41.7%)都高。
+  所以它不是"纸上最亮的一层"，而是**纸里混进来的一张冷白纸**。
+
+  ★ 和谐的条件：三层必须
+     ① 同一色相（43° 左右）
+     ② 同一饱和档（36% 左右）
+     ③ 明度等差（不要一层跳 6%、一层跳 3%）
+
+  三种柔和度（数值已算好）：
+    NOW  页面 89.2% → 卡片 95.3% → 主功能 98.4%   跳 6.1 / 3.1，且饱和不一致
+    SOFT 页面 89.0% → 卡片 93.1% → 主功能 96.5%   跳 4.1 / 3.4  ← 推荐
+    TWO  页面 89.0% → 卡片 93.9% → 主功能 93.9%   只留两层，靠圆角+朱按钮区分
+  ============================================================ */
+:root{
+  --mono:ui-monospace,"SF Mono",Consolas,monospace;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Noto Serif SC","Songti SC","Noto Serif CJK SC",serif;
+  --ink:#1a1a18; --vm:#b83f28;
+  --tx:#1a1a18; --tx2:#5a5750; --tx3:#6c6760; --tx4:#756e61;
+  --line:#e4dfd2; --line2:#eae5d9;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#e0ddd2;padding:34px 24px 50px;font-family:var(--sans);color:var(--ink)}
+.h1{text-align:center;font-size:23px;font-weight:600;letter-spacing:-.3px}
+.sub{text-align:center;color:var(--tx3);font-size:12.5px;margin:9px 0 26px;line-height:1.9}
+.sub b{color:var(--vm)}
+.ladder{display:flex;justify-content:center;gap:22px;margin-bottom:28px;flex-wrap:wrap}
+.lad{background:#fbfaf6;border:1px solid var(--line);border-radius:12px;padding:11px 16px;font-size:11px;line-height:1.8}
+.lad b{font-size:12px;display:block;margin-bottom:5px}
+.sw{display:inline-block;width:26px;height:16px;border-radius:4px;border:1px solid var(--line);
+    vertical-align:-3px;margin-right:6px}
+.grid{display:grid;grid-template-columns:repeat(3,375px);gap:30px 26px;justify-content:center}
+.pg{width:375px}
+.cap{margin-bottom:10px;text-align:center}
+.cap .n{font-family:var(--mono);font-size:10.5px;color:var(--vm);letter-spacing:.6px}
+.cap .t{font-size:14.5px;font-weight:600;margin-top:3px}
+.cap .s{color:var(--tx3);font-size:10.5px;margin-top:3px;line-height:1.5}
+.phone{width:375px;height:772px;border-radius:30px;overflow:hidden;position:relative;
+       border:1px solid #cfc9bb;box-shadow:0 18px 44px rgba(70,58,34,.13)}
+.bd{padding:0 20px;height:100%;display:flex;flex-direction:column}
+.brandrow{display:flex;align-items:baseline;justify-content:space-between;padding:18px 2px 18px}
+.brand{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:.4px}
+.cnt{font-family:var(--mono);font-size:10.5px;color:var(--tx3)}
+.ctaE1{border-radius:22px;padding:13px 14px 13px 19px;display:flex;align-items:center;
+       justify-content:space-between;gap:12px;margin-bottom:6px;border:1px solid var(--line)}
+.e1ph{font-size:15.5px;color:var(--tx4);letter-spacing:.2px}
+.e1btn{width:36px;height:36px;border-radius:18px;background:var(--vm);color:#fff;flex-shrink:0;
+       display:flex;align-items:center;justify-content:center}
+.tagrow{display:flex;align-items:baseline;justify-content:space-between;height:30px;flex-shrink:0;padding-top:9px;margin-top:14px}
+.tag{font-family:var(--serif);font-size:11px;letter-spacing:2.4px;color:var(--tx3)}
+.card{border-radius:18px;border:1px solid var(--line);padding:15px}
+.pt{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:12px;letter-spacing:-.1px}
+.dlg{display:flex;flex-direction:column;gap:7px}
+.ln{display:flex;gap:8px;align-items:flex-start}
+.ln.a{align-self:flex-start;max-width:96%}
+.ln.b{align-self:flex-end;flex-direction:row-reverse;max-width:96%}
+.rl{width:2.5px;border-radius:2px;align-self:stretch;min-height:13px;flex-shrink:0}
+.a .rl{background:var(--ink)} .b .rl{background:var(--vm)}
+.who{font-size:9.5px;font-weight:700;flex-shrink:0;padding-top:3px}
+.a .who{color:var(--tx2)} .b .who{color:var(--vm)}
+.say{font-size:13.5px;line-height:1.6;color:var(--tx)}
+.b .say{color:var(--vm);text-align:right}
+.fa{display:flex;justify-content:space-between;align-items:center;margin-top:13px}
+.hrow{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.hdot{width:5px;height:5px;border-radius:3px;flex-shrink:0;background:var(--vm)}
+.hdot.g{background:var(--tx4)}
+.hname{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:13px;font-weight:500}
+.hnum{font-family:var(--mono);font-size:10px;color:var(--tx3);flex-shrink:0}
+.split{height:1px;background:var(--line2);margin:12px 0 11px}
+.act{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--vm)}
+.act.dim{opacity:.72}
+.sp{flex:1}
+.tb{position:absolute;bottom:0;left:0;right:0;height:76px;display:flex;align-items:center;
+    justify-content:space-around;padding-bottom:12px;border-top:1px solid var(--line);background:transparent}
+.tbi{font-size:10px;text-align:center;font-weight:500;flex:1;color:var(--tx3)}
+.tbi.on{color:var(--ink);font-weight:600}
+.tbi svg{display:block;margin:0 auto 3px}
+
+/* ===== 三套纸阶 ===== */
+.now  {background:#EDE8DA} .now  .card{background:#F8F5EE} .now  .ctaE1{background:#FDFCF9}
+.soft {background:#EDE7D9} .soft .card{background:#F4F0E7} .soft .ctaE1{background:#F9F7F3}
+.two  {background:#EDE7D9} .two  .card{background:#F5F2EA} .two  .ctaE1{background:#F5F2EA}
+</style>
+</head>
+<body>
+
+<div class="h1">白色太生硬 · 三种柔和度</div>
+<div class="sub">
+  主功能原来用 <b>#FDFCF9</b>：明度 <b>98.4%</b>（几乎纯白）、饱和 <b>50%</b>（比下面两层都高）——<br>
+  它不是"纸上最亮的一层"，是<b>混进来的一张冷白纸</b>。三版都改成同色相、同饱和、等差明度。
+</div>
+
+<div class="ladder">
+  <div class="lad"><b>A · 现在（对照）</b>
+    <span class="sw" style="background:#EDE8DA"></span>#EDE8DA 89.2%<br>
+    <span class="sw" style="background:#F8F5EE"></span>#F8F5EE 95.3%<br>
+    <span class="sw" style="background:#FDFCF9"></span>#FDFCF9 98.4%</div>
+  <div class="lad"><b>B · 柔和（推荐）</b>
+    <span class="sw" style="background:#EDE7D9"></span>#EDE7D9 89.0%<br>
+    <span class="sw" style="background:#F4F0E7"></span>#F4F0E7 93.1%<br>
+    <span class="sw" style="background:#F9F7F3"></span>#F9F7F3 96.5%</div>
+  <div class="lad"><b>C · 只留两层</b>
+    <span class="sw" style="background:#EDE7D9"></span>#EDE7D9 89.0%<br>
+    <span class="sw" style="background:#F5F2EA"></span>#F5F2EA 93.9%（卡片＋主功能同色）<br>
+    <span class="sw" style="background:#F5F2EA"></span>　</div>
+</div>
+
+<div class="grid">
+
+  <!-- A 现在 -->
+  <div class="pg">
+    <div class="cap"><div class="n">A</div><div class="t">现在（对照）</div>
+      <div class="s">主功能明度 98.4% 几乎纯白<br>饱和度还更高 → 冷白纸</div></div>
+    <div class="phone now">
+      <div class="bd">
+        <div class="brandrow"><span class="brand">对白</span><span class="cnt">01/07</span></div>
+        <div class="ctaE1"><span class="e1ph">把文章贴进来…</span><span class="e1btn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fbf9f4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 0L7.5 7.5M12 3l4.5 4.5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg></span></div>
+        <div class="tagrow"><span class="tag">今 日 一 集</span><span class="cnt">04:02</span></div>
+        <div class="card">
+          <div class="pt">光合作用为什么分两步？</div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">光合作用其实没那么难。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div class="fa"><span class="act"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span><span class="act dim">往期 07 →</span></div>
+        </div>
+        <div class="tagrow"><span class="tag">我 聊 过 的</span><span class="cnt">全部 04 →</span></div>
+        <div class="card">
+          <div class="hrow"><i class="hdot"></i><div class="hname">数据链路层在物</div><div class="hnum">23 句</div><span class="act">去确认 →</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hrow"><i class="hdot g"></i><div class="hname">为什么有人会晕车</div><div class="hnum">01:48</div><span class="act">▶ 听</span></div>
+        </div>
+        <div class="sp"></div>
+      </div>
+      <div class="tb">
+        <div class="tbi on"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tbi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tbi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B 柔和 -->
+  <div class="pg">
+    <div class="cap"><div class="n">B</div><div class="t">柔和（推荐）</div>
+      <div class="s">三层同色相同饱和 · 明度等差 4%<br>主功能只到 96.5%，不再刺眼</div></div>
+    <div class="phone soft">
+      <div class="bd">
+        <div class="brandrow"><span class="brand">对白</span><span class="cnt">01/07</span></div>
+        <div class="ctaE1"><span class="e1ph">把文章贴进来…</span><span class="e1btn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fbf9f4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 0L7.5 7.5M12 3l4.5 4.5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg></span></div>
+        <div class="tagrow"><span class="tag">今 日 一 集</span><span class="cnt">04:02</span></div>
+        <div class="card">
+          <div class="pt">光合作用为什么分两步？</div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">光合作用其实没那么难。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div class="fa"><span class="act"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span><span class="act dim">往期 07 →</span></div>
+        </div>
+        <div class="tagrow"><span class="tag">我 聊 过 的</span><span class="cnt">全部 04 →</span></div>
+        <div class="card">
+          <div class="hrow"><i class="hdot"></i><div class="hname">数据链路层在物</div><div class="hnum">23 句</div><span class="act">去确认 →</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hrow"><i class="hdot g"></i><div class="hname">为什么有人会晕车</div><div class="hnum">01:48</div><span class="act">▶ 听</span></div>
+        </div>
+        <div class="sp"></div>
+      </div>
+      <div class="tb">
+        <div class="tbi on"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tbi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tbi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C 只留两层 -->
+  <div class="pg">
+    <div class="cap"><div class="n">C</div><div class="t">只留两层</div>
+      <div class="s">主功能与卡片同色<br>靠圆角更大 + 朱按钮区分，不再有第三层白</div></div>
+    <div class="phone two">
+      <div class="bd">
+        <div class="brandrow"><span class="brand">对白</span><span class="cnt">01/07</span></div>
+        <div class="ctaE1"><span class="e1ph">把文章贴进来…</span><span class="e1btn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fbf9f4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 0L7.5 7.5M12 3l4.5 4.5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg></span></div>
+        <div class="tagrow"><span class="tag">今 日 一 集</span><span class="cnt">04:02</span></div>
+        <div class="card">
+          <div class="pt">光合作用为什么分两步？</div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">光合作用其实没那么难。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div class="fa"><span class="act"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span><span class="act dim">往期 07 →</span></div>
+        </div>
+        <div class="tagrow"><span class="tag">我 聊 过 的</span><span class="cnt">全部 04 →</span></div>
+        <div class="card">
+          <div class="hrow"><i class="hdot"></i><div class="hname">数据链路层在物</div><div class="hnum">23 句</div><span class="act">去确认 →</span></div>
+          <div class="dlg">
+            <div class="ln a"><div class="rl"></div><div class="who">甲</div><div class="say">咱们今天聊数据链路层概述吧。</div></div>
+            <div class="ln b"><div class="rl"></div><div class="who">乙</div><div class="say">好啊，这层听着就挺重要的。</div></div>
+          </div>
+          <div class="split"></div>
+          <div class="hrow"><i class="hdot g"></i><div class="hname">为什么有人会晕车</div><div class="hnum">01:48</div><span class="act">▶ 听</span></div>
+        </div>
+        <div class="sp"></div>
+      </div>
+      <div class="tb">
+        <div class="tbi on"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tbi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tbi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

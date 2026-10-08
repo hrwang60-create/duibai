@@ -1,0 +1,40 @@
+{
+  "bsonType": "object",
+  "required": [
+    "user_id",
+    "title",
+    "content"
+  ],
+  "permission": {
+    "read": false,
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "properties": {
+    "_id": {
+      "bsonType": "string",
+      "description": "ID"
+    },
+    "user_id": {
+      "bsonType": "string",
+      "description": "所属用户 _id"
+    },
+    "title": {
+      "bsonType": "string",
+      "description": "标题（取文件名或首行）"
+    },
+    "content": {
+      "bsonType": "string",
+      "description": "正文全文"
+    },
+    "char_count": {
+      "bsonType": "int",
+      "description": "字数"
+    },
+    "created_at": {
+      "bsonType": "timestamp",
+      "description": "创建时间"
+    }
+  }
+}

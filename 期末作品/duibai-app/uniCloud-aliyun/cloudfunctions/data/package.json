@@ -1,0 +1,9 @@
+{
+  "name": "data",
+  "version": "1.0.0",
+  "description": "业务数据网关：文章/段落/对话稿/条目/反馈。客户端不直连数据库，全部经此函数。",
+  "main": "index.js",
+  "dependencies": {
+    "common": "file:../common/common"
+  }
+}

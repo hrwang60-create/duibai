@@ -1,0 +1,20 @@
+{
+    "version" : "1.0",
+    "configurations" : [
+        {
+            "default" : {
+                "launchtype" : "local"
+            },
+            "mp-weixin" : {
+                "launchtype" : "remote"
+            },
+            "provider" : "aliyun",
+            "type" : "uniCloud"
+        },
+        {
+            "customPlaygroundType" : "device",
+            "playground" : "standard",
+            "type" : "uni-app:app-android"
+        }
+    ]
+}

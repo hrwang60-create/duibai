@@ -1,0 +1,9 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "description": "公共模块：统一响应、错误码、令牌签发校验、登录与管理员守卫",
+  "main": "index.js",
+  "dependencies": {
+    "app-config": "file:../app-config"
+  }
+}

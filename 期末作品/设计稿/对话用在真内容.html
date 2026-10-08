@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>对话符号用在真实内容上</title>
+<style>
+/*
+  ============================================================
+  上一版（W）的问题：
+    拿一整屏演一段**假对话**，只为把用户引到主功能。
+    · 浪费空间：首屏最大一块是"假文案"
+    · 老用户每次打开都看同样四句，烦
+    · 为了腾地方，把「每日一集」和「我的历史」压成了底部一行小字
+    → 这是**拿功能换特色**，不值。
+
+  这一版的修正：
+    「对话」这个符号**不用在假文案上，用在真实内容上** ——
+      · 今日一集 → 露真实台词（左右交错）
+      · 我的历史 → 露真实对话痕迹（左右交错）
+    主功能回到首屏第一位，且依然是"对话在等你回应"的口吻。
+  ============================================================
+*/
+:root{
+  --vm:#ff4d33; --vm2:#b83f28;
+  --mono:Consolas,"Cascadia Mono",ui-monospace,monospace;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Noto Serif SC","Songti SC","Noto Serif CJK SC","SimSun",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#d9d9d4;padding:38px 26px 56px;font-family:var(--sans)}
+.h1{text-align:center;color:#17171a;font-size:23px;font-weight:600;letter-spacing:-.3px}
+.sub{text-align:center;color:#7a7a80;font-size:12.5px;margin:9px 0 34px;line-height:1.9}
+.sub b{color:var(--vm2)}
+.row{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;align-items:flex-start}
+.scheme{width:348px}
+.sname{text-align:center;color:#17171a;font-size:15.5px;font-weight:600;margin-bottom:4px}
+.sdesc{text-align:center;color:#7a7a80;font-size:11.5px;line-height:1.8;height:60px;margin-bottom:12px}
+.sdesc b{color:#17171a}
+.phone{width:348px;height:704px;border-radius:32px;overflow:hidden;position:relative;
+       box-shadow:0 14px 36px rgba(0,0,0,.16)}
+.nav{height:46px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.body{padding:0 20px;height:calc(100% - 46px);overflow:hidden}
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:60px;display:flex;
+        align-items:center;justify-content:space-around}
+.tab{font-size:10.5px;text-align:center;font-weight:500}
+.tab svg{display:block;margin:0 auto 3px}
+
+/* ---------- 深墨 ---------- */
+.dark{background:#141416;color:#f0ede4}
+.dark .brand{font-family:var(--serif);color:#f0ede4}
+.dark .topmeta{color:#5a5a62}
+.dark .cta{background:rgba(255,77,51,.06);border:1px solid rgba(255,77,51,.32)}
+.dark .cta .t{color:#f0ede4}
+.dark .cta .s{color:#8f8f97}
+.dark .k{color:#5a5a62}
+.dark .num{color:#5a5a62}
+.dark .title{color:#f0ede4}
+.dark .A{color:#f0ede4}
+.dark .B{color:var(--vm)}
+.dark .meta{color:#6d6d76}
+.dark .act{color:var(--vm)}
+.dark .hr{background:#242428}
+.dark .tab{color:#5a5a62}
+.dark .tab.on{color:var(--vm)}
+.dark .dot{background:var(--vm)}
+.dark .dot.g{background:#3a3a40}
+
+/* ---------- 纸墨 ---------- */
+.paper{background:#f2f0e9;color:#1a1a18}
+.paper .brand{font-family:var(--serif);color:#1a1a18}
+.paper .topmeta{color:#a5a094}
+.paper .cta{background:#fff;border:1px solid var(--vm2)}
+.paper .cta .t{color:#1a1a18}
+.paper .cta .s{color:#6c6760}
+.paper .k{color:#a5a094}
+.paper .num{color:#a5a094}
+.paper .title{color:#1a1a18}
+.paper .A{color:#1a1a18}
+.paper .B{color:var(--vm2)}
+.paper .meta{color:#6c6760}
+.paper .act{color:var(--vm2)}
+.paper .hr{background:#e0ddd2}
+.paper .tab{color:#a5a094}
+.paper .tab.on{color:var(--vm2)}
+.paper .dot{background:var(--vm2)}
+.paper .dot.g{background:#c3bfb2}
+
+.brandrow{display:flex;align-items:baseline;justify-content:space-between;padding:14px 0 18px}
+.brand{font-size:27px;font-weight:600;letter-spacing:.5px}
+.topmeta{font-family:var(--mono);font-size:11px;letter-spacing:1px}
+
+/* ---------- 主功能：首屏第一位 ---------- */
+.cta{border-radius:16px;padding:15px 16px;display:flex;align-items:center;gap:13px;margin-bottom:26px}
+.cta .plus{width:38px;height:38px;border-radius:12px;background:var(--vm);
+           display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta .tt{flex:1;min-width:0}
+.cta .t{font-family:var(--serif);font-size:18px;font-weight:600;letter-spacing:-.1px;line-height:1.2}
+.cta .s{font-size:11.5px;margin-top:5px}
+.cta .arr{flex-shrink:0;color:var(--vm)}
+
+/* ---------- 区块标题 ---------- */
+.sechead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px}
+.k{font-family:var(--serif);font-size:11.5px;letter-spacing:2.6px}
+.num{font-family:var(--mono);font-size:11px;letter-spacing:.8px}
+
+/* ---------- 对话：左右交错 ---------- */
+.dlg{display:flex;flex-direction:column;gap:7px}
+.line{display:flex;gap:8px;align-items:flex-start}
+.line.a{align-self:flex-start;max-width:96%}
+.line.b{align-self:flex-end;flex-direction:row-reverse;max-width:96%}
+.rail{width:2.5px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:15px}
+.line.a .rail{background:#4a4a52}
+.line.b .rail{background:var(--vm)}
+.who{font-size:10px;font-weight:700;letter-spacing:.5px;flex-shrink:0;padding-top:3px}
+.A .who{color:#6d6d76}
+.B .who{color:var(--vm)}
+.say{font-size:14.5px;line-height:1.62}
+
+/* ---------- 今日一集块 ---------- */
+.today{margin-bottom:24px}
+.title{font-size:16px;font-weight:500;line-height:1.4;margin-bottom:11px}
+.footact{display:flex;align-items:center;justify-content:space-between;margin-top:13px}
+.act{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600}
+.hr{height:1px;margin:0 0 20px}
+
+/* ---------- 历史块 ---------- */
+.hist{margin-bottom:0}
+.item{padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid rgba(128,128,128,.16)}
+.item:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.item .head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.item .dot{width:5px;height:5px;border-radius:3px;flex-shrink:0}
+.item .tt{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+          font-size:13.5px;font-weight:500}
+.item .meta{font-family:var(--mono);font-size:10px;flex-shrink:0;letter-spacing:.4px}
+.item .act2{font-size:11px;font-weight:600;flex-shrink:0}
+.spacer{height:66px}
+</style>
+</head>
+<body>
+
+<div class="h1">把「对话」用在真实内容上</div>
+<div class="sub">
+  上一版最大的毛病：<b>用一整屏演假对话</b>，还为此把「每日一集」和「我的历史」压成了底部小字。<br>
+  这一版把对话符号用在<b>真实台词</b>上 —— 主功能回到第一位，两个区块也都回来了。
+</div>
+
+<div class="row">
+
+  <!-- ============ 深墨 ============ -->
+  <div class="scheme">
+    <div class="sname">V · 对话用在真内容上（深墨）</div>
+    <div class="sdesc">主功能首位 · 今日一集露<b>真实台词</b> · 历史露<b>真实对话痕迹</b><br>不再用假文案占地方。</div>
+    <div class="phone dark">
+      <div class="nav"></div>
+      <div class="body">
+        <div class="brandrow"><span class="brand">对白</span><span class="topmeta">01/07</span></div>
+
+        <!-- 主功能 -->
+        <div class="cta">
+          <div class="plus"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div class="tt">
+            <div class="t">把文章贴进来</div>
+            <div class="s">粘贴文本，或从聊天里选文件</div>
+          </div>
+          <div class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <!-- 今日一集 -->
+        <div class="today">
+          <div class="sechead"><span class="k">今 日 一 集</span><span class="num">04:02</span></div>
+          <div class="title">光合作用为什么分两步？</div>
+          <div class="dlg">
+            <div class="line a A"><div class="rail"></div><div class="who">甲</div><div class="say A">光合作用其实没那么难。</div></div>
+            <div class="line b B"><div class="rail"></div><div class="who">乙</div><div class="say B">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div class="footact">
+            <span class="act"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+            <span class="act" style="opacity:.8">往期 07 →</span>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <!-- 我的历史 -->
+        <div class="hist">
+          <div class="sechead"><span class="k">我 聊 过 的</span><span class="num">全部 04 →</span></div>
+
+          <div class="item">
+            <div class="head">
+              <div class="dot"></div>
+              <div class="tt">数据链路层在物</div>
+              <div class="meta">23 句</div>
+              <div class="act2">去确认 →</div>
+            </div>
+            <div class="dlg">
+              <div class="line a A"><div class="rail"></div><div class="who">甲</div><div class="say A">咱们今天聊数据链路层概述吧。</div></div>
+              <div class="line b B"><div class="rail"></div><div class="who">乙</div><div class="say B">好啊，这层听着就挺重要的。</div></div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="head">
+              <div class="dot g"></div>
+              <div class="tt">为什么有人会晕车</div>
+              <div class="meta">01:48</div>
+              <div class="act2">▶ 听</div>
+            </div>
+            <div class="dlg">
+              <div class="line a A"><div class="rail"></div><div class="who">甲</div><div class="say A">为什么坐车看手机会更晕？</div></div>
+              <div class="line b B"><div class="rail"></div><div class="who">乙</div><div class="say B">因为眼睛和内耳给的信息打架了。</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="spacer"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 纸墨 ============ -->
+  <div class="scheme">
+    <div class="sname">V′ · 同布局（纸与墨）</div>
+    <div class="sdesc">布局一样，只换配色 —— <br>方便判断你说的"老气"究竟是布局还是配色。</div>
+    <div class="phone paper">
+      <div class="nav"></div>
+      <div class="body">
+        <div class="brandrow"><span class="brand">对白</span><span class="topmeta">01/07</span></div>
+
+        <div class="cta">
+          <div class="plus"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
+          <div class="tt">
+            <div class="t">把文章贴进来</div>
+            <div class="s">粘贴文本，或从聊天里选文件</div>
+          </div>
+          <div class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="today">
+          <div class="sechead"><span class="k">今 日 一 集</span><span class="num">04:02</span></div>
+          <div class="title">光合作用为什么分两步？</div>
+          <div class="dlg">
+            <div class="line a A"><div class="rail"></div><div class="who">甲</div><div class="say A">光合作用其实没那么难。</div></div>
+            <div class="line b B"><div class="rail"></div><div class="who">乙</div><div class="say B">难的是课本非要写得这么复杂。</div></div>
+          </div>
+          <div class="footact">
+            <span class="act"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>听整集</span>
+            <span class="act" style="opacity:.8">往期 07 →</span>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="hist">
+          <div class="sechead"><span class="k">我 聊 过 的</span><span class="num">全部 04 →</span></div>
+
+          <div class="item">
+            <div class="head">
+              <div class="dot"></div>
+              <div class="tt">数据链路层在物</div>
+              <div class="meta">23 句</div>
+              <div class="act2">去确认 →</div>
+            </div>
+            <div class="dlg">
+              <div class="line a A"><div class="rail"></div><div class="who">甲</div><div class="say A">咱们今天聊数据链路层概述吧。</div></div>
+              <div class="line b B"><div class="rail"></div><div class="who">乙</div><div class="say B">好啊，这层听着就挺重要的。</div></div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="head">
+              <div class="dot g"></div>
+              <div class="tt">为什么有人会晕车</div>
+              <div class="meta">01:48</div>
+              <div class="act2">▶ 听</div>
+            </div>
+            <div class="dlg">
+              <div class="line a A"><div class="rail"></div><div class="who">甲</div><div class="say A">为什么坐车看手机会更晕？</div></div>
+              <div class="line b B"><div class="rail"></div><div class="who">乙</div><div class="say B">因为眼睛和内耳给的信息打架了。</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="spacer"></div>
+      </div>
+      <div class="tabbar">
+        <div class="tab on"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h13"/></svg>对白</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></svg>历史</div>
+        <div class="tab"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>我的</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>对白 · UI 设计稿</title>
+<style>
+  :root{
+    --ink:#1A1A18; --ink2:#5A5750; --ink3:#6C6760;
+    --paper:#F5F2EA; --paper2:#EDE9DF; --line:#E2DDD2;
+    --vm:#B83F28; --vm-soft:#F6E4DE;
+    --font:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:#DEDAD1; font-family:var(--font);
+    padding:44px 0 0 0; -webkit-font-smoothing:antialiased;
+  }
+  .hd{text-align:center;margin-bottom:28px}
+  .hd h1{font-size:19px;font-weight:600;color:#2A2823;letter-spacing:.5px}
+  .hd p{font-size:12px;color:#6E6A62;margin-top:6px;letter-spacing:.3px}
+  .row{display:flex;justify-content:center;gap:34px}
+  .col{width:390px}
+  .cap{font-size:12px;color:#4A473F;text-align:center;margin-bottom:9px;letter-spacing:.4px}
+  .cap b{color:#B83F28;font-weight:600}
+
+  .phone{
+    width:390px;height:844px;background:var(--paper);position:relative;
+    border-radius:26px;overflow:hidden;box-shadow:0 1px 0 rgba(0,0,0,.04);
+  }
+  .sb{height:46px;display:flex;align-items:center;justify-content:space-between;
+      padding:0 22px;font-size:13px;color:var(--ink);font-weight:600}
+  .sb span:last-child{font-weight:400;font-size:12px;color:var(--ink2)}
+
+  /* ---------- 通用 ---------- */
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:0 22px;height:44px}
+  .bar .t{font-size:13px;color:var(--ink2)}
+  .bar .who{font-size:13px;color:var(--ink)}
+  .rule{height:1px;background:var(--line)}
+
+  /* ---------- 屏1 首页 ---------- */
+  .brand{font-size:14px;font-weight:600;letter-spacing:2px;color:var(--ink)}
+  .claim{font-size:19px;color:var(--ink2);letter-spacing:.2px;padding:6px 22px 26px}
+  .demo{padding:0 22px 0 22px;position:relative}
+  .demo .tag{font-size:10px;font-weight:600;letter-spacing:1.6px;color:var(--ink3);
+             text-transform:uppercase;margin-bottom:14px}
+  .demo .rule2{position:absolute;left:0;top:30px;bottom:0;width:2px;background:var(--line)}
+  .line{display:flex;gap:10px;padding-left:16px;margin-bottom:20px;align-items:flex-start}
+  .sp{font-size:12px;font-weight:600;width:14px;flex:none;line-height:1.7}
+  .a .sp{color:var(--ink3)} .b .sp{color:var(--vm)}
+  .tx{font-size:16px;line-height:1.7;color:var(--ink3)}
+  .a .tx{color:var(--ink3)} .b .tx{color:var(--ink3)}
+  .line.now .tx{color:var(--ink);font-size:17px}
+  .line.now.b .tx{color:var(--vm)}
+  .line.now .sp{color:var(--vm)}
+  .caret{display:inline-block;width:2px;height:17px;background:var(--vm);
+          vertical-align:-3px;margin-left:2px;animation:none}
+
+  .cta{margin:30px 22px 0}
+  .btn{height:52px;border-radius:26px;background:var(--ink);color:#FBF9F4;
+       display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;
+       letter-spacing:.6px}
+  .hint{font-size:11px;color:var(--ink3);text-align:center;margin-top:12px;letter-spacing:.2px}
+
+  .recent{margin:34px 22px 0}
+  .ri{display:flex;align-items:center;justify-content:space-between;padding:15px 0}
+  .ri .l{font-size:13px;color:var(--ink)}
+  .ri .r{font-size:11px;color:var(--ink3)}
+
+  /* ---------- 屏2 对话流 ---------- */
+  .stage{position:relative;height:600px;padding:0 22px 0 30px;overflow:hidden}
+  .rail{position:absolute;left:16px;top:34px;bottom:70px;width:2px;background:var(--line)}
+  .dot{position:absolute;left:13px;width:8px;height:8px;border-radius:4px;background:var(--vm)}
+  .cl{display:flex;gap:12px;margin-bottom:22px;align-items:flex-start}
+  .cl .sp{font-size:12px;font-weight:600;width:14px;flex:none;line-height:1.75}
+  .cl .tx{font-size:15px;line-height:1.75;color:var(--ink3);transition:none}
+  .cl.d1 .tx{font-size:14px;color:#B0AAA0}
+  .cl.d2 .tx{font-size:12.5px;color:#C4BEB4}
+  .cl.now{margin:26px 0 24px}
+  .cl.now .tx{font-size:20px;line-height:1.7;font-weight:500}
+  .cl.now.a .tx{color:var(--ink)} .cl.now.a .sp{color:var(--ink)}
+  .cl.now.b .tx{color:var(--vm)}  .cl.now.b .sp{color:var(--vm)}
+  .src{margin:-14px 0 20px 38px;font-size:10.5px;color:var(--ink3);letter-spacing:.2px}
+  .src u{color:var(--vm);text-decoration:none;border-bottom:1px solid var(--vm-soft);padding-bottom:1px}
+  .edit{margin-left:12px;font-size:10.5px;color:var(--ink3)}
+
+  .ctrl{position:absolute;left:0;right:0;bottom:80px;padding:0 22px}
+  .ctrl .row2{display:flex;align-items:center;justify-content:center;gap:34px}
+  .k{width:44px;height:44px;border-radius:22px;border:1px solid var(--line);
+     display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink2)}
+  .k.main{width:56px;height:56px;background:var(--ink);border-color:var(--ink);color:#FBF9F4;font-size:15px}
+  .speed{text-align:center;font-size:11px;color:var(--ink3);margin-top:14px;letter-spacing:.5px}
+
+  /* ---------- 屏3 卡住（卡片在流里，不用绝对定位） ---------- */
+  .stage3{padding:8px 22px 0 30px;position:relative}
+  .stage3 .rail{top:44px;bottom:24px}
+  .dim .cl.now .tx{color:#B0AAA0}
+  .dim .cl.now .sp{color:#B0AAA0}
+  .dim .cl.d1 .tx,.dim .cl.d2 .tx{color:#CFC9BE}
+  .dim .src{color:#CFC9BE}
+
+  .stopcard{margin:8px 0 22px 26px;background:#FFFDF9;border-radius:14px;
+            padding:20px 18px 18px;border-left:3px solid var(--vm);
+            box-shadow:0 6px 22px rgba(60,50,40,.10)}
+  .qh{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+  .qm{width:20px;height:20px;border-radius:10px;background:var(--vm);color:#fff;font-size:12px;
+      display:flex;align-items:center;justify-content:center;font-weight:600;flex:none}
+  .qh .t{font-size:11.5px;font-weight:600;color:var(--vm);letter-spacing:.3px}
+  .qq{font-size:14.5px;line-height:1.65;color:var(--ink);margin-bottom:16px}
+  .acts{display:flex;gap:10px}
+  .act{flex:1;height:38px;border-radius:19px;display:flex;align-items:center;justify-content:center;
+       font-size:12.5px}
+  .act.p{background:var(--vm);color:#fff;font-weight:500}
+  .act.s{border:1px solid var(--line);color:var(--ink2);background:#fff}
+  .stopnote{margin:0 0 22px 38px;font-size:10.5px;color:var(--ink3);letter-spacing:.2px}
+
+  .tab{position:absolute;left:0;right:0;bottom:0;height:60px;display:flex;
+       border-top:1px solid var(--line);background:var(--paper)}
+  .tab div{flex:1;display:flex;align-items:center;justify-content:center;font-size:11.5px;color:var(--ink3)}
+  .tab .on{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <h1>「对白」UI 设计稿</h1>
+  <p>墨与朱 · 对话流范式 · 零渐变零发光 · 手写 HTML/CSS 精确渲染</p>
+</div>
+
+<div class="row">
+
+  <!-- ============ 屏 1 首页 ============ -->
+  <div class="col">
+    <div class="cap">首页 · <b>首屏就是产品本身</b></div>
+    <div class="phone">
+      <div class="sb"><span>23:40</span><span>5G ▮▮▮</span></div>
+      <div class="bar"><span class="brand">对白</span><span class="t">我的</span></div>
+      <div class="claim">把文章，聊给你听</div>
+
+      <div class="demo">
+        <div class="rule2"></div>
+        <div class="tag">示例</div>
+        <div class="line a"><span class="sp">甲</span><span class="tx">叫"暗反应"？那我半夜把绿萝搬去没灯的地方…</span></div>
+        <div class="line b now"><span class="sp">乙</span><span class="tx">不是。原文说的是"不需要光直接参与"。<span class="caret"></span></span></div>
+        <div class="line a"><span class="sp">甲</span><span class="tx">那正午太阳最猛，它应该最快吧？</span></div>
+        <div class="line b"><span class="sp">乙</span><span class="tx">原文说反而下降，这叫"光合午休"。</span></div>
+      </div>
+
+      <div class="cta">
+        <div class="btn">投入一篇文章</div>
+        <div class="hint">支持 Markdown / txt · 粘贴或从聊天选文件</div>
+      </div>
+
+      <div class="recent">
+        <div class="rule"></div>
+        <div class="ri"><span class="l">光合作用.docx</span><span class="r">抬杠 · 42 句</span></div>
+        <div class="rule"></div>
+        <div class="ri"><span class="l">数据报告.pdf</span><span class="r">师生 · 已失败</span></div>
+      </div>
+
+      <div class="tab"><div class="on">对白</div><div>历史</div><div>我的</div></div>
+    </div>
+  </div>
+
+  <!-- ============ 屏 2 对话流 ============ -->
+  <div class="col">
+    <div class="cap">核心页 · <b>对话流（不是播放器）</b></div>
+    <div class="phone">
+      <div class="sb"><span>23:41</span><span>5G ▮▮▮</span></div>
+      <div class="bar"><span class="t">← 光合作用.docx · 抬杠</span><span class="t">⋯</span></div>
+
+      <div class="stage">
+        <div class="rail"></div>
+        <div class="dot" style="top:196px"></div>
+
+        <div class="cl d2 a"><span class="sp">甲</span><span class="tx">叫"暗反应"？那我半夜把绿萝搬去没灯的地方…</span></div>
+        <div class="cl d1 b"><span class="sp">乙</span><span class="tx">原文 P1 说的是"不需要光直接参与"，不是"不能在暗处发生"。</span></div>
+
+        <div class="cl now b"><span class="sp">乙</span><span class="tx">不是。原文说的是"不需要光直接参与"。</span></div>
+        <div class="src">出处 <u>P1</u><span class="edit">改这句</span></div>
+
+        <div class="cl d1 a"><span class="sp">甲</span><span class="tx">那正午太阳最猛，它应该最快吧？</span></div>
+        <div class="cl d2 b"><span class="sp">乙</span><span class="tx">原文 P6 说反而下降，这叫"光合午休"。</span></div>
+      </div>
+
+      <div class="ctrl">
+        <div class="row2">
+          <div class="k">⟨</div>
+          <div class="k main">‖</div>
+          <div class="k">⟩</div>
+        </div>
+        <div class="speed">1.0×　·　点任意一句可重听　·　侧滑可改</div>
+      </div>
+
+      <div class="tab"><div class="on">对白</div><div>历史</div><div>我的</div></div>
+    </div>
+  </div>
+
+  <!-- ============ 屏 3 卡住 ============ -->
+  <div class="col">
+    <div class="cap">确认页 · <b>可疑处让对话"停住"</b></div>
+    <div class="phone">
+      <div class="sb"><span>23:42</span><span>5G ▮▮▮</span></div>
+      <div class="bar"><span class="t">← 光合作用.docx · 抬杠</span><span class="t">⋯</span></div>
+
+      <div class="stage3 dim">
+        <div class="rail"></div>
+
+        <div class="cl d1 a"><span class="sp">甲</span><span class="tx">那这些反应到底在哪儿发生？</span></div>
+        <div class="cl d1 b"><span class="sp">乙</span><span class="tx">在类囊体薄膜上进行。</span></div>
+
+        <div class="stopcard">
+          <div class="qh"><div class="qm">?</div><span class="t">第 12 句 · 术语读法不确定</span></div>
+          <div class="qq">「类囊体薄膜」是否应读作「类囊体膜」？</div>
+          <div class="acts">
+            <div class="act p">保留原文读法</div>
+            <div class="act s">改为…</div>
+          </div>
+        </div>
+        <div class="stopnote">对话停在这里 —— 你回应之后才会继续</div>
+
+        <div class="cl d2 a"><span class="sp">甲</span><span class="tx">明白了，那我先记下来。</span></div>
+        <div class="cl d2 b"><span class="sp">乙</span><span class="tx">嗯，后面还有一步。</span></div>
+      </div>
+
+      <div class="tab"><div class="on">对白</div><div>历史</div><div>我的</div></div>
+    </div>
+  </div>
+
+</div>
+<div style="height:40px"></div>
+</body>
+</html>

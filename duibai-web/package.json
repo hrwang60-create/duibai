@@ -1,0 +1,25 @@
+{
+  "name": "duibai-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "「对白」Web 版 —— 依据《实验3：软件架构与界面设计》设计基线的 Next.js 落地实现",
+  "scripts": {
+    "dev": "next dev -p 3210",
+    "build": "next build",
+    "start": "next start -p 3210",
+    "seed": "node scripts/seed.mjs",
+    "seed:reset": "node scripts/seed.mjs --reset",
+    "test": "node scripts/test.mjs"
+  },
+  "dependencies": {
+    "next": "^15.5.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  }
+}

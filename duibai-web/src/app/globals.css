@@ -1,0 +1,637 @@
+/* ============================================================
+   「对白」Web 版 · 全局样式
+   版式依据《实验3》图7 / 图8 / 图9 三张界面原型：
+     顶部标题区 → 内容分区（细线分隔）→ 底部动作区
+   配色沿用产品既有设定：墨 #1A1A18 / 朱 #C8452C / 纸 #F5F2EA
+   ============================================================ */
+
+:root {
+  --ink: #1a1a18;
+  --ink2: #5a5750;
+  --ink3: #8a857c;
+  --paper: #ffffff;
+  --card: #f5f2ea;
+  --page: #ede7d9;
+  --line: #e3ded2;
+  --line2: #d3ccbb;
+  --accent: #c8452c;
+  --accent-soft: #fbece8;
+  --ok: #2f7d5d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ----------------------------------------------------------- 页面骨架 */
+.topbar {
+  height: 52px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.topbar .brand {
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 4px;
+}
+
+.topbar .brand-en {
+  font-family: Consolas, monospace;
+  font-size: 11px;
+  color: var(--ink3);
+  letter-spacing: 2px;
+}
+
+.topbar .spacer {
+  flex: 1;
+}
+
+.topbar .back {
+  color: var(--ink2);
+  font-size: 13px;
+}
+
+.topbar .back:hover {
+  color: var(--accent);
+}
+
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px 20px 80px;
+}
+
+.hero {
+  padding: 8px 0 20px;
+}
+
+.hero h1 {
+  font-size: 26px;
+  line-height: 1.4;
+  margin: 0 0 8px;
+  letter-spacing: 1px;
+}
+
+.hero p {
+  margin: 0;
+  color: var(--ink2);
+  font-size: 14px;
+}
+
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 12px;
+}
+
+.sec-head .label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--ink);
+}
+
+.sec-head .count {
+  font-family: Consolas, monospace;
+  font-size: 12px;
+  color: var(--ink3);
+}
+
+.hint {
+  font-size: 12.5px;
+  color: var(--ink2);
+}
+
+.hint.warn {
+  color: var(--accent);
+}
+
+/* ----------------------------------------------------------- 上传区 */
+.dropzone {
+  border: 1px dashed var(--line2);
+  border-radius: 6px;
+  background: #fdfcf9;
+  padding: 26px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.dropzone:hover {
+  border-color: var(--ink3);
+}
+
+.dropzone .big {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.dropzone .small {
+  font-size: 12.5px;
+  color: var(--ink3);
+  margin-top: 6px;
+}
+
+textarea.paste {
+  width: 100%;
+  min-height: 120px;
+  border: 1px solid var(--line2);
+  border-radius: 6px;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--ink);
+  background: #fdfcf9;
+  resize: vertical;
+}
+
+textarea.paste:focus {
+  outline: none;
+  border-color: var(--ink3);
+}
+
+.field {
+  margin-bottom: 12px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  color: var(--ink2);
+  margin-bottom: 6px;
+}
+
+.field input[type="text"] {
+  width: 100%;
+  border: 1px solid var(--line2);
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  background: #fdfcf9;
+  color: var(--ink);
+}
+
+.field input[type="text"]:focus {
+  outline: none;
+  border-color: var(--ink3);
+}
+
+/* ----------------------------------------------------------- 口吻选择 */
+.tones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tone {
+  border: 1px solid var(--line2);
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 13.5px;
+  background: var(--paper);
+  color: var(--ink2);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.tone:hover {
+  border-color: var(--ink3);
+}
+
+.tone.on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.tone-desc {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--ink2);
+  min-height: 20px;
+}
+
+/* ----------------------------------------------------------- 按钮 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 22px;
+  border-radius: 4px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14.5px;
+  cursor: pointer;
+  transition: opacity 0.12s;
+}
+
+.btn:hover {
+  opacity: 0.88;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  background: #dedad1;
+  border-color: #dedad1;
+  color: #a9a49a;
+  cursor: not-allowed;
+}
+
+.btn.ghost {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line2);
+}
+
+.btn.ghost:hover {
+  border-color: var(--ink);
+  opacity: 1;
+}
+
+.btn.accent {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn.sm {
+  min-height: 34px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ----------------------------------------------------------- 历史列表 */
+.hist {
+  border-top: 1px solid var(--line);
+}
+
+.hist-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 2px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hist-item .name {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hist-item .name .trace {
+  display: block;
+  font-size: 12px;
+  color: var(--ink3);
+  margin-top: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hist-item .meta {
+  font-family: Consolas, monospace;
+  font-size: 12px;
+  color: var(--ink3);
+  white-space: nowrap;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 11.5px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--card);
+  color: var(--ink2);
+  white-space: nowrap;
+}
+
+.tag.accent {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.tag.ok {
+  background: #eaf4ef;
+  color: var(--ok);
+}
+
+.empty {
+  padding: 34px 10px;
+  text-align: center;
+  color: var(--ink3);
+  font-size: 13.5px;
+}
+
+/* ----------------------------------------------------------- 待确认 */
+.pending-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.suspect {
+  border: 1px solid var(--line2);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  background: #fffdfb;
+}
+
+.suspect .title {
+  font-size: 13.5px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.suspect .why {
+  font-size: 13px;
+  color: var(--ink2);
+  margin-bottom: 8px;
+}
+
+.suspect .src {
+  font-family: Consolas, monospace;
+  font-size: 12px;
+  color: var(--ink3);
+  background: var(--card);
+  padding: 6px 9px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suspect .acts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.suspect input[type="text"] {
+  flex: 1;
+  min-width: 160px;
+  border: 1px solid var(--line2);
+  border-radius: 4px;
+  padding: 7px 10px;
+  font-family: inherit;
+  font-size: 13.5px;
+}
+
+/* ----------------------------------------------------------- 对话稿 */
+.script {
+  border-top: 1px solid var(--line);
+  padding-top: 4px;
+}
+
+.line {
+  display: flex;
+  gap: 12px;
+  padding: 10px 2px;
+  border-bottom: 1px solid #f1eee6;
+  scroll-margin-top: 70px;
+}
+
+.line .who {
+  flex: 0 0 34px;
+  font-size: 13px;
+  color: var(--ink3);
+  padding-top: 2px;
+}
+
+.line .txt {
+  flex: 1;
+  font-size: 15.5px;
+  line-height: 1.75;
+}
+
+.line.a .who {
+  color: var(--ink2);
+}
+
+.line.b .who {
+  color: var(--accent);
+}
+
+.line.on {
+  background: #faf8f3;
+}
+
+.line .src {
+  display: block;
+  font-family: Consolas, monospace;
+  font-size: 11.5px;
+  color: var(--ink3);
+  margin-top: 4px;
+}
+
+.line .acts {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.linkbtn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: var(--ink2);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.linkbtn:hover {
+  color: var(--accent);
+}
+
+/* ----------------------------------------------------------- 播放器 */
+.player {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 0 14px;
+}
+
+.player .play {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.player .play i {
+  width: 0;
+  height: 0;
+  border-left: 11px solid var(--ink);
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  margin-left: 3px;
+}
+
+.player .play.playing i {
+  width: 10px;
+  height: 13px;
+  border: none;
+  border-left: 4px solid var(--ink);
+  border-right: 4px solid var(--ink);
+  margin-left: 0;
+}
+
+.player .bar {
+  flex: 1;
+  height: 4px;
+  background: var(--line);
+  border-radius: 2px;
+  position: relative;
+}
+
+.player .bar i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: var(--ink);
+  border-radius: 2px;
+}
+
+.player .time {
+  font-family: Consolas, monospace;
+  font-size: 12.5px;
+  color: var(--ink2);
+  white-space: nowrap;
+}
+
+/* ----------------------------------------------------------- 错误页 */
+.errbox {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 22px;
+}
+
+.errbox h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.errbox .reason {
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.errbox .suggest {
+  color: var(--ink2);
+  font-size: 13.5px;
+  margin-bottom: 16px;
+}
+
+.errbox code {
+  font-family: Consolas, monospace;
+  font-size: 12.5px;
+  background: var(--card);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* ----------------------------------------------------------- 通用 */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.kv {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink2);
+  padding: 4px 0;
+}
+
+.kv b {
+  font-family: Consolas, monospace;
+  color: var(--ink);
+  font-weight: 400;
+}
+
+.loading {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--ink3);
+  font-size: 13.5px;
+}
+
+.split-hr {
+  height: 1px;
+  background: var(--line);
+  margin: 16px 0;
+}
+
+.mono {
+  font-family: Consolas, monospace;
+  font-size: 12.5px;
+}

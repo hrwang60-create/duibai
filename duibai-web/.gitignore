@@ -1,0 +1,18 @@
+# 依赖与构建产物
+node_modules/
+.next/
+out/
+
+# 运行时数据（SQLite 库、音频、日志）—— 由 npm run seed 重新生成
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+data/audio/
+data/logs/
+!data/.gitkeep
+
+# 杂项
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts

@@ -1,48 +1,31 @@
-# 逐页核对用的临时渲染文件
-__*
-# Python
-__pycache__/
-*.pyc
-# 系统文件
+# ══════════════════════════════════════════════════════
+#  本仓库只保留「项目代码」与「使用说明」，其余一律不提交。
+#  写法是白名单：先全部忽略，再放行需要的。
+# ══════════════════════════════════════════════════════
+/*
+!/.gitignore
+!/README.md
+!/使用说明.md
+!/duibai-app/
+!/duibai-web/
+
+# ── 代码目录内部仍要排除的 ──────────────────────────
+/duibai-app/unpackage/
+/duibai-app/node_modules/
+/duibai-app/.hbuilderx/
+/duibai-app/project.config.json
+/duibai-app/project.private.config.json
+
+/duibai-web/node_modules/
+/duibai-web/.next/
+/duibai-web/data/
+
+# ⚠️ 密钥文件：里面是明文 AppSecret，绝不提交
+/duibai-app/uniCloud-aliyun/cloudfunctions/common/app-config/config.json
+
+# 编译产物 / 依赖 / 系统文件
+node_modules/
+unpackage/
 .DS_Store
 Thumbs.db
-
-# ── 本项目不提交的内容 ──────────────────────────────
-# AI 工作笔记（内部过程记录，不是作品的一部分）
-.workbuddy/
-
-# 实验一二三的材料（另一个作业的产物）
-实验*/
-__exp*_page-*.png
-__ref*_page-*.png
-
-# 录屏视频（53MB，单独提交，不进仓库）
-期末作品/提交物/最终交付/*.mp4
-期末作品/**/*.mp4
-
-# 密钥与本地配置（重要：config.json 里是明文 AppSecret）
-**/app-config/config.json
-**/.env
-**/.env.*
-
-# 编译产物与依赖
-**/unpackage/
-**/node_modules/
-**/project.config.json
-**/project.private.config.json
-
-# 临时渲染
-__*
-
-# 用户自己打的提交包（含录屏视频，50MB+，不入库）
-期末作品/提交物/*.zip
-期末作品/提交物/最终交付/
-
-# 私人材料（作业提交物、实验报告、个人信息）—— 不入库
-_私人材料不提交/
-24软件工程-*.pdf
-实验[0-9]*.md
-build_report*.py
-setup_repo.py
-期末作品/提交物/贡献说明.*
-期末作品/提交物/24111302137*
+*.log

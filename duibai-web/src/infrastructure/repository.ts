@@ -209,8 +209,14 @@ export const lineRepo = {
   updateText(id: number, text: string): void {
     getDb().prepare('UPDATE dialogue_lines SET text = ? WHERE id = ?').run(text, id)
   },
-  setConfirmed(id: number, flag: LineFlag): void {
-    getDb().prepare('UPDATE dialogue_lines SET confirmed = 1, flag = ? WHERE id = ?').run(flag, id)
+  /** 同时更新文本与校验结论（单句修正时使用：改完要重新判定还可不可疑） */
+  updateTextAndValidation(id: number, text: string, flag: LineFlag, confirmed: boolean): void {
+    getDb()
+      .prepare('UPDATE dialogue_lines SET text = ?, flag = ?, confirmed = ? WHERE id = ?')
+      .run(text, flag, confirmed ? 1 : 0, id)
+  },
+  setConfirmed(id: number): void {
+    getDb().prepare('UPDATE dialogue_lines SET confirmed = 1 WHERE id = ?').run(id)
   },
   count(): number {
     const r = getDb().prepare('SELECT COUNT(*) AS n FROM dialogue_lines').get() as unknown as {

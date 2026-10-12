@@ -30,6 +30,10 @@ export function getDb(): DatabaseSync {
   fs.mkdirSync(LOG_DIR, { recursive: true })
   db = new DatabaseSync(DB_FILE)
   db.exec('PRAGMA journal_mode = WAL')
+  // busy_timeout 必须设：开发期 `next dev` 常驻连接，而初始化/测试脚本是**另一个进程**，
+  // 两个进程同时写库时 SQLite 默认会立刻返回 SQLITE_BUSY（不等待）——
+  // 表现为"脚本莫名失败、数据没变"。给了等待时间之后这类问题消失。
+  db.exec('PRAGMA busy_timeout = 5000')
   db.exec('PRAGMA foreign_keys = ON')
   db.exec(SCHEMA)
   return db

@@ -8,6 +8,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface Tone {
   code: string
@@ -33,6 +34,7 @@ const STATUS_TEXT: Record<string, string> = {
 }
 
 export default function HomePage() {
+  const router = useRouter()
   const [tones, setTones] = useState<Tone[]>([])
   const [tone, setTone] = useState('')
   const [title, setTitle] = useState('')
@@ -98,22 +100,41 @@ export default function HomePage() {
     setError(null)
     setNotice('')
     try {
-      const r = await fetch('/api/articles', {
+      // 第一步：上传并解析（非AI 环节）
+      const ar = await fetch('/api/articles', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ title, content })
       })
-      const j = await r.json()
-      if (!r.ok) {
-        setError({ code: j.error, reason: j.reason, suggestion: j.suggestion })
+      const aj = await ar.json()
+      if (!ar.ok) {
+        setError({ code: aj.error, reason: aj.reason, suggestion: aj.suggestion })
         return
       }
-      setNotice(
-        `已解析 ${j.data.paragraphs.length} 段 / ${j.data.article.char_count} 字，文章编号 #${j.data.article.id}`
-      )
+      setNotice(`已解析 ${aj.data.paragraphs.length} 段 / ${aj.data.article.char_count} 字`)
+
+      // 第二步：生成对谈稿（走 AI 能力层适配器 + 程序三校）
+      const sr = await fetch('/api/scripts', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ article_id: aj.data.article.id, tone_code: tone })
+      })
+      const sj = await sr.json()
+      if (!sr.ok) {
+        // 内容形态不适合（422）单独走降级页，其余在原位提示
+        if (sj.error === 'NOT_SUITABLE_FOR_AUDIO') {
+          router.push('/error?type=not_suitable&reason=' + encodeURIComponent(sj.reason))
+          return
+        }
+        setError({ code: sj.error, reason: sj.reason, suggestion: sj.suggestion })
+        await reload()
+        return
+      }
+
       setContent('')
       setFileName('')
       await reload()
+      router.push(`/confirm/${sj.data.script.id}`)
     } catch (e) {
       setError({
         code: 'NETWORK',
@@ -211,10 +232,10 @@ export default function HomePage() {
 
           <div className="row">
             <button className="btn" disabled={!canSubmit || busy} onClick={onSubmit}>
-              {busy ? '正在解析…' : '解析并保存'}
+              {busy ? '正在生成…' : '开始生成'}
             </button>
             <span className="hint">
-              {canSubmit ? '解析后会出现在下方历史记录里' : '还没选文件或正文为空，按钮不可用'}
+              {canSubmit ? '生成后会进入确认页，处理掉可疑处才能合成音频' : '还没选文件或正文为空，按钮不可用'}
             </span>
           </div>
 
@@ -279,8 +300,8 @@ export default function HomePage() {
                   )}
                   <span className="meta">{r.created_at.slice(5, 16).replace('T', ' ')}</span>
                   {r.script_id ? (
-                    <a className="btn ghost sm" href={`/result/${r.script_id}`}>
-                      打开
+                    <a className="btn ghost sm" href={r.status === 'generated' ? `/confirm/${r.script_id}` : `/result/${r.script_id}`}>
+                      {r.status === 'generated' ? '继续确认' : '打开'}
                     </a>
                   ) : (
                     <a className="btn ghost sm" href={`/api/articles/${r.id}`}>

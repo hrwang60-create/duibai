@@ -7,12 +7,15 @@
  */
 
 export type ErrorCode =
+  // —— 请求本身不合法（修订版新增：初版把这类情况误判成 500）——
+  | 'BAD_REQUEST'
   // —— 上传与解析（实验3 表12 第 1 行）——
   | 'EMPTY_CONTENT'
   | 'ENCODING_UNSUPPORTED'
   | 'FILE_TOO_LARGE'
   // —— 生成（表12 第 2 行 + AC3）——
   | 'NOT_SUITABLE_FOR_AUDIO'
+  | 'TONE_NOT_FOUND'
   | 'MODEL_TIMEOUT'
   | 'MODEL_OUTPUT_INVALID'
   // —— 记录不存在（表12 第 3、4、8 行）——
@@ -28,10 +31,12 @@ export type ErrorCode =
   | 'INTERNAL_ERROR'
 
 const HTTP_STATUS: Record<ErrorCode, number> = {
+  BAD_REQUEST: 400,
   EMPTY_CONTENT: 400,
   ENCODING_UNSUPPORTED: 400,
   FILE_TOO_LARGE: 413,
   NOT_SUITABLE_FOR_AUDIO: 422,
+  TONE_NOT_FOUND: 400,
   MODEL_TIMEOUT: 504,
   MODEL_OUTPUT_INVALID: 502,
   NOT_FOUND: 404,

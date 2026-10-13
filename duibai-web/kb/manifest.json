@@ -1,0 +1,75 @@
+{
+  "name": "「对白」产品与设计知识库",
+  "purpose": "回答\"「对白」是什么、怎么用、为什么这样设计\"这类问题（实验5 的知识问答任务）",
+  "format": "Markdown（.md），UTF-8 无 BOM",
+  "count": 5,
+  "permission": "均为本人（本项目作者）自己撰写的课程文档，位于本项目公开仓库内，可自由使用；不引用任何第三方受版权保护的内容。",
+  "privacy": "已逐一检查并确认：不含姓名、学号、手机号、邮箱、AppSecret、API Key 等任何个人信息与凭证；资料内容已在实验2 提交时按公开发布标准脱敏，可安全发送至外部模型接口。",
+  "sensitive_data_policy": "知识库只收产品与设计文档，**不收代码、不收密钥、不收用户上传的文章与音频**；不向外部模型发送任何用户内容。",
+  "update_method": "改完原始文档后依次执行 `npm run kb:import`、`npm run kb:build`；import 会刷新快照与哈希，build 会全量重建索引（片段几十条，全量重建 < 1 秒，不做增量）。",
+  "chunk_params": {
+    "target_chars": 320,
+    "max_chars": 520,
+    "overlap_chars_max": 60,
+    "drop": "代码块（含 mermaid 与 ASCII 原型图）整体丢弃；表头分隔行丢弃",
+    "split_order": "标题 → 空行段落 → 长度"
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "title": "「对白」项目方案",
+      "origin_path": "docs/项目方案.md",
+      "local_path": "kb/source/S1-项目方案.md",
+      "covers": "产品定位、用户画像、正常与异常场景、竞品对比、功能边界、MVP 范围、AI 必要性",
+      "chars": 8085,
+      "sha256": "b764c38c55c9c118b12bc7323712fba092d83f44bedc08e9a78e4761b204232a",
+      "snapshot_sha256": "b764c38c55c9c118b12bc7323712fba092d83f44bedc08e9a78e4761b204232a",
+      "verified": true
+    },
+    {
+      "id": "S2",
+      "title": "「对白」需求说明 V1",
+      "origin_path": "docs/需求说明V1.md",
+      "local_path": "kb/source/S2-需求说明V1.md",
+      "covers": "用户故事、验收条件 AC1–AC5、用例、非功能需求、模型输入输出约束、三级降级方案",
+      "chars": 5674,
+      "sha256": "517fe8c074dc98e3049719fba4517fb35ef6ed480166d55be53b26ade210cea4",
+      "snapshot_sha256": "517fe8c074dc98e3049719fba4517fb35ef6ed480166d55be53b26ade210cea4",
+      "verified": true
+    },
+    {
+      "id": "S3",
+      "title": "「对白」界面原型",
+      "origin_path": "docs/design/界面原型.md",
+      "local_path": "kb/source/S3-界面原型.md",
+      "covers": "页面结构与导航、首页/确认页/结果页三张原型与交互约束",
+      "chars": 5336,
+      "sha256": "22c3ecf8d40f67434e4a05f54c46fbbc812635050d4821046b36261a2a3e52ed",
+      "snapshot_sha256": "22c3ecf8d40f67434e4a05f54c46fbbc812635050d4821046b36261a2a3e52ed",
+      "verified": true
+    },
+    {
+      "id": "S4",
+      "title": "「对白」数据与接口设计",
+      "origin_path": "docs/design/数据与接口设计.md",
+      "local_path": "kb/source/S4-数据与接口设计.md",
+      "covers": "核心数据模型、主要接口清单、错误码与失败情况、核心任务顺序图",
+      "chars": 5396,
+      "sha256": "1bf3206712de77d7a4168783a0019384105bdccc8d55cbdd13ceb9b6f061664e",
+      "snapshot_sha256": "1bf3206712de77d7a4168783a0019384105bdccc8d55cbdd13ceb9b6f061664e",
+      "verified": true
+    },
+    {
+      "id": "S5",
+      "title": "「对白」架构设计",
+      "origin_path": "docs/design/架构设计.md",
+      "local_path": "kb/source/S5-架构设计.md",
+      "covers": "分层架构、模块职责与依赖、用户—程序—模型职责划分",
+      "chars": 3388,
+      "sha256": "e84e77e735869208e8f3d111283745c147a8c93ff037d9a8f2690c50b222c50c",
+      "snapshot_sha256": "e84e77e735869208e8f3d111283745c147a8c93ff037d9a8f2690c50b222c50c",
+      "verified": true
+    }
+  ],
+  "generated_at": "2026-10-13T02:27:44.173Z"
+}

@@ -154,6 +154,9 @@ export default function HomePage() {
         <span className="brand">对白</span>
         <span className="brand-en">DUIBAI · WEB</span>
         <span className="spacer" />
+        <a className="back" href="/ask">
+          知识问答
+        </a>
         <a className="back" href="/api/articles">
           接口自检
         </a>

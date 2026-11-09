@@ -114,16 +114,19 @@ for (const [id, type, q] of CASES) {
 /* ───────────────── 4. 多轮对话：按需加入历史消息 ───────────────── */
 
 rule('4. 多轮对话（第二轮带上历史）')
-const t1 = await ask({ question: '「对白」一共提供哪几种口吻？', index, root: ROOT })
+line('说明：本节关闭判定环节（judge=false），目的是隔离"历史消息有没有真的进模型输入"这一件事；')
+line('      开着判定时，只要判定为资料不足就会提前返回，看不到回答环节的 messages 组成。')
+const t1 = await ask({ question: '「对白」一共提供哪几种口吻？', index, root: ROOT, judge: false })
 const history = [
   { role: 'user', content: '「对白」一共提供哪几种口吻？' },
   { role: 'assistant', content: t1.answer }
 ]
-const t2 = await ask({ question: '那第二种适合什么场景用？', index, root: ROOT, history })
+const t2 = await ask({ question: '那这几种里，哪一种适合睡前听？', index, root: ROOT, judge: false, history })
 line(`\n第 1 轮：${t1.question}`)
 line(t1.answer.replace(/^/gm, '  '))
-line(`\n第 2 轮：${t2.question}（已带入 1 轮历史，共 ${history.length} 条消息）`)
+line(`\n第 2 轮：${t2.question}`)
 line(`   实际 messages 条数：${t2.input?.count}（system 1 + 历史 ${history.length} + 本轮 user 1）`)
+line(`   输入规模：${t2.input?.chars} 字符 ≈ ${t2.input?.est_tokens} tokens`)
 line(t2.answer.replace(/^/gm, '  '))
 out.sections.multiturn = {
   turn1: { question: t1.question, answer: t1.answer, citations: t1.citations },

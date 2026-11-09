@@ -157,6 +157,9 @@ export default function HomePage() {
         <a className="back" href="/ask">
           知识问答
         </a>
+        <a className="back" href="/agent" style={{ marginLeft: 12 }}>
+          质检 Agent
+        </a>
         <a className="back" href="/api/articles">
           接口自检
         </a>

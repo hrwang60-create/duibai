@@ -118,6 +118,12 @@ export async function chat(messages, opts = {}) {
     stream: false
   }
   if (opts.json) body.response_format = { type: 'json_object' }
+  // 实验6：原生工具调用。传了 tools 就交给接口做结构化解析，
+  // 不在自己这边再写一套"从自由文本里抠 JSON"的容错 —— 那种解析注定脆。
+  if (Array.isArray(opts.tools) && opts.tools.length) {
+    body.tools = opts.tools
+    body.tool_choice = opts.toolChoice || 'auto'
+  }
 
   const retries = opts.retries ?? 1
   let attempt = 0
@@ -153,7 +159,10 @@ export async function chat(messages, opts = {}) {
 
       const choice = payload.choices?.[0]
       const text = choice?.message?.content
-      if (typeof text !== 'string' || !text.trim()) {
+      const toolCalls = choice?.message?.tool_calls || []
+      // 工具调用轮次里 content 允许为空 —— 此时模型把话说在 tool_calls 里，
+      // 若还按"内容为空即无效"处理，Agent 的第一步就会被误判为模型输出异常。
+      if (!toolCalls.length && (typeof text !== 'string' || !text.trim())) {
         throw new ModelError('MODEL_OUTPUT_INVALID', '接口返回的内容为空', {
           ms,
           finish_reason: choice?.finish_reason || null
@@ -161,13 +170,14 @@ export async function chat(messages, opts = {}) {
       }
 
       return {
-        text,
+        text: typeof text === 'string' ? text : '',
+        tool_calls: toolCalls,
         usage: payload.usage || {},
         ms,
         model: payload.model || params.model,
         attempts: attempt,
         request_id: res.headers.get('x-request-id') || payload.id || null,
-        params: { ...params, json: Boolean(opts.json) },
+        params: { ...params, json: Boolean(opts.json), tools: body.tools ? body.tools.length : 0 },
         finish_reason: choice?.finish_reason || null
       }
     } catch (e) {

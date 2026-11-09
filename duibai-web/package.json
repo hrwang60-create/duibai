@@ -15,6 +15,9 @@
     "kb:build": "node scripts/kb-build.mjs",
     "kb:list": "node scripts/kb-build.mjs --list",
     "rag:ask": "node scripts/rag-ask.mjs",
+    "agent": "node scripts/agent-run.mjs",
+    "agent:test": "node scripts/agent-test.mjs",
+    "agent:selftest": "node scripts/agent-tools-selftest.mjs",
     "exp5:probe": "node scripts/exp5-probe.mjs",
     "exp5:calibrate": "node scripts/exp5-calibrate.mjs",
     "exp5:compare": "node scripts/exp5-compare.mjs"
